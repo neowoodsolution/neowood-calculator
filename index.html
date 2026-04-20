@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>네오우드솔루션 | 합판 물량 산출기</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">
+        <strong>네오우드솔루션 합판 물량 산출기</strong>
+        <span>고객 유입용 웹 버전 · 계산 후 네이버톡톡과 스마트스토어로 자연스럽게 연결되는 배포형 도구</span>
+      </div>
+      <div class="top-actions">
+        <div class="badge">배포용 Web</div>
+        <div class="badge" id="usageBadge">익명 사용자</div>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="hero-card">
+        <h1>합판 몇 장이 필요한지<br>먼저 쉽게 확인해보세요.</h1>
+        <p>바닥 채움, 재단 수량, 규격 비교까지 빠르게 계산하고, 더 정확한 재단안은 네이버톡톡으로 이어갈 수 있도록 만든 배포용 웹 계산기입니다.</p>
+        <div class="hero-points">
+          <div class="point">바닥 채움 계산</div>
+          <div class="point">재단 수량 계산</div>
+          <div class="point">규격 비교</div>
+          <div class="point">스마트스토어 유입</div>
+        </div>
+        <div class="btn-row">
+          <button class="btn primary" id="heroConsultBtn">네이버톡톡 상담</button>
+          <button class="btn secondary" id="heroStoreBtn">스마트스토어 보기</button>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="metric-grid">
+          <div class="metric"><div class="label">익명 사용자 ID</div><div class="value code" id="sessionShort">-</div></div>
+          <div class="metric"><div class="label">오늘 계산 횟수</div><div class="value" id="todayCount">0</div></div>
+          <div class="metric"><div class="label">사용 목적</div><div class="small">고객 편의를 위한 참고용 산출기입니다.</div></div>
+          <div class="metric"><div class="label">저작권</div><div class="small">© NeoWood Solution. 무단 복제·수정·재배포 금지</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid-2">
+      <div class="card">
+        <h2>계산 모드</h2>
+        <div class="tabs" id="modeTabs">
+          <button class="tab active" data-mode="floor">바닥 채움</button>
+          <button class="tab" data-mode="cutlist">재단 수량</button>
+          <button class="tab" data-mode="compare">규격 비교</button>
+        </div>
+
+        <div class="mode-pane active" data-pane="floor">
+          <div class="form-grid">
+            <div class="form-row"><label>가로(mm)</label><input id="floorWidth" type="number" value="7190" /></div>
+            <div class="form-row"><label>세로(mm)</label><input id="floorHeight" type="number" value="2790" /></div>
+            <div class="form-row"><label>원장 규격</label><select id="floorSheet"><option value="910x1820">910 × 1820</option><option value="1220x2440" selected>1220 × 2440</option></select></div>
+            <div class="form-row"><label>여유분 추가</label><select id="floorExtra"><option value="0">추가 안함</option><option value="1" selected>1장 추가</option><option value="2">2장 추가</option></select></div>
+          </div>
+        </div>
+
+        <div class="mode-pane" data-pane="cutlist">
+          <div id="cutPieces"></div>
+          <div class="btn-row"><button class="btn ghost" id="addPieceBtn">재단 행 추가</button></div>
+          <div class="form-grid" style="margin-top:12px">
+            <div class="form-row"><label>원장 규격</label><select id="cutSheet"><option value="910x1820">910 × 1820</option><option value="1220x2440" selected>1220 × 2440</option></select></div>
+            <div class="form-row"><label>여유분 추가</label><select id="cutExtra"><option value="0" selected>추가 안함</option><option value="1">1장 추가</option></select></div>
+          </div>
+        </div>
+
+        <div class="mode-pane" data-pane="compare">
+          <div class="form-grid">
+            <div class="form-row"><label>가로(mm)</label><input id="cmpWidth" type="number" value="7190" /></div>
+            <div class="form-row"><label>세로(mm)</label><input id="cmpHeight" type="number" value="2790" /></div>
+            <div class="form-row"><label>비교 규격 A</label><select id="cmpA"><option value="910x1820">910 × 1820</option><option value="1220x2440" selected>1220 × 2440</option></select></div>
+            <div class="form-row"><label>비교 규격 B</label><select id="cmpB"><option value="910x1820" selected>910 × 1820</option><option value="1220x2440">1220 × 2440</option></select></div>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn primary" id="runCalcBtn">산출 실행</button>
+          <button class="btn secondary" id="consultBtn">상세 재단안은 톡톡 상담</button>
+          <button class="btn ghost" id="storeBtn">스마트스토어 보기</button>
+        </div>
+        <div class="footer-note">본 결과는 참고용입니다. 최종 발주 전 현장 조건, 재단 손실, 시공 방식을 확인해 주세요.</div>
+      </div>
+
+      <div class="card">
+        <h2>계산 결과</h2>
+        <div id="resultArea" class="result-stack"><div class="notice">왼쪽에서 계산 모드를 선택하고 산출 실행을 눌러주세요.</div></div>
+      </div>
+    </section>
+  </div>
+  <script src="./public-app.js"></script>
+</body>
+</html>

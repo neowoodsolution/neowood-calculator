@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>관리자 분석 대시보드 | 네오우드솔루션</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="topbar"><div class="brand"><strong>관리자 분석 대시보드</strong><span>Cloudflare Pages Functions → Supabase app_events 집계</span></div><div class="top-actions"><div class="badge">관리자 전용</div><button class="btn ghost" id="refreshAdminBtn">새로고침</button></div></div>
+
+    <section class="card" style="margin-bottom:18px">
+      <div class="form-grid"><div class="form-row"><label>관리자 토큰</label><input id="adminToken" type="password" placeholder="Cloudflare의 ADMIN_DASHBOARD_TOKEN 입력" /></div><div class="form-row"><label>조회 기간</label><select id="daysSelect"><option value="1">최근 1일</option><option value="7" selected>최근 7일</option><option value="30">최근 30일</option></select></div></div>
+      <div class="btn-row"><button class="btn primary" id="loadAdminBtn">대시보드 불러오기</button></div>
+      <div class="footer-note">토큰은 브라우저 sessionStorage에만 저장됩니다.</div>
+    </section>
+
+    <section class="kpis" style="margin-bottom:18px"><div class="kpi"><div class="label">익명 사용자 수</div><div class="value" id="kpiUsers">-</div></div><div class="kpi"><div class="label">계산 실행 수</div><div class="value" id="kpiCalculations">-</div></div><div class="kpi"><div class="label">톡톡 클릭 수</div><div class="value" id="kpiConsults">-</div></div><div class="kpi"><div class="label">구매 전환 표시 수</div><div class="value" id="kpiPurchases">-</div></div></section>
+
+    <section class="grid-2"><div class="card"><h2>이벤트 요약</h2><div id="eventSummary" class="list"></div></div><div class="card"><h2>계산 모드 비중</h2><div id="modeSummary" class="list"></div></div></section>
+    <section class="card" style="margin-top:18px"><h2>최근 계산 내역</h2><div class="table-wrap"><table><thead><tr><th>시간</th><th>익명 ID</th><th>모드</th><th>요약</th><th>결과</th></tr></thead><tbody id="recentCalcsBody"></tbody></table></div></section>
+    <section class="card" style="margin-top:18px"><h2>최근 이벤트 로그</h2><div class="table-wrap"><table><thead><tr><th>시간</th><th>익명 ID</th><th>이벤트</th><th>모드</th><th>payload</th></tr></thead><tbody id="recentEventsBody"></tbody></table></div></section>
+  </div>
+  <script src="./admin.js"></script>
+</body>
+</html>

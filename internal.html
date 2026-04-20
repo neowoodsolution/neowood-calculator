@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>실무용 관리자 Pro | 네오우드솔루션</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">
+        <strong>실무용 관리자 Pro</strong>
+        <span>배포용보다 깊은 산출·집계·도면 검토·프로젝트 저장용 내부 페이지</span>
+      </div>
+      <div class="top-actions">
+        <button class="btn ghost" id="saveInternalBtn">프로젝트 저장</button>
+        <button class="btn ghost" id="loadInternalBtn">불러오기</button>
+      </div>
+    </div>
+
+    <section class="card" style="margin-bottom:18px">
+      <div class="form-grid">
+        <div class="form-row"><label>프로젝트명</label><input id="projectName" value="현장 A" /></div>
+        <div class="form-row"><label>고객 / 현장 코드</label><input id="projectCode" value="NW-001" /></div>
+        <div class="form-row"><label>손실률(%)</label><input id="lossRate" type="number" value="5" /></div>
+        <div class="form-row"><label>여유 원장(장)</label><input id="extraSheets" type="number" value="1" /></div>
+      </div>
+      <div class="form-row" style="margin-top:12px"><label>상담 메모</label><textarea id="projectMemo">배송 조건, 재단 여부, 현장 여유 공간 등을 메모하세요.</textarea></div>
+    </section>
+
+    <section class="grid-2">
+      <div class="card">
+        <h2>산출 모드</h2>
+        <div class="tabs" id="internalTabs">
+          <button class="tab active" data-mode="floor">바닥 채움</button>
+          <button class="tab" data-mode="wall">벽면</button>
+          <button class="tab" data-mode="cutlist">재단 물량</button>
+          <button class="tab" data-mode="compare">규격 비교</button>
+        </div>
+
+        <div class="mode-pane active" data-pane="floor"><div class="form-grid"><div class="form-row"><label>가로(mm)</label><input id="iFloorWidth" type="number" value="7190" /></div><div class="form-row"><label>세로(mm)</label><input id="iFloorHeight" type="number" value="2790" /></div><div class="form-row"><label>원장 규격</label><select id="iFloorSheet"><option value="910x1820">910 × 1820</option><option value="1220x2440" selected>1220 × 2440</option></select></div></div></div>
+
+        <div class="mode-pane" data-pane="wall"><div class="form-grid"><div class="form-row"><label>벽 가로(mm)</label><input id="iWallWidth" type="number" value="3600" /></div><div class="form-row"><label>벽 높이(mm)</label><input id="iWallHeight" type="number" value="2400" /></div><div class="form-row"><label>원장 규격</label><select id="iWallSheet"><option value="910x1820">910 × 1820</option><option value="1220x2440" selected>1220 × 2440</option></select></div></div></div>
+
+        <div class="mode-pane" data-pane="cutlist">
+          <div id="internalPieces"></div>
+          <div class="btn-row"><button class="btn ghost" id="addInternalPiece">재단 행 추가</button></div>
+          <div class="form-grid" style="margin-top:12px"><div class="form-row"><label>원장 규격</label><select id="iCutSheet"><option value="910x1820">910 × 1820</option><option value="1220x2440" selected>1220 × 2440</option></select></div><div class="form-row"><label>가로 톱날 손실(mm)</label><input id="kerf" type="number" value="3" /></div></div>
+        </div>
+
+        <div class="mode-pane" data-pane="compare"><div class="form-grid"><div class="form-row"><label>가로(mm)</label><input id="iCmpWidth" type="number" value="7190" /></div><div class="form-row"><label>세로(mm)</label><input id="iCmpHeight" type="number" value="2790" /></div><div class="form-row"><label>규격 A</label><select id="iCmpA"><option value="910x1820">910 × 1820</option><option value="1220x2440" selected>1220 × 2440</option></select></div><div class="form-row"><label>규격 B</label><select id="iCmpB"><option value="910x1820" selected>910 × 1820</option><option value="1220x2440">1220 × 2440</option></select></div></div></div>
+
+        <div class="btn-row"><button class="btn primary" id="runInternalBtn">실무 산출 실행</button><button class="btn secondary" id="saveTxtBtn">요약 TXT 저장</button></div>
+      </div>
+
+      <div class="card">
+        <h2>실무 요약</h2>
+        <div class="kpis"><div class="kpi"><div class="label">총 면적</div><div class="value" id="kpiArea">-</div></div><div class="kpi"><div class="label">예상 원장 수</div><div class="value" id="kpiSheets">-</div></div><div class="kpi"><div class="label">총 조각 수</div><div class="value" id="kpiPieces">-</div></div><div class="kpi"><div class="label">예상 손실 포함</div><div class="value" id="kpiWaste">-</div></div></div>
+        <div id="internalSummary" class="result-stack" style="margin-top:16px"></div>
+      </div>
+    </section>
+
+    <section class="grid-2" style="margin-top:18px"><div class="card"><h2>사이즈별 집계</h2><div class="table-wrap"><table><thead><tr><th>사이즈</th><th>수량</th><th>색상</th></tr></thead><tbody id="groupTableBody"></tbody></table></div></div><div class="card"><h2>원장 도면 미리보기</h2><div id="sheetPreviewGrid" class="sheet-preview-grid"></div></div></section>
+  </div>
+  <script src="./internal.js"></script>
+</body>
+</html>
