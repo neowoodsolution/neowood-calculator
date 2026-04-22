@@ -1,20 +1,109 @@
+
 const $ = (sel) => document.querySelector(sel);
-function esc(s){ return String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m])); }
+
+function esc(s){
+  return String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+}
+
+function setState(kind, text){
+  const el = $('#loadState');
+  el.className = 'state-badge';
+  if(kind) el.classList.add(kind);
+  el.textContent = text;
+}
+
+function renderSummary(containerId, obj, suffix='건'){
+  const el = $(containerId);
+  const entries = Object.entries(obj || {});
+  if(!entries.length){
+    el.className = 'summary-grid empty-state';
+    el.innerHTML = '데이터가 없습니다.';
+    return;
+  }
+  el.className = 'summary-grid';
+  el.innerHTML = entries.map(([k,v]) => `
+    <div class="summary-item">
+      <strong>${esc(k || '미지정')}</strong>
+      <span>${esc(v)}${suffix}</span>
+    </div>
+  `).join('');
+}
+
+function renderRecentCalcs(rows){
+  const body = $('#recentCalcsBody');
+  if(!rows?.length){
+    body.innerHTML = `<tr><td colspan="5" class="empty-row">계산 로그가 없습니다.</td></tr>`;
+    return;
+  }
+  body.innerHTML = rows.map(r => `
+    <tr>
+      <td>${esc(r.created_at)}</td>
+      <td>${esc(r.anon_id)}</td>
+      <td>${esc(r.mode || '-')}</td>
+      <td>${esc(r.summary || '-')}</td>
+      <td>${esc(r.result || '-')}</td>
+    </tr>
+  `).join('');
+}
+
+function renderRecentEvents(rows){
+  const body = $('#recentEventsBody');
+  if(!rows?.length){
+    body.innerHTML = `<tr><td colspan="5" class="empty-row">이벤트 로그가 없습니다.</td></tr>`;
+    return;
+  }
+  body.innerHTML = rows.map(r => `
+    <tr>
+      <td>${esc(r.created_at)}</td>
+      <td>${esc(r.anon_id)}</td>
+      <td>${esc(r.event_type)}</td>
+      <td>${esc(r.mode || '-')}</td>
+      <td><div class="code-block">${esc(JSON.stringify(r.payload ?? {}, null, 2))}</div></td>
+    </tr>
+  `).join('');
+}
+
 async function loadDashboard(){
   const token = $('#adminToken').value.trim();
   const days = $('#daysSelect').value;
+  if(!token){
+    alert('관리자 토큰을 입력해 주세요.');
+    return;
+  }
+
   sessionStorage.setItem('nw_admin_token', token);
-  const res = await fetch(`/api/admin?days=${encodeURIComponent(days)}`, { headers: {'x-admin-token': token }});
-  const data = await res.json();
-  if(!res.ok){ alert(data.error || '대시보드 로드 실패'); return; }
-  $('#kpiUsers').textContent = data.kpis.users;
-  $('#kpiCalculations').textContent = data.kpis.calculations;
-  $('#kpiConsults').textContent = data.kpis.consults;
-  $('#kpiPurchases').textContent = data.kpis.purchases;
-  $('#eventSummary').innerHTML = Object.entries(data.eventSummary).map(([k,v])=>`<div class="list-item"><strong>${esc(k)}</strong><br><span class="small">${v}건</span></div>`).join('') || '<div class="small">데이터가 없습니다.</div>';
-  $('#modeSummary').innerHTML = Object.entries(data.modeSummary).map(([k,v])=>`<div class="list-item"><strong>${esc(k || '미지정')}</strong><br><span class="small">${v}건</span></div>`).join('') || '<div class="small">데이터가 없습니다.</div>';
-  $('#recentCalcsBody').innerHTML = data.recentCalcs.map(r=>`<tr><td>${esc(r.created_at)}</td><td>${esc(r.anon_id)}</td><td>${esc(r.mode)}</td><td>${esc(r.summary)}</td><td>${esc(r.result)}</td></tr>`).join('') || `<tr><td colspan="5" class="small">계산 로그가 없습니다.</td></tr>`;
-  $('#recentEventsBody').innerHTML = data.recentEvents.map(r=>`<tr><td>${esc(r.created_at)}</td><td>${esc(r.anon_id)}</td><td>${esc(r.event_type)}</td><td>${esc(r.mode)}</td><td><span class="small">${esc(JSON.stringify(r.payload))}</span></td></tr>`).join('') || `<tr><td colspan="5" class="small">이벤트 로그가 없습니다.</td></tr>`;
+  setState('loading', '불러오는 중');
+
+  try{
+    const res = await fetch(`/api/admin?days=${encodeURIComponent(days)}`, {
+      headers: {'x-admin-token': token}
+    });
+    const data = await res.json();
+    if(!res.ok){
+      throw new Error(data.error || '대시보드 로드 실패');
+    }
+
+    $('#kpiUsers').textContent = data.kpis?.users ?? '-';
+    $('#kpiCalculations').textContent = data.kpis?.calculations ?? '-';
+    $('#kpiConsults').textContent = data.kpis?.consults ?? '-';
+    $('#kpiPurchases').textContent = data.kpis?.purchases ?? '-';
+
+    renderSummary('#eventSummary', data.eventSummary, '건');
+    renderSummary('#modeSummary', data.modeSummary, '건');
+    renderRecentCalcs(data.recentCalcs);
+    renderRecentEvents(data.recentEvents);
+
+    setState('done', '업데이트 완료');
+  }catch(err){
+    setState('error', '불러오기 실패');
+    alert(err.message || '대시보드 로드 실패');
+  }
 }
-function init(){ $('#adminToken').value = sessionStorage.getItem('nw_admin_token') || ''; $('#loadAdminBtn').onclick=loadDashboard; $('#refreshAdminBtn').onclick=loadDashboard; }
-document.addEventListener('DOMContentLoaded', init);
+
+document.addEventListener('DOMContentLoaded', () => {
+  const saved = sessionStorage.getItem('nw_admin_token');
+  if(saved) $('#adminToken').value = saved;
+
+  $('#loadAdminBtn').addEventListener('click', loadDashboard);
+  $('#refreshAdminBtn').addEventListener('click', loadDashboard);
+});
