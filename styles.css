@@ -325,3 +325,7 @@ input,select{
   .strength-card{min-height:auto}
   .phone-number{font-size:28px}
 }
+
+.modal-backdrop[hidden]{
+  display:none !important;
+}
