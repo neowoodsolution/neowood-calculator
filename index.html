@@ -333,6 +333,24 @@
     <div class="copyright">© NeoWood Solution. All rights reserved. 무단 복제, 수정, 재배포를 금지합니다.</div>
   </footer>
 
+  <div id="phoneModal" class="modal-backdrop" hidden>
+    <div class="phone-modal" role="dialog" aria-modal="true" aria-labelledby="phoneModalTitle">
+      <div class="phone-modal-head">
+        <div>
+          <div class="eyebrow">전화 상담</div>
+          <h3 id="phoneModalTitle">상담 전화번호</h3>
+        </div>
+        <button class="modal-close" id="closePhoneModalBtn" type="button" aria-label="닫기">×</button>
+      </div>
+      <div class="phone-number" id="phoneNumberText">010-2327-4592</div>
+      <p class="phone-note">아래 번호로 전화주시면 상담 도와드리겠습니다.</p>
+      <div class="phone-actions">
+        <button class="btn btn-fill" id="copyPhoneBtn" type="button">번호 복사</button>
+        <button class="btn btn-line" id="confirmPhoneBtn" type="button">확인</button>
+      </div>
+    </div>
+  </div>
+
   <script src="./public-app.js"></script>
 </body>
 </html>
