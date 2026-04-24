@@ -32,14 +32,10 @@
     <section class="hero">
       <div class="shell hero-grid">
         <div class="hero-copy">
-          <div class="eyebrow">무료 합판 물량 계산</div>
-          <h1 class="hero-title">
-            <span>합판 물량부터 먼저 빠르게,</span>
-            <span>구매는 더 쉽게</span>
-          </h1>
+          <div class="eyebrow">무료 합판 물량 산출기</div>
+          <h1>합판 물량을 간편하게 확인해보세요</h1>
           <p class="hero-desc">
-            <span>바닥 채움, 벽면 계산, 재단 수량, 규격 비교까지</span>
-            <span>필요한 계산을 먼저 확인하고, 필요하시면 상담과 구매로 바로 이어가실 수 있습니다.</span>
+            바닥 채움, 벽면 계산, 재단 수량, 규격 비교까지 필요한 항목을 먼저 확인하고, 필요하시면 상담과 구매로 이어가실 수 있습니다.
           </p>
 
           <div class="hero-actions">
@@ -51,7 +47,7 @@
 
         <div class="hero-side">
           <div class="strength-panel">
-            <div class="panel-head">
+            <div class="panel-head compact">
               <strong>네오우드솔루션의 강점</strong>
               <span class="pill">POINT</span>
             </div>
@@ -94,12 +90,11 @@
       </div>
     </section>
 
-    <section id="modes" class="section">
+    <section id="modes" class="section section-tight">
       <div class="shell">
-        <div class="section-head">
+        <div class="section-head center">
           <div class="eyebrow">물량 산출</div>
           <h2>원하시는 물량 산출 항목을 선택하세요</h2>
-          <p class="section-note">필요한 항목을 선택하신 뒤 바로 계산을 시작하실 수 있습니다.</p>
         </div>
 
         <div class="mode-grid">
@@ -159,7 +154,7 @@
         <div class="calc-box">
           <div class="box-head">
             <strong>빠른 계산</strong>
-            <span>모드 선택 후 바로 입력</span>
+            <span>선택 후 바로 입력</span>
           </div>
 
           <div class="tab-row" id="modeTabs">
@@ -229,7 +224,7 @@
           </div>
 
           <div class="panel" data-pane="compare">
-            <div class="compare-headline">같은 공간을 기준으로 어떤 규격이 더 유리한지 빠르게 비교합니다.</div>
+            <div class="compare-headline">같은 공간 기준으로 규격별 장수 차이를 빠르게 비교합니다.</div>
             <div class="field-grid">
               <label><span>가로(mm)</span><input id="cmpWidth" type="number" value="7190"></label>
               <label><span>세로(mm)</span><input id="cmpHeight" type="number" value="2790"></label>
@@ -265,6 +260,12 @@
             <span class="pill" id="usageBadge">익명 사용자</span>
           </div>
 
+          <div class="result-guide-compact">
+            <strong>상담 또는 구매 고객 추가 안내</strong>
+            <span>자투리 활용 검토 · 더 경제적인 물량 산출 방향 · 재단도 안내</span>
+            <a href="#premium">자세히 보기</a>
+          </div>
+
           <div id="resultArea" class="result-stack">
             <div class="notice-card">
               왼쪽에서 계산 항목을 선택하고 <strong>산출 실행</strong>을 눌러주세요.
@@ -283,7 +284,7 @@
       <div class="shell premium-wrap">
         <div class="premium-left">
           <div class="eyebrow invert">추가 안내</div>
-          <h2>상담고객 또는 구매고객에게는 아래의 기능이 포함된 사항을 추가로 안내드립니다.</h2>
+          <h2>상담고객 또는 구매고객에게는 아래 기능을 추가로 안내드립니다.</h2>
         </div>
 
         <div class="premium-right">
@@ -332,24 +333,6 @@
     </div>
     <div class="copyright">© NeoWood Solution. All rights reserved. 무단 복제, 수정, 재배포를 금지합니다.</div>
   </footer>
-
-  <div id="phoneModal" class="modal-backdrop" hidden>
-    <div class="phone-modal" role="dialog" aria-modal="true" aria-labelledby="phoneModalTitle">
-      <div class="phone-modal-head">
-        <div>
-          <div class="eyebrow">전화 상담</div>
-          <h3 id="phoneModalTitle">상담 전화번호</h3>
-        </div>
-        <button class="modal-close" id="closePhoneModalBtn" type="button" aria-label="닫기">×</button>
-      </div>
-      <div class="phone-number" id="phoneNumberText">010-2327-4592</div>
-      <p class="phone-note">아래 번호로 전화주시면 상담 도와드리겠습니다.</p>
-      <div class="phone-actions">
-        <button class="btn btn-fill" id="copyPhoneBtn" type="button">번호 복사</button>
-        <button class="btn btn-line" id="confirmPhoneBtn" type="button">확인</button>
-      </div>
-    </div>
-  </div>
 
   <script src="./public-app.js"></script>
 </body>
