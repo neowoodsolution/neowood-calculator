@@ -118,6 +118,9 @@ input,select{width:100%;padding:13px 14px;border-radius:14px;border:1px solid #d
 .inline-action{margin-top:4px}
 .top-gap{margin-top:14px}
 .cut-row{display:grid;grid-template-columns:1fr 1fr .8fr auto;gap:10px;margin-bottom:10px}
+.cut-helper{margin:0 0 12px;padding:12px 14px;border-radius:14px;background:#f7f8fb;border:1px solid var(--line);color:var(--muted);font-size:13px;line-height:1.5}
+.cut-field{display:grid;gap:6px}
+.cut-field span{font-size:12px;font-weight:700;color:#555d68}
 .list-box,.compare-boxes{display:grid;gap:10px}
 .list-row,.compare-card{display:flex;justify-content:space-between;align-items:center;background:#fbfbfc;border:1px solid var(--line);border-radius:15px;padding:13px}
 .compare-headline{margin-bottom:12px;color:var(--muted);font-size:13px}

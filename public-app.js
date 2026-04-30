@@ -1,7 +1,7 @@
 
 const TALK_URL = 'https://talk.naver.com/ct/w79ej21?frm=psf';
 const STORE_URL = 'https://smartstore.naver.com/neowoodsolution';
-const PHONE_TEXT = '010-2327-4592';
+const PHONE_URL = 'tel:01023274592';
 
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => Array.from(document.querySelectorAll(sel));
@@ -38,6 +38,12 @@ function incDailyCount(){
   return next;
 }
 
+function setMode(mode){
+  $$('#modeTabs .tab').forEach(t => t.classList.toggle('active', t.dataset.mode===mode));
+  $$('.panel').forEach(p=>p.classList.toggle('active', p.dataset.pane===mode));
+  window.currentMode = mode;
+}
+
 async function logEvent(event_type, mode, payload={}){
   try{
     await fetch('/api/log', {
@@ -61,38 +67,21 @@ function addCutRow(container, defaults={w:600,h:300,qty:2}){
   const row = document.createElement('div');
   row.className = 'cut-row';
   row.innerHTML = `
-    <input type="number" class="piece-w" value="${defaults.w}" placeholder="가로(mm)">
-    <input type="number" class="piece-h" value="${defaults.h}" placeholder="세로(mm)">
-    <input type="number" class="piece-q" value="${defaults.qty}" placeholder="수량">
+    <label class="cut-field">
+      <span>재단 가로(mm)</span>
+      <input type="number" class="piece-w" value="${defaults.w}" placeholder="예: 900" aria-label="재단 가로(mm)">
+    </label>
+    <label class="cut-field">
+      <span>재단 세로(mm)</span>
+      <input type="number" class="piece-h" value="${defaults.h}" placeholder="예: 1800" aria-label="재단 세로(mm)">
+    </label>
+    <label class="cut-field">
+      <span>수량</span>
+      <input type="number" class="piece-q" value="${defaults.qty}" placeholder="예: 20" aria-label="수량">
+    </label>
     <button class="btn btn-soft remove-piece" type="button">삭제</button>`;
   row.querySelector('.remove-piece').addEventListener('click', ()=> row.remove());
   container.appendChild(row);
-}
-
-function complexityAddon(pieces, sheet){
-  let score = 0;
-  const unique = new Set(pieces.map(p => `${p.w}x${p.h}`)).size;
-  if(unique >= 2) score += 1;
-  if(unique >= 3) score += 1;
-
-  const longNarrow = pieces.filter(p => {
-    const longer = Math.max(p.w, p.h);
-    const shorter = Math.min(p.w, p.h);
-    return longer >= 1500 && shorter <= 200;
-  }).length;
-  if(longNarrow > 0) score += 1;
-
-  const areas = pieces.map(p => p.w * p.h).filter(Boolean);
-  if(areas.length){
-    const maxA = Math.max(...areas);
-    const minA = Math.min(...areas);
-    if(maxA / Math.max(minA, 1) >= 4) score += 1;
-  }
-
-  const widePieces = pieces.filter(p => Math.max(p.w, p.h) > (sheet.h * 0.7) || Math.max(p.w, p.h) > (sheet.w * 0.7)).length;
-  if(widePieces > 0) score += 1;
-
-  return Math.min(3, score);
 }
 
 function calcFloor(){
@@ -108,9 +97,9 @@ function calcFloor(){
     summary:`${w} × ${h} 공간을 ${sheet.label} 기준으로 계산했습니다.`,
     items:[
       ['총 면적', `${areaToM2(area)} ㎡`],
-      ['권장 주문 수량', `${fmt(sheets)} 장`],
+      ['예상 필요 수량', `${fmt(sheets)} 장`],
       ['선택 규격', sheet.label],
-      ['여유분', `${extra} 장`]
+      ['여유분 포함', `${extra} 장 추가`]
     ],
     payload:{input:{width:w,height:h,sheet:sheet.label,extra}, result:{area, sheets}}
   };
@@ -129,9 +118,9 @@ function calcWall(){
     summary:`${w} × ${h} 벽면을 ${sheet.label} 기준으로 계산했습니다.`,
     items:[
       ['총 면적', `${areaToM2(area)} ㎡`],
-      ['권장 주문 수량', `${fmt(sheets)} 장`],
+      ['예상 필요 수량', `${fmt(sheets)} 장`],
       ['선택 규격', sheet.label],
-      ['여유분', `${extra} 장`]
+      ['여유분 포함', `${extra} 장 추가`]
     ],
     payload:{input:{width:w,height:h,sheet:sheet.label,extra}, result:{area, sheets}}
   };
@@ -148,35 +137,24 @@ function calcCutlist(){
   const sheet = parseSheet($('#cutSheet').value);
   const extra = Number($('#cutExtra').value||0);
   const totalArea = pieces.reduce((s,p)=> s + p.w*p.h*p.qty, 0);
-
-  const expanded = [];
-  pieces.forEach(p => { for(let i=0;i<p.qty;i++) expanded.push({w:p.w,h:p.h}); });
-
-  const baseSheets = Math.ceil(totalArea / sheet.area);
-  const addon = complexityAddon(expanded, sheet);
-  const recommendedSheets = baseSheets + addon + extra;
-
+  const sheets = Math.ceil(totalArea / sheet.area) + extra;
   const grouped = {};
   pieces.forEach(p => {
     const k = `${p.w} × ${p.h}`;
     grouped[k] = (grouped[k]||0) + p.qty;
   });
-
   return {
     title:'재단 수량 결과',
     mode:'cutlist',
-    summary:`입력한 재단 물량을 ${sheet.label} 원장 기준으로 검토했습니다.`,
+    summary:`입력한 재단 물량을 ${sheet.label} 원장 기준으로 환산했습니다.`,
     items:[
-      ['권장 주문 수량', `${fmt(recommendedSheets)} 장`],
+      ['총 재단 면적', `${areaToM2(totalArea)} ㎡`],
+      ['예상 원장 수', `${fmt(sheets)} 장`],
       ['선택 규격', sheet.label],
-      ['재단 종류 수', `${Object.keys(grouped).length} 종류`],
-      ['추가 검토', addon > 0 ? '재단 배치 고려' : '기본 계산']
+      ['재단 종류 수', `${Object.keys(grouped).length} 종류`]
     ],
     groups: grouped,
-    payload:{
-      input:{pieces,sheet:sheet.label,extra},
-      result:{totalArea, baseSheets, recommendedSheets, addon, grouped}
-    }
+    payload:{input:{pieces,sheet:sheet.label,extra}, result:{totalArea, sheets, grouped}}
   };
 }
 
@@ -231,7 +209,7 @@ function renderResult(data){
         `).join('')}
       </div>
       <div class="result-note">
-        재단 방식과 배송 조건에 따라 실제 주문 수량은 달라질 수 있습니다. 정확한 검토가 필요하시면 상담으로 안내해드립니다.
+        기본 계산은 참고용으로 활용하시고, 발주 전에는 재단 여부와 배송 조건을 함께 확인하시는 것을 권장드립니다.
       </div>
       <div class="result-actions">
         <button class="btn btn-line" id="resultConsultBtn" type="button">톡톡 상담</button>
@@ -269,39 +247,14 @@ async function handleStore(){
   await logEvent('click_store', window.currentMode || 'landing', {target:'smartstore'});
   window.open(STORE_URL, '_blank', 'noopener');
 }
-
-function openPhoneModal(){
-  $('#phoneNumberText').textContent = PHONE_TEXT;
-  $('#phoneModal').hidden = false;
-  document.body.style.overflow = 'hidden';
-}
-function closePhoneModal(){
-  $('#phoneModal').hidden = true;
-  document.body.style.overflow = '';
-}
 async function handlePhone(){
-  await logEvent('click_phone', window.currentMode || 'landing', {target:'phone_popup'});
-  openPhoneModal();
-}
-async function copyPhone(){
-  try{
-    await navigator.clipboard.writeText(PHONE_TEXT);
-    $('#copyPhoneBtn').textContent = '복사됨';
-    setTimeout(()=> $('#copyPhoneBtn').textContent = '번호 복사', 1200);
-  }catch(e){
-    alert(PHONE_TEXT);
-  }
+  await logEvent('click_phone', window.currentMode || 'landing', {target:'phone'});
+  window.location.href = PHONE_URL;
 }
 
 function bindClick(id, handler){
   const el = document.getElementById(id);
   if(el) el.addEventListener('click', handler);
-}
-
-function setMode(mode){
-  $$('#modeTabs .tab').forEach(t => t.classList.toggle('active', t.dataset.mode===mode));
-  $$('.panel').forEach(p=>p.classList.toggle('active', p.dataset.pane===mode));
-  window.currentMode = mode;
 }
 
 function init(){
@@ -331,16 +284,6 @@ function init(){
   [
     'heroPhoneBtn','heroPhoneBtn2','phoneBtn','premiumPhoneBtn','footerPhoneBtn'
   ].forEach(id => bindClick(id, handlePhone));
-
-  bindClick('closePhoneModalBtn', closePhoneModal);
-  bindClick('confirmPhoneBtn', closePhoneModal);
-  bindClick('copyPhoneBtn', copyPhone);
-  $('#phoneModal').addEventListener('click', (e)=> {
-    if(e.target.id === 'phoneModal') closePhoneModal();
-  });
-  document.addEventListener('keydown', (e)=> {
-    if(e.key === 'Escape' && !$('#phoneModal').hidden) closePhoneModal();
-  });
 
   logEvent('page_view', 'landing', {page:'index'});
 }
