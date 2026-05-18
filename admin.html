@@ -58,7 +58,7 @@
       <div class="control-note">토큰은 현재 브라우저의 sessionStorage에만 저장됩니다.</div>
     </section>
 
-    <section class="kpi-grid">
+    <section class="kpi-grid kpi-grid-extended">
       <article class="kpi-card">
         <div class="kpi-label">익명 사용자 수</div>
         <div class="kpi-value" id="kpiUsers">-</div>
@@ -77,6 +77,16 @@
       <article class="kpi-card">
         <div class="kpi-label">구매 전환 표시 수</div>
         <div class="kpi-value" id="kpiPurchases">-</div>
+      </article>
+
+      <article class="kpi-card accent-card">
+        <div class="kpi-label">반복 방문 ID 수</div>
+        <div class="kpi-value" id="kpiRepeatVisitors">-</div>
+      </article>
+
+      <article class="kpi-card accent-card warm-card">
+        <div class="kpi-label">반복 방문 + 미전환 ID 수</div>
+        <div class="kpi-value" id="kpiRepeatNoConversion">-</div>
       </article>
     </section>
 
@@ -99,6 +109,56 @@
           </div>
         </div>
         <div id="modeSummary" class="summary-grid empty-state">아직 데이터가 없습니다.</div>
+      </article>
+    </section>
+
+    <section class="table-card highlight-card">
+      <div class="panel-head">
+        <div>
+          <div class="section-kicker">REPEAT VISITORS · NO CONVERSION</div>
+          <h2>반복 방문했지만 상담/구매 전환이 없는 ID</h2>
+          <p class="panel-desc">반복 방문 기준은 활성 날짜 2일 이상 또는 계산 3회 이상입니다. 아래 표는 그중 상담 0회, 구매 전환 0회인 ID만 보여줍니다.</p>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>익명 ID</th>
+              <th>활성 날짜</th>
+              <th>계산 수</th>
+              <th>스토어 클릭</th>
+              <th>마지막 접속</th>
+              <th>주 사용 모드</th>
+              <th>상태</th>
+            </tr>
+          </thead>
+          <tbody id="repeatNoConversionBody">
+            <tr><td colspan="7" class="empty-row">반복 방문 + 미전환 데이터가 없습니다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="dual-grid">
+      <article class="panel-card">
+        <div class="panel-head">
+          <div>
+            <div class="section-kicker">INSIGHT SUMMARY</div>
+            <h2>사용자 인사이트 요약</h2>
+          </div>
+        </div>
+        <div id="insightSummary" class="summary-grid empty-state">아직 데이터가 없습니다.</div>
+      </article>
+
+      <article class="panel-card">
+        <div class="panel-head">
+          <div>
+            <div class="section-kicker">STORE ONLY USERS</div>
+            <h2>스토어 클릭 후 미상담 ID</h2>
+          </div>
+        </div>
+        <div id="storeOnlySummary" class="summary-grid empty-state">아직 데이터가 없습니다.</div>
       </article>
     </section>
 
