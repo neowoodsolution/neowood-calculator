@@ -13,7 +13,6 @@ function buildSummary(rows) {
   let calculations = 0;
   let consults = 0;
   let purchases = 0;
-
   const userMap = new Map();
 
   rows.forEach((r) => {
@@ -73,12 +72,10 @@ function buildSummary(rows) {
     }
     return {
       anon_id: u.anon_id,
-      total_events: u.total_events,
       calculations: u.calculations,
       consults: u.consults,
       purchases: u.purchases,
       store_clicks: u.store_clicks,
-      phone_clicks: u.phone_clicks,
       page_views: u.page_views,
       active_days: activeDays,
       last_active: u.last_active,
