@@ -1,212 +1,123 @@
 
-function json(data, status = 200) {
-  return new Response(JSON.stringify(data), {
-    status,
-    headers: { 'content-type': 'application/json; charset=utf-8' },
-  });
+const $ = (sel) => document.querySelector(sel);
+
+function esc(s){
+  return String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
 }
-
-function buildSummary(rows) {
-  const users = new Set();
-  const eventSummary = {};
-  const modeSummary = {};
-  let calculations = 0;
-  let consults = 0;
-  let purchases = 0;
-
-  const userMap = new Map();
-
-  rows.forEach((r) => {
-    users.add(r.anon_id);
-    eventSummary[r.event_type] = (eventSummary[r.event_type] || 0) + 1;
-    if (r.mode) modeSummary[r.mode] = (modeSummary[r.mode] || 0) + 1;
-    if (r.event_type === 'calculate') calculations += 1;
-    if (r.event_type === 'click_consult') consults += 1;
-    if (r.event_type === 'mark_purchase') purchases += 1;
-
-    const key = r.anon_id || 'unknown';
-    if (!userMap.has(key)) {
-      userMap.set(key, {
-        anon_id: key,
-        total_events: 0,
-        calculations: 0,
-        consults: 0,
-        purchases: 0,
-        store_clicks: 0,
-        phone_clicks: 0,
-        page_views: 0,
-        active_dates: new Set(),
-        last_active: r.created_at,
-        modes: {},
-      });
-    }
-
-    const u = userMap.get(key);
-    u.total_events += 1;
-    if (r.mode) u.modes[r.mode] = (u.modes[r.mode] || 0) + 1;
-    if (r.event_type === 'calculate') u.calculations += 1;
-    if (r.event_type === 'click_consult') u.consults += 1;
-    if (r.event_type === 'mark_purchase') u.purchases += 1;
-    if (r.event_type === 'click_store') u.store_clicks += 1;
-    if (r.event_type === 'click_phone') u.phone_clicks += 1;
-    if (r.event_type === 'page_view') u.page_views += 1;
-    if (r.created_at) {
-      u.active_dates.add(String(r.created_at).slice(0,10));
-      if (!u.last_active || r.created_at > u.last_active) u.last_active = r.created_at;
-    }
-  });
-
-  const usersArr = Array.from(userMap.values()).map((u) => {
-    const topMode = Object.entries(u.modes).sort((a,b)=>b[1]-a[1])[0]?.[0] || '-';
-    const activeDays = u.active_dates.size;
-    const repeatVisitor = activeDays >= 2 || u.calculations >= 3 || u.page_views >= 2;
-    const noConversion = u.consults === 0 && u.purchases === 0;
-    const storeOnlyNoConsult = u.store_clicks > 0 && u.consults === 0 && u.purchases === 0;
-    let status_label = '반복 방문 + 미전환';
-    let status_kind = 'warn';
-    if (storeOnlyNoConsult) {
-      status_label = '스토어 클릭 후 미상담';
-      status_kind = 'info';
-    } else if (u.calculations >= 5 && noConversion) {
-      status_label = '반복 계산형 미전환';
-      status_kind = 'warn';
-    }
-    return {
-      anon_id: u.anon_id,
-      total_events: u.total_events,
-      calculations: u.calculations,
-      consults: u.consults,
-      purchases: u.purchases,
-      store_clicks: u.store_clicks,
-      phone_clicks: u.phone_clicks,
-      page_views: u.page_views,
-      active_days: activeDays,
-      last_active: u.last_active,
-      top_mode: topMode,
-      repeatVisitor,
-      noConversion,
-      storeOnlyNoConsult,
-      status_label,
-      status_kind,
-    };
-  });
-
-  const repeatVisitors = usersArr.filter((u) => u.repeatVisitor);
-  const repeatNoConversionUsers = repeatVisitors
-    .filter((u) => u.noConversion)
-    .sort((a,b) => (b.active_days - a.active_days) || (b.calculations - a.calculations) || (String(b.last_active).localeCompare(String(a.last_active))))
-    .slice(0, 50)
-    .map((u) => ({
-      anon_id: u.anon_id,
-      active_days: u.active_days,
-      calculations: u.calculations,
-      store_clicks: u.store_clicks,
-      last_active: u.last_active,
-      top_mode: u.top_mode,
-      status_label: u.status_label,
-      status_kind: u.status_kind,
-    }));
-
-  const insightSummary = {
-    '반복 방문 사용자': repeatVisitors.length,
-    '반복 방문 + 미전환': repeatVisitors.filter((u) => u.noConversion).length,
-    '반복 계산형 미전환': repeatVisitors.filter((u) => u.noConversion && u.calculations >= 5).length,
-    '스토어 클릭 후 미상담': usersArr.filter((u) => u.storeOnlyNoConsult).length,
-  };
-
-  const storeOnlySummary = Object.fromEntries(
-    usersArr
-      .filter((u) => u.storeOnlyNoConsult)
-      .sort((a,b) => b.store_clicks - a.store_clicks || b.calculations - a.calculations)
-      .slice(0, 6)
-      .map((u) => [u.anon_id, `${u.store_clicks}회 클릭 / 계산 ${u.calculations}회`])
-  );
-
-  const recentCalcs = rows
-    .filter((r) => r.event_type === 'calculate')
-    .slice(0, 30)
-    .map((r) => ({
-      created_at: r.created_at,
-      anon_id: r.anon_id,
-      mode: r.mode || '-',
-      summary: summarizePayload(r.payload),
-      result: summarizeResult(r.payload),
-    }));
-
-  const recentEvents = rows.slice(0, 50).map((r) => ({
-    created_at: r.created_at,
-    anon_id: r.anon_id,
-    event_type: r.event_type,
-    mode: r.mode || '-',
-    payload: r.payload || {},
-  }));
-
-  return {
-    kpis: {
-      users: users.size,
-      calculations,
-      consults,
-      purchases,
-      repeatVisitors: repeatVisitors.length,
-      repeatNoConversion: repeatVisitors.filter((u) => u.noConversion).length,
-    },
-    eventSummary,
-    modeSummary,
-    insightSummary,
-    storeOnlySummary,
-    repeatNoConversionUsers,
-    recentCalcs,
-    recentEvents,
-  };
+function setState(kind, text){
+  const el = $('#loadState');
+  el.className = 'state-badge';
+  if(kind) el.classList.add(kind);
+  el.textContent = text;
 }
-
-function summarizePayload(payload = {}) {
-  const input = payload.input || {};
-  if (input.width && input.height) return `${input.width}×${input.height}`;
-  if (Array.isArray(input.pieces)) return `${input.pieces.length}종 재단 입력`;
-  return '-';
+function renderSummary(containerId, obj, suffix='건'){
+  const el = $(containerId);
+  const entries = Object.entries(obj || {});
+  if(!entries.length){
+    el.className = 'summary-grid empty-state';
+    el.innerHTML = '데이터가 없습니다.';
+    return;
+  }
+  el.className = 'summary-grid';
+  el.innerHTML = entries.map(([k,v]) => `
+    <div class="summary-item">
+      <strong>${esc(k || '미지정')}</strong>
+      <span>${esc(v)}${suffix}</span>
+    </div>
+  `).join('');
 }
-
-function summarizeResult(payload = {}) {
-  const result = payload.result || {};
-  if (result.sheets) return `${result.sheets} 장`;
-  if (result.sheetsA || result.sheetsB) return `A:${result.sheetsA || '-'} / B:${result.sheetsB || '-'}`;
-  return '-';
+function statusChip(text, kind='soft'){
+  return `<span class="status-chip ${kind}">${esc(text)}</span>`;
 }
-
-export async function onRequestGet(context) {
-  try {
-    const { env, request } = context;
-    const token = request.headers.get('x-admin-token') || new URL(request.url).searchParams.get('token');
-    if (!env.ADMIN_DASHBOARD_TOKEN || token !== env.ADMIN_DASHBOARD_TOKEN) {
-      return json({ error: '관리자 토큰이 올바르지 않습니다.' }, 401);
-    }
-
-    const SUPABASE_URL = env.SUPABASE_URL;
-    const SUPABASE_SECRET_KEY = env.SUPABASE_SECRET_KEY;
-    if (!SUPABASE_URL || !SUPABASE_SECRET_KEY) {
-      return json({ error: 'Supabase 환경변수가 비어 있습니다.' }, 500);
-    }
-
-    const days = Number(new URL(request.url).searchParams.get('days') || '7');
-    const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
-    const url = `${SUPABASE_URL}/rest/v1/app_events?select=created_at,anon_id,event_type,mode,payload&created_at=gte.${encodeURIComponent(since)}&order=created_at.desc&limit=1000`;
-
-    const res = await fetch(url, {
-      headers: {
-        'apikey': SUPABASE_SECRET_KEY,
-        'authorization': `Bearer ${SUPABASE_SECRET_KEY}`,
-      },
+function renderRecentCalcs(rows){
+  const body = $('#recentCalcsBody');
+  if(!rows?.length){
+    body.innerHTML = `<tr><td colspan="5" class="empty-row">계산 로그가 없습니다.</td></tr>`;
+    return;
+  }
+  body.innerHTML = rows.map(r => `
+    <tr>
+      <td>${esc(r.created_at)}</td>
+      <td><span class="small-code">${esc(r.anon_id)}</span></td>
+      <td>${esc(r.mode || '-')}</td>
+      <td>${esc(r.summary || '-')}</td>
+      <td>${esc(r.result || '-')}</td>
+    </tr>
+  `).join('');
+}
+function renderRecentEvents(rows){
+  const body = $('#recentEventsBody');
+  if(!rows?.length){
+    body.innerHTML = `<tr><td colspan="5" class="empty-row">이벤트 로그가 없습니다.</td></tr>`;
+    return;
+  }
+  body.innerHTML = rows.map(r => `
+    <tr>
+      <td>${esc(r.created_at)}</td>
+      <td><span class="small-code">${esc(r.anon_id)}</span></td>
+      <td>${esc(r.event_type)}</td>
+      <td>${esc(r.mode || '-')}</td>
+      <td><div class="code-block">${esc(JSON.stringify(r.payload ?? {}, null, 2))}</div></td>
+    </tr>
+  `).join('');
+}
+function renderRepeatNoConversion(rows){
+  const body = $('#repeatNoConversionBody');
+  if(!rows?.length){
+    body.innerHTML = `<tr><td colspan="7" class="empty-row">반복 방문 + 미전환 데이터가 없습니다.</td></tr>`;
+    return;
+  }
+  body.innerHTML = rows.map(r => `
+    <tr>
+      <td><span class="small-code">${esc(r.anon_id)}</span></td>
+      <td>${esc(r.active_days)}일</td>
+      <td>${esc(r.calculations)}회</td>
+      <td>${esc(r.store_clicks)}회</td>
+      <td>${esc(r.last_active)}</td>
+      <td>${esc(r.top_mode || '-')}</td>
+      <td>${statusChip(r.status_label || '반복 방문 + 미전환', r.status_kind || 'warn')}</td>
+    </tr>
+  `).join('');
+}
+async function loadDashboard(){
+  const token = $('#adminToken').value.trim();
+  const days = $('#daysSelect').value;
+  if(!token){
+    alert('관리자 토큰을 입력해 주세요.');
+    return;
+  }
+  sessionStorage.setItem('nw_admin_token', token);
+  setState('loading', '불러오는 중');
+  try{
+    const res = await fetch(`/api/admin?days=${encodeURIComponent(days)}`, {
+      headers: {'x-admin-token': token}
     });
-
-    if (!res.ok) {
-      const text = await res.text();
-      return json({ error: 'Supabase 조회 실패', detail: text }, 500);
+    const data = await res.json();
+    if(!res.ok){
+      throw new Error(data.error || '대시보드 로드 실패');
     }
-
-    const rows = await res.json();
-    return json(buildSummary(rows));
-  } catch (e) {
-    return json({ error: '서버 오류', detail: String(e.message || e) }, 500);
+    $('#kpiUsers').textContent = data.kpis?.users ?? '-';
+    $('#kpiCalculations').textContent = data.kpis?.calculations ?? '-';
+    $('#kpiConsults').textContent = data.kpis?.consults ?? '-';
+    $('#kpiPurchases').textContent = data.kpis?.purchases ?? '-';
+    $('#kpiRepeatVisitors').textContent = data.kpis?.repeatVisitors ?? '-';
+    $('#kpiRepeatNoConversion').textContent = data.kpis?.repeatNoConversion ?? '-';
+    renderSummary('#eventSummary', data.eventSummary, '건');
+    renderSummary('#modeSummary', data.modeSummary, '건');
+    renderSummary('#insightSummary', data.insightSummary, '개');
+    renderSummary('#storeOnlySummary', data.storeOnlySummary, '명');
+    renderRepeatNoConversion(data.repeatNoConversionUsers);
+    renderRecentCalcs(data.recentCalcs);
+    renderRecentEvents(data.recentEvents);
+    setState('done', '업데이트 완료');
+  }catch(err){
+    setState('error', '불러오기 실패');
+    alert(err.message || '대시보드 로드 실패');
   }
 }
+document.addEventListener('DOMContentLoaded', () => {
+  const saved = sessionStorage.getItem('nw_admin_token');
+  if(saved) $('#adminToken').value = saved;
+  $('#loadAdminBtn').addEventListener('click', loadDashboard);
+  $('#refreshAdminBtn').addEventListener('click', loadDashboard);
+});
