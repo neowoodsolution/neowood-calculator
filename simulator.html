@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>네오우드솔루션 | 모양별 재단 시뮬레이션</title>
+  <meta name="description" content="직사각형, 원형, 직각삼각형, 사다리꼴, ㄱ자형의 치수를 입력하고 재단 모양을 눈으로 확인하는 네오우드솔루션 무료 참고 도구" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body class="simulator-shell">
+  <header class="simulator-header">
+    <div class="shell simulator-header-inner">
+      <a class="brand-link" href="./index.html" aria-label="네오우드솔루션 메인으로 이동">
+        <img class="brand-logo" src="./logo-header.jpg" alt="네오우드솔루션 로고" />
+      </a>
+      <div class="header-actions">
+        <a class="btn btn-line" href="./index.html#calculator">물량 계산기로 돌아가기</a>
+        <a class="btn btn-fill" href="https://talk.naver.com/ct/w79ej21?frm=psf" target="_blank" rel="noopener">톡톡 상담</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="simulator-main">
+    <div class="shell">
+      <section class="simulator-intro">
+        <div class="eyebrow">Shape simulator</div>
+        <h1>모양별 재단 시뮬레이션</h1>
+        <p>형태를 선택하고 치수를 입력해 실제 비율에 가까운 재단 모양을 눈으로 확인하는 무료 참고 도구입니다.</p>
+      </section>
+
+      <section class="simulator-workspace" aria-label="재단 모양 시뮬레이터 작업 영역">
+        <div class="simulator-panel">
+          <div class="workspace-title">
+            <h2>1. 형태 선택</h2>
+            <span class="step-badge">화면 구성 단계</span>
+          </div>
+
+          <div class="shape-choice-grid">
+            <button class="shape-choice active" type="button" data-shape="rectangle">
+              <svg viewBox="0 0 64 44" aria-hidden="true"><rect x="4" y="6" width="56" height="32" rx="2"/></svg>
+              <strong>직사각형</strong>
+              <span>가로 · 세로</span>
+            </button>
+            <button class="shape-choice" type="button" data-shape="circle">
+              <svg viewBox="0 0 64 44" aria-hidden="true"><circle cx="32" cy="22" r="17"/></svg>
+              <strong>원형</strong>
+              <span>지름</span>
+            </button>
+            <button class="shape-choice" type="button" data-shape="triangle">
+              <svg viewBox="0 0 64 44" aria-hidden="true"><path d="M7 38V7L57 38Z"/></svg>
+              <strong>직각삼각형</strong>
+              <span>밑변 · 높이</span>
+            </button>
+            <button class="shape-choice" type="button" data-shape="trapezoid">
+              <svg viewBox="0 0 64 44" aria-hidden="true"><path d="M6 38L18 7H47L58 38Z"/></svg>
+              <strong>사다리꼴</strong>
+              <span>윗변 · 아랫변 · 높이</span>
+            </button>
+            <button class="shape-choice" type="button" data-shape="lshape">
+              <svg viewBox="0 0 64 44" aria-hidden="true"><path d="M6 6H58V21H28V38H6Z"/></svg>
+              <strong>ㄱ자형</strong>
+              <span>전체 크기 · 파임 크기</span>
+            </button>
+          </div>
+
+          <div class="simulator-coming">
+            다음 단계에서 선택한 형태에 맞춰 치수 입력칸, 수량, 원장 규격 비교 기능을 연결합니다.
+          </div>
+        </div>
+
+        <div class="simulator-preview-panel">
+          <div class="workspace-title">
+            <h2>2. 실시간 모양 미리보기</h2>
+            <span class="step-badge">SVG 도면</span>
+          </div>
+
+          <div class="preview-stage">
+            <div class="preview-placeholder">
+              <svg viewBox="0 0 520 330" role="img" aria-label="직사각형 재단 모양 미리보기 예시">
+                <defs>
+                  <pattern id="previewWood" width="26" height="26" patternUnits="userSpaceOnUse">
+                    <path d="M0 8 C8 2 17 13 26 7" fill="none" stroke="currentColor" stroke-opacity=".13" stroke-width="2"/>
+                    <path d="M0 20 C7 13 18 24 26 17" fill="none" stroke="currentColor" stroke-opacity=".1" stroke-width="1.5"/>
+                  </pattern>
+                </defs>
+                <rect x="92" y="75" width="336" height="180" rx="5" fill="#e2eee5" stroke="currentColor" stroke-width="3"/>
+                <rect x="92" y="75" width="336" height="180" rx="5" fill="url(#previewWood)"/>
+                <g fill="none" stroke="currentColor" stroke-width="1.7">
+                  <path d="M92 53H428"/>
+                  <path d="M92 46V60M428 46V60"/>
+                  <path d="M67 75V255"/>
+                  <path d="M60 75H74M60 255H74"/>
+                </g>
+                <g fill="currentColor" font-size="15" font-weight="700">
+                  <text x="260" y="43" text-anchor="middle">1,200 mm</text>
+                  <text x="49" y="169" text-anchor="middle" transform="rotate(-90 49 169)">600 mm</text>
+                  <text x="260" y="171" text-anchor="middle" font-size="22">부재 A</text>
+                </g>
+              </svg>
+              <strong>치수 입력 기능을 다음 단계에서 연결합니다.</strong>
+              <span>선택한 형태와 치수에 따라 도형 비율, 치수선, 면적, 원장 규격 초과 여부가 실시간으로 변경됩니다.</span>
+            </div>
+          </div>
+
+          <div class="simulator-note">
+            이 도구는 참고용입니다. 화면에 표시되는 형태가 네오우드솔루션의 실제 가공 가능 범위를 의미하지 않으며, 원형·사선·곡선 재단은 별도 업체 확인이 필요합니다.
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    document.querySelectorAll('.shape-choice').forEach((button) => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.shape-choice').forEach((item) => item.classList.remove('active'));
+        button.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

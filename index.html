@@ -15,9 +15,10 @@
       </a>
 
       <nav class="main-nav">
-        <a href="#modes">물량 산출</a>
-        <a href="#calculator">빠른 계산</a>
-        <a href="#premium">추가 안내</a>
+        <a href="#service-entry">서비스 선택</a>
+        <a href="#modes">무료 물량 계산</a>
+        <a href="./simulator.html">재단 모양 시뮬레이션</a>
+        <a href="#premium">정밀 검토</a>
       </nav>
 
       <div class="header-actions">
@@ -29,63 +30,96 @@
   </header>
 
   <main id="top">
-    <section class="hero">
-      <div class="shell hero-grid">
-        <div class="hero-copy">
-          <div class="eyebrow">무료 합판 물량 산출기</div>
-          <h1>합판 물량을 간편하게 확인해보세요</h1>
+    <section class="hero hero-visual">
+      <div class="shell hero-visual-inner">
+        <div class="hero-overlay-copy">
+          <div class="eyebrow hero-eyebrow">합판 물량 산출 · 재단 모양 확인 · 현장 배송 상담</div>
+          <h1>필요한 합판 수량,<br>감으로 주문하지 마세요.</h1>
           <p class="hero-desc">
-            바닥 채움, 벽면 계산, 재단 수량, 규격 비교까지 필요한 항목을 먼저 확인하고, 필요하시면 상담과 구매로 이어가실 수 있습니다.
+            빠른 예상 물량부터 원장 배치·자투리 활용 검토,<br>
+            자재 선택과 현장 배송 상담까지 함께합니다.
           </p>
 
           <div class="hero-actions">
-            <a class="btn btn-fill btn-lg" href="#modes">계산 시작하기</a>
-            <button class="btn btn-line btn-lg" id="heroConsultBtn2" type="button">네이버톡톡 상담</button>
-            <button class="btn btn-line btn-lg" id="heroPhoneBtn2" type="button">전화 상담</button>
+            <a class="btn btn-fill btn-lg" href="#modes">무료로 물량 계산하기</a>
+            <a class="btn btn-glass btn-lg" href="./simulator.html">재단 모양 만들어보기</a>
+          </div>
+
+          <div class="hero-trust">
+            <span>33년 목재 노하우</span>
+            <span>건설현장 실무 경험</span>
+            <span>자체 물량산출 시스템</span>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="hero-side">
-          <div class="strength-panel">
-            <div class="panel-head compact">
-              <strong>네오우드솔루션의 강점</strong>
-              <span class="pill">POINT</span>
+    <section id="service-entry" class="section service-entry-section">
+      <div class="shell">
+        <div class="section-head center entry-heading">
+          <div class="eyebrow">두 가지 무료 도구</div>
+          <h2>지금 필요한 작업을 선택하세요</h2>
+          <p class="section-note">물량이 궁금하면 기존 계산기를, 재단 형태를 눈으로 확인하려면 시뮬레이터를 이용하세요.</p>
+        </div>
+
+        <div class="service-entry-grid">
+          <article class="service-entry-card calculator-entry">
+            <div class="entry-copy">
+              <span class="entry-number">01</span>
+              <div class="entry-label">Quantity estimator</div>
+              <h3>무료로 물량 계산하기</h3>
+              <p>바닥·벽면·재단물의 예상 합판 수량을 간단한 치수 입력으로 빠르게 확인합니다.</p>
+              <ul class="entry-list">
+                <li>바닥 채움</li>
+                <li>벽면 계산</li>
+                <li>재단 수량</li>
+                <li>규격 비교</li>
+              </ul>
+              <a class="entry-link" href="#modes">물량 계산 시작 <span aria-hidden="true">→</span></a>
             </div>
+            <div class="entry-visual entry-photo" role="img" aria-label="합판 물량 계산 예시 이미지"></div>
+          </article>
 
-            <div class="strength-grid">
-              <div class="strength-card">
-                <div class="mini-icon">
-                  <svg viewBox="0 0 24 24" class="icon"><path d="M12 3l7 4v10l-7 4-7-4V7z"/><path d="M12 3v18"/></svg>
-                </div>
-                <strong>33년 목재 노하우</strong>
-                <span>자재 경험 기반</span>
-              </div>
-
-              <div class="strength-card">
-                <div class="mini-icon">
-                  <svg viewBox="0 0 24 24" class="icon"><path d="M3 16h11V8H3z"/><path d="M14 11h3l4 3v2h-7z"/><circle cx="7" cy="18" r="1.5"/><circle cx="18" cy="18" r="1.5"/></svg>
-                </div>
-                <strong>현장 맞춤 배송</strong>
-                <span>지역·물량별 배차 상담</span>
-              </div>
-
-              <div class="strength-card">
-                <div class="mini-icon">
-                  <svg viewBox="0 0 24 24" class="icon"><path d="M4 7h16M4 12h16M4 17h10"/><path d="M18 15l2 2-2 2"/></svg>
-                </div>
-                <strong>대량구매 특별 견적</strong>
-                <span>현장·업자 수량 대응</span>
-              </div>
-
-              <div class="strength-card">
-                <div class="mini-icon">
-                  <svg viewBox="0 0 24 24" class="icon"><path d="M7 12a3 3 0 116 0v2H7z"/><path d="M14 10a2.5 2.5 0 115 0v4h-5z"/><path d="M4 19h16"/></svg>
-                </div>
-                <strong>물량·재단 검토</strong>
-                <span>자투리 활용 방향 상담</span>
-              </div>
+          <article class="service-entry-card simulator-entry">
+            <div class="entry-copy">
+              <span class="entry-number">02</span>
+              <div class="entry-label">Shape simulator</div>
+              <h3>모양별 재단 시뮬레이션</h3>
+              <p>형태를 선택하고 치수를 입력해 실제 비율에 가까운 재단 모양을 화면에서 확인합니다.</p>
+              <ul class="entry-list">
+                <li>직사각형</li>
+                <li>원형</li>
+                <li>직각삼각형</li>
+                <li>사다리꼴·ㄱ자형</li>
+              </ul>
+              <a class="entry-link" href="./simulator.html">재단 모양 만들어보기 <span aria-hidden="true">→</span></a>
+              <div class="entry-caution">참고용 모양 제작 도구이며, 실제 가공 가능 범위와는 다를 수 있습니다.</div>
             </div>
-          </div>
+            <div class="entry-visual shape-preview" aria-hidden="true">
+              <svg viewBox="0 0 520 320" role="img" aria-label="다양한 재단 모양 예시">
+                <defs>
+                  <pattern id="woodLines" width="24" height="24" patternUnits="userSpaceOnUse">
+                    <path d="M0 7 C7 2 15 12 24 6" fill="none" stroke="currentColor" stroke-opacity=".14" stroke-width="2"/>
+                    <path d="M0 18 C9 11 15 23 24 16" fill="none" stroke="currentColor" stroke-opacity=".1" stroke-width="1.6"/>
+                  </pattern>
+                </defs>
+                <rect class="shape-board" x="42" y="42" width="436" height="236" rx="20"/>
+                <rect class="shape-piece" x="72" y="75" width="160" height="78" rx="5"/>
+                <circle class="shape-piece" cx="355" cy="115" r="48"/>
+                <path class="shape-piece" d="M82 245 L82 176 L205 245 Z"/>
+                <path class="shape-piece" d="M278 245 L304 180 L426 180 L458 245 Z"/>
+                <rect x="42" y="42" width="436" height="236" rx="20" fill="url(#woodLines)"/>
+                <g class="shape-dimension">
+                  <path d="M72 63H232"/>
+                  <path d="M72 58V68M232 58V68"/>
+                  <text x="152" y="56" text-anchor="middle">1200 mm</text>
+                  <path d="M60 75V153"/>
+                  <path d="M55 75H65M55 153H65"/>
+                  <text x="49" y="118" text-anchor="middle" transform="rotate(-90 49 118)">600 mm</text>
+                </g>
+              </svg>
+            </div>
+          </article>
         </div>
       </div>
     </section>
