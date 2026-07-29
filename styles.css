@@ -144,6 +144,35 @@ input,select{width:100%;padding:13px 14px;border-radius:14px;border:1px solid #d
 .result-item .value{display:block;margin-top:6px;font-size:20px;font-weight:800}
 .result-note{margin-top:12px;padding:13px 14px;border-radius:15px;background:#f3f5f8;color:#44536a;border:1px solid var(--line);font-size:13px}
 .result-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.result-title-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px}
+.result-title-row h3{margin:5px 0 0}
+.result-kicker{display:block;color:var(--accent);font-size:11px;font-weight:800;letter-spacing:.04em}
+.result-reference{display:inline-flex;align-items:center;padding:6px 9px;border-radius:999px;background:#eef2f8;color:#516078;font-size:11px;font-weight:800;white-space:nowrap}
+.compact-actions{margin-top:14px}
+
+.review-card{padding:20px;border-radius:22px;background:linear-gradient(180deg,#fff 0%,#f6f8fb 100%);border:1px solid #d7dce5;box-shadow:0 14px 30px rgba(26,31,40,.07)}
+.review-head h3{margin:7px 0 6px;font-size:21px;letter-spacing:-.03em;word-break:keep-all}
+.review-head p{margin:0;color:var(--muted);font-size:13px;line-height:1.65;word-break:keep-all}
+.review-eyebrow{display:inline-flex;padding:5px 9px;border-radius:999px;background:#eaf0fb;color:#345b9e;font-size:10px;font-weight:800;letter-spacing:.06em}
+.review-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:16px}
+.review-option{display:flex;grid-template-columns:none;align-items:center;gap:9px;min-height:46px;padding:11px 12px;border:1px solid #dde2ea;border-radius:14px;background:#fff;cursor:pointer;transition:.15s ease}
+.review-option:hover{border-color:#bfc9d9;background:#fbfcfe}
+.review-option:has(input:checked){border-color:#7392c6;background:#f2f6fd;box-shadow:0 0 0 2px rgba(70,112,180,.08)}
+.review-option input{width:18px;height:18px;margin:0;accent-color:#315f9e;flex:0 0 auto}
+.review-option span{font-size:13px;font-weight:750;color:#303741;line-height:1.35;word-break:keep-all}
+.shipping-address{margin-top:12px;padding:14px;border:1px solid #d8dee8;border-radius:16px;background:#fff}
+.shipping-address[hidden]{display:none}
+.shipping-address label{gap:7px}
+.shipping-address p{margin:7px 0 0;color:var(--muted);font-size:12px;line-height:1.5}
+.message-preview{margin-top:13px;border:1px solid #dce1e9;border-radius:15px;background:#fff;overflow:hidden}
+.message-preview summary{padding:12px 14px;cursor:pointer;font-size:13px;font-weight:800;color:#394252;list-style-position:inside}
+.message-preview textarea{display:block;width:calc(100% - 24px);margin:0 12px 12px;min-height:230px;padding:13px;border:1px solid #dfe3ea;border-radius:12px;background:#fbfcfe;color:#20252c;resize:vertical;font:13px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.review-submit{width:100%;margin-top:14px;min-height:50px;border-radius:15px;font-size:15px}
+.review-help{margin:10px 0 0;text-align:center;color:#566170;font-size:12px;line-height:1.6}
+.review-disclaimer{margin:12px 0 0;padding:11px 12px;border-radius:12px;background:#eef1f5;color:#66717f;font-size:11px;line-height:1.55}
+.copy-toast{position:fixed;left:50%;bottom:28px;z-index:9999;max-width:min(520px,calc(100% - 32px));padding:13px 17px;border-radius:14px;background:#161a20;color:#fff;font-size:13px;font-weight:700;line-height:1.45;box-shadow:0 16px 40px rgba(0,0,0,.24);opacity:0;transform:translate(-50%,18px);pointer-events:none;transition:.2s ease;text-align:center}
+.copy-toast.show{opacity:1;transform:translate(-50%,0)}
+.copy-toast.error{background:#8f2f35}
 .result-meta{margin-top:14px;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .group-list{display:grid;gap:10px;margin-top:12px}
 .group-item{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff}
@@ -186,5 +215,10 @@ input,select{width:100%;padding:13px 14px;border-radius:14px;border:1px solid #d
   .result-head h3,.section-head h2,.premium-left h2{font-size:24px}
   .brand-logo{height:40px}
   .cut-row{grid-template-columns:1fr}
+  .review-options{grid-template-columns:1fr}
+  .result-title-row{display:grid}
+  .result-reference{justify-self:start}
+  .review-card{padding:16px}
+  .message-preview textarea{min-height:270px}
   .hero-copy,.strength-panel,.guide-teaser,.calc-box,.result-box,.premium-left,.premium-right{padding:16px}
 }
