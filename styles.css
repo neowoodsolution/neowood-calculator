@@ -842,3 +842,30 @@ body{background:linear-gradient(180deg,#ffffff 0%,#f3f6fb 100%)}
   .home-page .precision-intro h2{font-size:28px}
   .home-page .process-flow{grid-template-columns:1fr}
 }
+
+/* v2 mobile/card refinements */
+.home-page .tool-choice-content{width:100%}
+.home-page .tool-choice-link{align-self:center;justify-content:center;min-width:240px;text-align:center;margin-top:18px}
+.home-page .tool-choice-graphic{padding-top:18px}
+.home-page .quantity-graphic{padding-top:12px}
+.home-page .simulator-graphic{padding-top:8px}
+.home-page .tool-shape-row{display:flex;gap:10px;margin-top:16px;align-items:center;flex-wrap:wrap}
+.home-page .shape-mini{width:48px;height:40px;border:0;background:transparent;display:grid;place-items:center}
+.home-page .shape-mini svg{width:44px;height:38px;display:block;overflow:visible}
+.home-page .shape-mini svg rect,.home-page .shape-mini svg circle,.home-page .shape-mini svg path{fill:#f6f9ff;stroke:var(--neo-blue);stroke-width:2.4;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.home-page .result-guide-compact{justify-content:flex-start;align-items:flex-start}
+@media(max-width:760px){
+  .home-page .tool-choice-card{grid-template-rows:auto 170px}
+  .home-page .tool-choice-content{padding:24px 18px 20px}
+  .home-page .tool-choice-link{width:min(100%,280px)}
+  .home-page .tool-choice-graphic{padding-top:22px}
+  .home-page .quantity-graphic svg{width:84%}
+}
+@media(max-width:480px){
+  .home-page .tool-choice-card{grid-template-rows:auto 180px}
+  .home-page .tool-choice-link{min-width:0;width:min(100%,270px)}
+  .home-page .tool-choice-content h3{font-size:22px}
+  .home-page .shape-mini{width:44px;height:36px}
+  .home-page .shape-mini svg{width:40px;height:34px}
+  .home-page .tool-choice-graphic{padding-top:26px}
+}

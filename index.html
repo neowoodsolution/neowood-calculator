@@ -113,7 +113,7 @@
                 <rect x="38" y="46" width="284" height="156" rx="8"/>
                 <path d="M38 98h284M38 150h284M109 46v156M180 46v156M251 46v156"/>
                 <path d="M38 27h284M38 21v12M322 21v12"/>
-                <text x="180" y="18" text-anchor="middle">원장 배치와 예상 장수</text>
+                <text x="180" y="28" text-anchor="middle">원장 배치와 예상 장수</text>
               </svg>
             </div>
           </article>
@@ -125,11 +125,21 @@
               <h3>모양별 재단 시뮬레이션</h3>
               <p>형태를 선택하고 치수를 입력하면 실제 비율에 맞는 재단 모양과 치수선을 바로 확인할 수 있습니다.</p>
               <div class="tool-shape-row" aria-label="지원 형태">
-                <span class="shape-mini rectangle" title="직사각형"></span>
-                <span class="shape-mini circle" title="원형"></span>
-                <span class="shape-mini triangle" title="직각삼각형"></span>
-                <span class="shape-mini trapezoid" title="사다리꼴"></span>
-                <span class="shape-mini lshape" title="ㄱ자형"></span>
+                <span class="shape-mini shape-svg" title="직사각형">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="9" width="34" height="30" rx="0"/></svg>
+                </span>
+                <span class="shape-mini shape-svg" title="원형">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="16"/></svg>
+                </span>
+                <span class="shape-mini shape-svg" title="직각삼각형">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 38L24 10l16 28z"/></svg>
+                </span>
+                <span class="shape-mini shape-svg" title="사다리꼴">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M14 10h20l8 28H6z"/></svg>
+                </span>
+                <span class="shape-mini shape-svg" title="ㄱ자형">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 10h30v10H18v18H8z"/></svg>
+                </span>
               </div>
               <a class="tool-choice-link tool-choice-link-secondary" href="./simulator.html">재단 모양 만들어보기 <span aria-hidden="true">→</span></a>
               <div class="tool-choice-caution">참고용 도면 제작 도구이며, 실제 가공 가능 범위는 별도 확인이 필요합니다.</div>
@@ -322,7 +332,6 @@
           <div class="result-guide-compact">
             <strong>빠른 계산 후 정밀 검토까지</strong>
             <span>원장 배치와 자투리 활용 가능성을 검토해 실제 발주에 적합한 수량과 대안을 안내합니다.</span>
-            <a href="#premium">검토 방식 보기</a>
           </div>
 
           <div id="resultArea" class="result-stack">
