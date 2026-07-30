@@ -287,7 +287,6 @@ input,select{width:100%;padding:13px 14px;border-radius:14px;border:1px solid #d
 .entry-visual{min-height:240px;position:relative;overflow:hidden}
 .entry-photo{background:linear-gradient(180deg,rgba(255,255,255,0),rgba(21,45,30,.04)),url('./floor.webp') center 62%/cover no-repeat}
 .entry-photo::before{content:"";position:absolute;left:30px;top:26px;width:58%;height:60%;border-radius:0 70px 0 0;background:rgba(250,245,221,.9);box-shadow:0 14px 30px rgba(28,45,33,.12)}
-.entry-photo::after{content:"1220 × 2440  ·  빠른 예상 물량";position:absolute;left:56px;top:72px;color:#273b31;font-size:18px;font-weight:750;letter-spacing:-.03em}
 .shape-preview{display:grid;place-items:center;background:linear-gradient(160deg,#eff6f1 0%,#fbfdfb 100%);color:#729986}
 .shape-preview svg{width:100%;height:100%;padding:16px}
 .shape-board{fill:#f8f5ea;stroke:#aac2b5;stroke-width:2}
