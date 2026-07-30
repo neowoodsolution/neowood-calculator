@@ -286,7 +286,7 @@ input,select{width:100%;padding:13px 14px;border-radius:14px;border:1px solid #d
 .entry-caution{margin-top:13px;color:#7b867f;font-size:11px;line-height:1.55}
 .entry-visual{min-height:240px;position:relative;overflow:hidden}
 .entry-photo{background:linear-gradient(180deg,rgba(255,255,255,0),rgba(21,45,30,.04)),url('./floor.webp') center 62%/cover no-repeat}
-.entry-photo::before{content:"";position:absolute;left:30px;top:26px;width:58%;height:60%;border-radius:0 70px 0 0;background:rgba(250,245,221,.9);box-shadow:0 14px 30px rgba(28,45,33,.12)}
+.entry-photo::before{content:none;display:none}
 .shape-preview{display:grid;place-items:center;background:linear-gradient(160deg,#eff6f1 0%,#fbfdfb 100%);color:#729986}
 .shape-preview svg{width:100%;height:100%;padding:16px}
 .shape-board{fill:#f8f5ea;stroke:#aac2b5;stroke-width:2}
@@ -444,4 +444,69 @@ input,select{width:100%;padding:13px 14px;border-radius:14px;border:1px solid #d
   .review-step-head{align-items:flex-start;flex-direction:column;gap:7px}
   .review-step h4{font-size:17px}
   .review-main-title{font-size:30px !important}
+}
+
+
+/* Shape simulator — functional workspace */
+.simulator-workspace-live{display:grid;grid-template-columns:minmax(300px,.8fr) minmax(0,1.2fr);gap:18px;align-items:start}
+.simulator-control-panel,.simulator-preview-panel-live{background:rgba(255,255,255,.94);border:1px solid #e1e9e3;border-radius:28px;box-shadow:var(--shadow)}
+.simulator-control-panel{padding:22px;position:sticky;top:84px}
+.simulator-preview-panel-live{padding:22px}
+.workspace-title-live{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px}
+.workspace-title-live h2{margin:0;font-size:21px;letter-spacing:-.035em}
+.workspace-title-live p{margin:5px 0 0;color:var(--muted);font-size:12px;line-height:1.55}
+.sim-step{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-size:12px;font-weight:850;white-space:nowrap}
+.shape-choice-grid-live{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.shape-choice-live{min-height:88px;padding:13px;border:1px solid #dce6df;border-radius:17px;background:#fbfdfb;text-align:left;color:#26342c;transition:.16s ease}
+.shape-choice-live:hover{transform:translateY(-1px);border-color:#b8cfc0}
+.shape-choice-live.active{border-color:#579078;background:#edf6f0;box-shadow:0 0 0 2px rgba(54,112,86,.08)}
+.shape-choice-live svg{width:38px;height:29px;display:block;margin-bottom:8px;fill:rgba(82,137,111,.15);stroke:#3d715a;stroke-width:2}
+.shape-choice-live strong{display:block;font-size:14px}
+.shape-choice-live span{display:block;margin-top:2px;color:var(--muted);font-size:11px}
+.sim-form-section{margin-top:20px;padding-top:18px;border-top:1px solid #e6ece7}
+.sim-form-section h3{margin:0 0 12px;font-size:15px;letter-spacing:-.02em}
+.sim-field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.sim-field{display:grid;gap:6px}
+.sim-field.full{grid-column:1/-1}
+.sim-field label{font-size:12px;font-weight:750;color:#526159}
+.sim-field input,.sim-field select{width:100%;min-width:0;padding:12px 13px;border:1px solid #d7e1da;border-radius:13px;background:#fff;color:#162019}
+.sim-field input:focus,.sim-field select:focus{outline:2px solid rgba(44,106,88,.2);border-color:#6c9f8d}
+.shape-fields[hidden]{display:none}
+.sim-help{margin:12px 0 0;padding:11px 12px;border-radius:13px;background:#f2f7f3;color:#627067;font-size:11px;line-height:1.55}
+.preview-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.preview-toolbar h2{margin:0;font-size:21px;letter-spacing:-.035em}
+.preview-status{display:inline-flex;align-items:center;padding:7px 10px;border-radius:999px;background:#edf5ef;color:#346c55;font-size:11px;font-weight:800}
+.preview-stage-live{position:relative;display:grid;place-items:center;min-height:480px;border:1px solid #dfe8e1;border-radius:22px;background:linear-gradient(180deg,#fbfdfb 0%,#f1f6f2 100%);overflow:hidden}
+.preview-stage-live svg{display:block;width:100%;height:auto;max-height:520px;color:#315b4a}
+.sim-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}
+.sim-metric{padding:13px;border:1px solid #e0e8e2;border-radius:15px;background:#fbfdfb}
+.sim-metric span{display:block;color:var(--muted);font-size:11px}
+.sim-metric strong{display:block;margin-top:5px;font-size:15px;line-height:1.35;word-break:keep-all}
+.sim-alert{margin-top:12px;padding:13px 14px;border-radius:15px;border:1px solid #dce7df;background:#f5f9f6;color:#43534a;font-size:12px;line-height:1.6}
+.sim-alert.warn{border-color:#ead9b4;background:#fff9ec;color:#6d5421}
+.sim-alert.good{border-color:#bdd8ca;background:#eff8f3;color:#285f48}
+.sim-actions-live{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
+.sim-actions-live .btn{flex:1 1 180px;border-radius:14px}
+.sim-disclaimer-live{margin:14px 0 0;color:#748078;font-size:11px;line-height:1.65}
+.sim-toast{position:fixed;left:50%;bottom:24px;z-index:9999;max-width:min(520px,calc(100% - 28px));padding:12px 16px;border-radius:14px;background:#162019;color:#fff;font-size:13px;font-weight:700;opacity:0;transform:translate(-50%,16px);pointer-events:none;transition:.2s ease;text-align:center}
+.sim-toast.show{opacity:1;transform:translate(-50%,0)}
+.sim-toast.error{background:#8f2f35}
+
+@media (max-width:980px){
+  .simulator-workspace-live{grid-template-columns:1fr}
+  .simulator-control-panel{position:static}
+  .sim-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:620px){
+  .simulator-main{padding-top:28px}
+  .simulator-header-inner{align-items:flex-start;flex-wrap:wrap}
+  .simulator-header .header-actions{width:100%}
+  .simulator-header .header-actions .btn{flex:1}
+  .simulator-control-panel,.simulator-preview-panel-live{padding:16px;border-radius:22px}
+  .shape-choice-grid-live{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sim-field-grid{grid-template-columns:1fr}
+  .sim-field.full{grid-column:auto}
+  .preview-stage-live{min-height:330px}
+  .sim-metrics{grid-template-columns:1fr 1fr}
+  .sim-actions-live .btn{flex-basis:100%}
 }

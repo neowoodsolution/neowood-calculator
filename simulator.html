@@ -25,98 +25,423 @@
       <section class="simulator-intro">
         <div class="eyebrow">Shape simulator</div>
         <h1>모양별 재단 시뮬레이션</h1>
-        <p>형태를 선택하고 치수를 입력해 실제 비율에 가까운 재단 모양을 눈으로 확인하는 무료 참고 도구입니다.</p>
+        <p>형태를 선택하고 치수를 입력하면 실제 비율에 맞춰 모양과 치수선을 바로 확인할 수 있습니다.</p>
       </section>
 
-      <section class="simulator-workspace" aria-label="재단 모양 시뮬레이터 작업 영역">
-        <div class="simulator-panel">
-          <div class="workspace-title">
-            <h2>1. 형태 선택</h2>
-            <span class="step-badge">화면 구성 단계</span>
+      <section class="simulator-workspace-live" aria-label="재단 모양 시뮬레이터 작업 영역">
+        <aside class="simulator-control-panel">
+          <div class="workspace-title-live">
+            <div>
+              <h2>형태와 치수 입력</h2>
+              <p>입력값을 바꾸면 오른쪽 도면이 즉시 변경됩니다.</p>
+            </div>
+            <span class="sim-step">STEP 1</span>
           </div>
 
-          <div class="shape-choice-grid">
-            <button class="shape-choice active" type="button" data-shape="rectangle">
+          <div class="shape-choice-grid-live" role="group" aria-label="재단 형태 선택">
+            <button class="shape-choice-live active" type="button" data-shape="rectangle" aria-pressed="true">
               <svg viewBox="0 0 64 44" aria-hidden="true"><rect x="4" y="6" width="56" height="32" rx="2"/></svg>
-              <strong>직사각형</strong>
-              <span>가로 · 세로</span>
+              <strong>직사각형</strong><span>가로 · 세로</span>
             </button>
-            <button class="shape-choice" type="button" data-shape="circle">
+            <button class="shape-choice-live" type="button" data-shape="circle" aria-pressed="false">
               <svg viewBox="0 0 64 44" aria-hidden="true"><circle cx="32" cy="22" r="17"/></svg>
-              <strong>원형</strong>
-              <span>지름</span>
+              <strong>원형</strong><span>지름</span>
             </button>
-            <button class="shape-choice" type="button" data-shape="triangle">
+            <button class="shape-choice-live" type="button" data-shape="triangle" aria-pressed="false">
               <svg viewBox="0 0 64 44" aria-hidden="true"><path d="M7 38V7L57 38Z"/></svg>
-              <strong>직각삼각형</strong>
-              <span>밑변 · 높이</span>
+              <strong>직각삼각형</strong><span>밑변 · 높이</span>
             </button>
-            <button class="shape-choice" type="button" data-shape="trapezoid">
+            <button class="shape-choice-live" type="button" data-shape="trapezoid" aria-pressed="false">
               <svg viewBox="0 0 64 44" aria-hidden="true"><path d="M6 38L18 7H47L58 38Z"/></svg>
-              <strong>사다리꼴</strong>
-              <span>윗변 · 아랫변 · 높이</span>
+              <strong>사다리꼴</strong><span>윗변 · 아랫변 · 높이</span>
             </button>
-            <button class="shape-choice" type="button" data-shape="lshape">
+            <button class="shape-choice-live" type="button" data-shape="lshape" aria-pressed="false">
               <svg viewBox="0 0 64 44" aria-hidden="true"><path d="M6 6H58V21H28V38H6Z"/></svg>
-              <strong>ㄱ자형</strong>
-              <span>전체 크기 · 파임 크기</span>
+              <strong>ㄱ자형</strong><span>전체 크기 · 파임 크기</span>
             </button>
           </div>
 
-          <div class="simulator-coming">
-            다음 단계에서 선택한 형태에 맞춰 치수 입력칸, 수량, 원장 규격 비교 기능을 연결합니다.
-          </div>
-        </div>
-
-        <div class="simulator-preview-panel">
-          <div class="workspace-title">
-            <h2>2. 실시간 모양 미리보기</h2>
-            <span class="step-badge">SVG 도면</span>
-          </div>
-
-          <div class="preview-stage">
-            <div class="preview-placeholder">
-              <svg viewBox="0 0 520 330" role="img" aria-label="직사각형 재단 모양 미리보기 예시">
-                <defs>
-                  <pattern id="previewWood" width="26" height="26" patternUnits="userSpaceOnUse">
-                    <path d="M0 8 C8 2 17 13 26 7" fill="none" stroke="currentColor" stroke-opacity=".13" stroke-width="2"/>
-                    <path d="M0 20 C7 13 18 24 26 17" fill="none" stroke="currentColor" stroke-opacity=".1" stroke-width="1.5"/>
-                  </pattern>
-                </defs>
-                <rect x="92" y="75" width="336" height="180" rx="5" fill="#e2eee5" stroke="currentColor" stroke-width="3"/>
-                <rect x="92" y="75" width="336" height="180" rx="5" fill="url(#previewWood)"/>
-                <g fill="none" stroke="currentColor" stroke-width="1.7">
-                  <path d="M92 53H428"/>
-                  <path d="M92 46V60M428 46V60"/>
-                  <path d="M67 75V255"/>
-                  <path d="M60 75H74M60 255H74"/>
-                </g>
-                <g fill="currentColor" font-size="15" font-weight="700">
-                  <text x="260" y="43" text-anchor="middle">1,200 mm</text>
-                  <text x="49" y="169" text-anchor="middle" transform="rotate(-90 49 169)">600 mm</text>
-                  <text x="260" y="171" text-anchor="middle" font-size="22">부재 A</text>
-                </g>
-              </svg>
-              <strong>치수 입력 기능을 다음 단계에서 연결합니다.</strong>
-              <span>선택한 형태와 치수에 따라 도형 비율, 치수선, 면적, 원장 규격 초과 여부가 실시간으로 변경됩니다.</span>
+          <div class="sim-form-section">
+            <h3>기본 정보</h3>
+            <div class="sim-field-grid">
+              <div class="sim-field">
+                <label for="partName">부재명</label>
+                <input id="partName" type="text" value="A" maxlength="20" />
+              </div>
+              <div class="sim-field">
+                <label for="quantity">수량</label>
+                <input id="quantity" type="number" value="1" min="1" max="999" step="1" />
+              </div>
+              <div class="sim-field full">
+                <label for="sheetSize">원장 규격 비교</label>
+                <select id="sheetSize">
+                  <option value="none">비교하지 않음</option>
+                  <option value="910x1820">910 × 1820mm</option>
+                  <option value="1220x2440" selected>1220 × 2440mm</option>
+                </select>
+              </div>
             </div>
           </div>
 
-          <div class="simulator-note">
-            이 도구는 참고용입니다. 화면에 표시되는 형태가 네오우드솔루션의 실제 가공 가능 범위를 의미하지 않으며, 원형·사선·곡선 재단은 별도 업체 확인이 필요합니다.
+          <div class="sim-form-section">
+            <h3>형태별 치수</h3>
+
+            <div class="shape-fields" data-shape-fields="rectangle">
+              <div class="sim-field-grid">
+                <div class="sim-field"><label for="rectWidth">가로(mm)</label><input id="rectWidth" type="number" value="1200" min="1" max="10000" /></div>
+                <div class="sim-field"><label for="rectHeight">세로(mm)</label><input id="rectHeight" type="number" value="600" min="1" max="10000" /></div>
+              </div>
+            </div>
+
+            <div class="shape-fields" data-shape-fields="circle" hidden>
+              <div class="sim-field-grid">
+                <div class="sim-field full"><label for="circleDiameter">지름(mm)</label><input id="circleDiameter" type="number" value="600" min="1" max="10000" /></div>
+              </div>
+            </div>
+
+            <div class="shape-fields" data-shape-fields="triangle" hidden>
+              <div class="sim-field-grid">
+                <div class="sim-field"><label for="triangleBase">밑변(mm)</label><input id="triangleBase" type="number" value="1200" min="1" max="10000" /></div>
+                <div class="sim-field"><label for="triangleHeight">높이(mm)</label><input id="triangleHeight" type="number" value="600" min="1" max="10000" /></div>
+                <div class="sim-field full">
+                  <label for="triangleDirection">직각 위치</label>
+                  <select id="triangleDirection"><option value="left">왼쪽 아래</option><option value="right">오른쪽 아래</option></select>
+                </div>
+              </div>
+            </div>
+
+            <div class="shape-fields" data-shape-fields="trapezoid" hidden>
+              <div class="sim-field-grid">
+                <div class="sim-field"><label for="trapTop">윗변(mm)</label><input id="trapTop" type="number" value="800" min="1" max="10000" /></div>
+                <div class="sim-field"><label for="trapBottom">아랫변(mm)</label><input id="trapBottom" type="number" value="1200" min="1" max="10000" /></div>
+                <div class="sim-field"><label for="trapHeight">높이(mm)</label><input id="trapHeight" type="number" value="600" min="1" max="10000" /></div>
+                <div class="sim-field">
+                  <label for="trapAlign">윗변 위치</label>
+                  <select id="trapAlign"><option value="center">가운데</option><option value="left">왼쪽</option><option value="right">오른쪽</option></select>
+                </div>
+              </div>
+            </div>
+
+            <div class="shape-fields" data-shape-fields="lshape" hidden>
+              <div class="sim-field-grid">
+                <div class="sim-field"><label for="lOuterWidth">전체 가로(mm)</label><input id="lOuterWidth" type="number" value="1200" min="1" max="10000" /></div>
+                <div class="sim-field"><label for="lOuterHeight">전체 세로(mm)</label><input id="lOuterHeight" type="number" value="900" min="1" max="10000" /></div>
+                <div class="sim-field"><label for="lNotchWidth">파임 가로(mm)</label><input id="lNotchWidth" type="number" value="500" min="1" max="9999" /></div>
+                <div class="sim-field"><label for="lNotchHeight">파임 세로(mm)</label><input id="lNotchHeight" type="number" value="400" min="1" max="9999" /></div>
+                <div class="sim-field full">
+                  <label for="lNotchPosition">파임 위치</label>
+                  <select id="lNotchPosition">
+                    <option value="top-right">오른쪽 위</option><option value="top-left">왼쪽 위</option>
+                    <option value="bottom-right">오른쪽 아래</option><option value="bottom-left">왼쪽 아래</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <p class="sim-help">실제 크기 그대로 출력되는 것이 아니라, 입력한 치수의 비율을 유지해 화면에 맞게 자동 축소·확대합니다.</p>
           </div>
-        </div>
+        </aside>
+
+        <section class="simulator-preview-panel-live">
+          <div class="preview-toolbar">
+            <div>
+              <h2>실시간 모양 미리보기</h2>
+              <p class="small">치수선·면적·원장 규격 적합 여부를 함께 확인하세요.</p>
+            </div>
+            <span class="preview-status" id="cutBadge">직선 재단 상담 가능</span>
+          </div>
+
+          <div class="preview-stage-live" id="previewStage" aria-live="polite">
+            <svg id="shapeSvg" viewBox="0 0 720 480" role="img" aria-label="입력한 치수를 반영한 재단 모양 미리보기"></svg>
+          </div>
+
+          <div class="sim-metrics">
+            <div class="sim-metric"><span>형태</span><strong id="metricShape">직사각형</strong></div>
+            <div class="sim-metric"><span>외곽 규격</span><strong id="metricOuter">1,200 × 600mm</strong></div>
+            <div class="sim-metric"><span>면적</span><strong id="metricArea">0.72㎡</strong></div>
+            <div class="sim-metric"><span>수량</span><strong id="metricQty">1개</strong></div>
+          </div>
+
+          <div class="sim-alert" id="sheetAlert">선택한 원장 규격과 비교한 결과가 표시됩니다.</div>
+
+          <div class="sim-actions-live">
+            <button class="btn btn-fill" id="downloadPngBtn" type="button">참고도면 PNG 저장</button>
+            <button class="btn btn-line" id="copyTalkBtn" type="button">상담내용 복사 후 톡톡 열기</button>
+            <button class="btn btn-soft" id="resetSimBtn" type="button">초기값으로 되돌리기</button>
+          </div>
+
+          <p class="sim-disclaimer-live">
+            본 도구는 고객이 입력한 치수를 시각화하는 참고용입니다. 화면에 그려지는 형태가 네오우드솔루션의 실제 재단 가능 범위를 의미하지 않습니다. 원형·곡선·사선 재단은 별도 가공업체에 가능 여부와 오차를 확인해 주세요.
+          </p>
+        </section>
       </section>
     </div>
   </main>
 
+  <div class="sim-toast" id="simToast" role="status" aria-live="polite"></div>
+
   <script>
-    document.querySelectorAll('.shape-choice').forEach((button) => {
-      button.addEventListener('click', () => {
-        document.querySelectorAll('.shape-choice').forEach((item) => item.classList.remove('active'));
-        button.classList.add('active');
-      });
-    });
+    (() => {
+      'use strict';
+
+      const TALK_URL = 'https://talk.naver.com/ct/w79ej21?frm=psf';
+      const $ = (selector) => document.querySelector(selector);
+      const $$ = (selector) => [...document.querySelectorAll(selector)];
+      let currentShape = 'rectangle';
+
+      const shapeInfo = {
+        rectangle: { label: '직사각형', badge: '직선 재단 상담 가능', note: '네오우드 기본 직선 재단 상담이 가능한 형태입니다.' },
+        circle: { label: '원형', badge: '참고도면 · 원형 재단 미지원', note: '원형 정밀 재단은 네오우드에서 지원하지 않습니다.' },
+        triangle: { label: '직각삼각형', badge: '참고도면 · 사선 재단 미지원', note: '사선 정밀 재단은 네오우드에서 지원하지 않습니다.' },
+        trapezoid: { label: '사다리꼴', badge: '참고도면 · 사선 재단 미지원', note: '사선 정밀 재단은 네오우드에서 지원하지 않습니다.' },
+        lshape: { label: 'ㄱ자형', badge: '가공 방법 별도 확인', note: '파임 위치와 가공 방법에 따라 별도 확인이 필요한 형태입니다.' }
+      };
+
+      const defaults = {
+        partName: 'A', quantity: 1, sheetSize: '1220x2440',
+        rectWidth: 1200, rectHeight: 600,
+        circleDiameter: 600,
+        triangleBase: 1200, triangleHeight: 600, triangleDirection: 'left',
+        trapTop: 800, trapBottom: 1200, trapHeight: 600, trapAlign: 'center',
+        lOuterWidth: 1200, lOuterHeight: 900, lNotchWidth: 500, lNotchHeight: 400, lNotchPosition: 'top-right'
+      };
+
+      function num(id, fallback = 1) {
+        const value = Number($(id)?.value);
+        return Number.isFinite(value) && value > 0 ? value : fallback;
+      }
+
+      function esc(value) {
+        return String(value ?? '').replace(/[&<>'"]/g, (char) => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
+      }
+
+      function fmt(value, digits = 0) {
+        return Number(value).toLocaleString('ko-KR', { maximumFractionDigits: digits });
+      }
+
+      function getData() {
+        const common = {
+          shape: currentShape,
+          partName: ($('#partName').value || 'A').trim() || 'A',
+          quantity: Math.max(1, Math.round(num('#quantity', 1))),
+          sheetSize: $('#sheetSize').value
+        };
+        if (currentShape === 'rectangle') return {...common, width:num('#rectWidth'), height:num('#rectHeight')};
+        if (currentShape === 'circle') { const diameter=num('#circleDiameter'); return {...common, diameter, width:diameter, height:diameter}; }
+        if (currentShape === 'triangle') return {...common, base:num('#triangleBase'), height:num('#triangleHeight'), width:num('#triangleBase'), direction:$('#triangleDirection').value};
+        if (currentShape === 'trapezoid') {
+          const top=num('#trapTop'), bottom=num('#trapBottom'), height=num('#trapHeight');
+          return {...common, top, bottom, height, width:Math.max(top,bottom), align:$('#trapAlign').value};
+        }
+        const outerWidth=num('#lOuterWidth'), outerHeight=num('#lOuterHeight');
+        const notchWidth=Math.min(num('#lNotchWidth'), Math.max(1, outerWidth-1));
+        const notchHeight=Math.min(num('#lNotchHeight'), Math.max(1, outerHeight-1));
+        return {...common, outerWidth, outerHeight, notchWidth, notchHeight, width:outerWidth, height:outerHeight, notchPosition:$('#lNotchPosition').value};
+      }
+
+      function areaMm2(data) {
+        if (data.shape === 'rectangle') return data.width * data.height;
+        if (data.shape === 'circle') return Math.PI * Math.pow(data.diameter / 2, 2);
+        if (data.shape === 'triangle') return data.base * data.height / 2;
+        if (data.shape === 'trapezoid') return (data.top + data.bottom) * data.height / 2;
+        return data.outerWidth * data.outerHeight - data.notchWidth * data.notchHeight;
+      }
+
+      function outerText(data) {
+        if (data.shape === 'circle') return `지름 ${fmt(data.diameter)}mm`;
+        return `${fmt(data.width)} × ${fmt(data.height)}mm`;
+      }
+
+      function sheetResult(data) {
+        if (data.sheetSize === 'none') return {type:'neutral', text:'원장 규격 비교를 선택하지 않았습니다.'};
+        const [sheetW,sheetH] = data.sheetSize.split('x').map(Number);
+        const normal = data.width <= sheetW && data.height <= sheetH;
+        const rotated = data.width <= sheetH && data.height <= sheetW;
+        const sheetLabel = `${fmt(sheetW)} × ${fmt(sheetH)}mm`;
+        if (normal) return {type:'good', text:`선택한 ${sheetLabel} 원장 안에 외곽 규격이 들어갑니다. 실제 배치와 재단 손실은 별도 검토가 필요합니다.`};
+        if (rotated) return {type:'good', text:`90도 회전하면 선택한 ${sheetLabel} 원장 안에 외곽 규격이 들어갑니다. 결 방향이 중요하다면 별도 확인해 주세요.`};
+        return {type:'warn', text:`선택한 ${sheetLabel} 원장을 초과합니다. 분할 제작 또는 다른 규격 검토가 필요합니다.`};
+      }
+
+      function dimensionLine(x1,y1,x2,y2,label,vertical=false) {
+        const ticks = vertical
+          ? `<path d="M${x1-7} ${y1}H${x1+7}M${x2-7} ${y2}H${x2+7}"/>`
+          : `<path d="M${x1} ${y1-7}V${y1+7}M${x2} ${y2-7}V${y2+7}"/>`;
+        const text = vertical
+          ? `<text x="${x1-18}" y="${(y1+y2)/2}" text-anchor="middle" transform="rotate(-90 ${x1-18} ${(y1+y2)/2})">${esc(label)}</text>`
+          : `<text x="${(x1+x2)/2}" y="${y1-12}" text-anchor="middle">${esc(label)}</text>`;
+        return `<g class="svg-dim"><path d="M${x1} ${y1}${vertical?'V':'H'}${vertical?y2:x2}"/>${ticks}${text}</g>`;
+      }
+
+      function buildShapeSvg(data) {
+        const canvasW=720, canvasH=480;
+        const boxX=120, boxY=105, boxW=500, boxH=275;
+        const scale=Math.min(boxW/data.width, boxH/data.height);
+        const drawW=data.width*scale, drawH=data.height*scale;
+        const x=boxX+(boxW-drawW)/2, y=boxY+(boxH-drawH)/2;
+        const part=esc(data.partName);
+        let shapeMarkup='', dims='';
+
+        if (data.shape === 'rectangle') {
+          shapeMarkup=`<rect class="svg-piece" x="${x}" y="${y}" width="${drawW}" height="${drawH}" rx="4"/>`;
+          dims=dimensionLine(x,y-24,x+drawW,y-24,`${fmt(data.width)} mm`)+dimensionLine(x-25,y,x-25,y+drawH,`${fmt(data.height)} mm`,true);
+        } else if (data.shape === 'circle') {
+          const r=Math.min(drawW,drawH)/2, cx=x+drawW/2, cy=y+drawH/2;
+          shapeMarkup=`<circle class="svg-piece" cx="${cx}" cy="${cy}" r="${r}"/><path class="svg-center" d="M${cx-r} ${cy}H${cx+r}M${cx} ${cy-r}V${cx} ${cy+r}"/>`;
+          dims=dimensionLine(cx-r,cy-24,cx+r,cy-24,`Ø ${fmt(data.diameter)} mm`);
+        } else if (data.shape === 'triangle') {
+          const points=data.direction==='right' ? `${x},${y+drawH} ${x+drawW},${y+drawH} ${x+drawW},${y}` : `${x},${y} ${x},${y+drawH} ${x+drawW},${y+drawH}`;
+          shapeMarkup=`<polygon class="svg-piece" points="${points}"/><path class="svg-angle" d="${data.direction==='right' ? `M${x+drawW-18} ${y+drawH}V${y+drawH-18}H${x+drawW}` : `M${x} ${y+drawH-18}H${x+18}V${y+drawH}`}"/>`;
+          dims=dimensionLine(x,y+drawH+27,x+drawW,y+drawH+27,`${fmt(data.base)} mm`)+dimensionLine(x-25,y,x-25,y+drawH,`${fmt(data.height)} mm`,true);
+        } else if (data.shape === 'trapezoid') {
+          const topW=data.top*scale, bottomW=data.bottom*scale;
+          let topX=x, bottomX=x;
+          if (data.align==='center') { topX=x+(drawW-topW)/2; bottomX=x+(drawW-bottomW)/2; }
+          if (data.align==='right') { topX=x+drawW-topW; bottomX=x+drawW-bottomW; }
+          shapeMarkup=`<polygon class="svg-piece" points="${topX},${y} ${topX+topW},${y} ${bottomX+bottomW},${y+drawH} ${bottomX},${y+drawH}"/>`;
+          dims=dimensionLine(topX,y-24,topX+topW,y-24,`${fmt(data.top)} mm`)+dimensionLine(bottomX,y+drawH+27,bottomX+bottomW,y+drawH+27,`${fmt(data.bottom)} mm`)+dimensionLine(x-25,y,x-25,y+drawH,`${fmt(data.height)} mm`,true);
+        } else {
+          const nw=data.notchWidth*scale, nh=data.notchHeight*scale;
+          let pts='';
+          if(data.notchPosition==='top-right') pts=`${x},${y} ${x+drawW-nw},${y} ${x+drawW-nw},${y+nh} ${x+drawW},${y+nh} ${x+drawW},${y+drawH} ${x},${y+drawH}`;
+          if(data.notchPosition==='top-left') pts=`${x+nw},${y} ${x+drawW},${y} ${x+drawW},${y+drawH} ${x},${y+drawH} ${x},${y+nh} ${x+nw},${y+nh}`;
+          if(data.notchPosition==='bottom-right') pts=`${x},${y} ${x+drawW},${y} ${x+drawW},${y+drawH-nh} ${x+drawW-nw},${y+drawH-nh} ${x+drawW-nw},${y+drawH} ${x},${y+drawH}`;
+          if(data.notchPosition==='bottom-left') pts=`${x},${y} ${x+drawW},${y} ${x+drawW},${y+drawH} ${x+nw},${y+drawH} ${x+nw},${y+drawH-nh} ${x},${y+drawH-nh}`;
+          shapeMarkup=`<polygon class="svg-piece" points="${pts}"/>`;
+          dims=dimensionLine(x,y-24,x+drawW,y-24,`${fmt(data.outerWidth)} mm`)+dimensionLine(x-25,y,x-25,y+drawH,`${fmt(data.outerHeight)} mm`,true)+`<g class="svg-notch-label"><text x="${x+drawW-10}" y="${y+18}" text-anchor="end">파임 ${fmt(data.notchWidth)} × ${fmt(data.notchHeight)} mm</text></g>`;
+        }
+
+        return `
+          <defs>
+            <pattern id="simWood" width="28" height="28" patternUnits="userSpaceOnUse">
+              <path d="M0 8 C8 2 18 13 28 7" fill="none" stroke="#315b4a" stroke-opacity=".11" stroke-width="2"/>
+              <path d="M0 21 C8 14 18 25 28 18" fill="none" stroke="#315b4a" stroke-opacity=".08" stroke-width="1.5"/>
+            </pattern>
+            <style>
+              .svg-piece{fill:#dfeee4;stroke:#315b4a;stroke-width:3;vector-effect:non-scaling-stroke}
+              .svg-piece+*{}
+              .svg-dim{fill:none;stroke:#315b4a;stroke-width:1.5;vector-effect:non-scaling-stroke}
+              .svg-dim text,.svg-notch-label text{fill:#315b4a;stroke:none;font:700 14px -apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif}
+              .svg-title{fill:#1d3026;font:800 22px -apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif}
+              .svg-sub{fill:#617168;font:600 12px -apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif}
+              .svg-brand{fill:#718078;font:700 11px -apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;letter-spacing:.08em}
+              .svg-center{fill:none;stroke:#315b4a;stroke-width:1;stroke-dasharray:6 5;opacity:.55}
+              .svg-angle{fill:none;stroke:#315b4a;stroke-width:2}
+            </style>
+          </defs>
+          <rect width="720" height="480" fill="#f8fbf8"/>
+          <text class="svg-title" x="34" y="38">${part} · ${esc(shapeInfo[data.shape].label)}</text>
+          <text class="svg-sub" x="34" y="60">입력 치수 비율을 반영한 참고용 도면</text>
+          <g>${shapeMarkup}<g opacity=".42">${shapeMarkup.replace('class="svg-piece"','fill="url(#simWood)" stroke="none"')}</g>${dims}</g>
+          <text class="svg-title" x="${x+drawW/2}" y="${y+drawH/2+7}" text-anchor="middle">${part}</text>
+          <text class="svg-brand" x="686" y="452" text-anchor="end">CREATED WITH NEOWOOD SHAPE SIMULATOR</text>
+        `;
+      }
+
+      function render() {
+        const data=getData();
+        $('#shapeSvg').innerHTML=buildShapeSvg(data);
+        $('#metricShape').textContent=shapeInfo[data.shape].label;
+        $('#metricOuter').textContent=outerText(data);
+        $('#metricArea').textContent=`${fmt(areaMm2(data)/1000000,3)}㎡`;
+        $('#metricQty').textContent=`${fmt(data.quantity)}개`;
+        $('#cutBadge').textContent=shapeInfo[data.shape].badge;
+        const result=sheetResult(data), alert=$('#sheetAlert');
+        alert.className=`sim-alert ${result.type==='neutral'?'':result.type}`.trim();
+        alert.textContent=`${result.text} ${shapeInfo[data.shape].note}`;
+      }
+
+      function selectShape(shape) {
+        currentShape=shape;
+        $$('.shape-choice-live').forEach((button)=>{
+          const active=button.dataset.shape===shape;
+          button.classList.toggle('active',active);
+          button.setAttribute('aria-pressed',String(active));
+        });
+        $$('.shape-fields').forEach((group)=>{group.hidden=group.dataset.shapeFields!==shape;});
+        render();
+      }
+
+      function consultationText(data) {
+        const lines=[
+          '[네오우드 형태별 재단 모양 상담]',
+          `부재명: ${data.partName}`,
+          `형태: ${shapeInfo[data.shape].label}`,
+          `외곽 규격: ${outerText(data)}`,
+          `면적: ${fmt(areaMm2(data)/1000000,3)}㎡`,
+          `수량: ${data.quantity}개`
+        ];
+        if(data.shape==='rectangle') lines.push(`상세치수: 가로 ${fmt(data.width)} × 세로 ${fmt(data.height)}mm`);
+        if(data.shape==='circle') lines.push(`상세치수: 지름 ${fmt(data.diameter)}mm`);
+        if(data.shape==='triangle') lines.push(`상세치수: 밑변 ${fmt(data.base)} × 높이 ${fmt(data.height)}mm / 직각 ${data.direction==='left'?'왼쪽 아래':'오른쪽 아래'}`);
+        if(data.shape==='trapezoid') lines.push(`상세치수: 윗변 ${fmt(data.top)} / 아랫변 ${fmt(data.bottom)} / 높이 ${fmt(data.height)}mm`);
+        if(data.shape==='lshape') lines.push(`상세치수: 전체 ${fmt(data.outerWidth)} × ${fmt(data.outerHeight)}mm / 파임 ${fmt(data.notchWidth)} × ${fmt(data.notchHeight)}mm`);
+        lines.push('', '참고도면을 기준으로 실제 가공 가능 여부와 자재·배송 상담을 요청합니다.');
+        return lines.join('\n');
+      }
+
+      function toast(message,error=false){
+        const el=$('#simToast');
+        el.textContent=message;
+        el.className=`sim-toast show${error?' error':''}`;
+        clearTimeout(toast.timer);
+        toast.timer=setTimeout(()=>{el.className='sim-toast';},2800);
+      }
+
+      function downloadPng(){
+        const data=getData();
+        const svg=$('#shapeSvg');
+        const serialized=new XMLSerializer().serializeToString(svg);
+        const blob=new Blob([serialized],{type:'image/svg+xml;charset=utf-8'});
+        const url=URL.createObjectURL(blob);
+        const image=new Image();
+        image.onload=()=>{
+          const scale=2;
+          const canvas=document.createElement('canvas');
+          canvas.width=720*scale; canvas.height=480*scale;
+          const ctx=canvas.getContext('2d');
+          ctx.scale(scale,scale); ctx.drawImage(image,0,0,720,480);
+          URL.revokeObjectURL(url);
+          const link=document.createElement('a');
+          const safeName=data.partName.replace(/[^0-9A-Za-z가-힣_-]/g,'_')||'A';
+          link.download=`네오우드_참고도면_${safeName}_${shapeInfo[data.shape].label}.png`;
+          link.href=canvas.toDataURL('image/png');
+          link.click();
+          toast('참고도면 PNG를 저장했습니다.');
+        };
+        image.onerror=()=>{URL.revokeObjectURL(url);toast('이미지 저장에 실패했습니다.',true);};
+        image.src=url;
+      }
+
+      async function copyAndOpenTalk(){
+        const data=getData();
+        const text=consultationText(data);
+        const popup=window.open(TALK_URL,'_blank');
+        if(popup) popup.opener=null;
+        try{
+          await navigator.clipboard.writeText(text);
+          toast('상담내용이 복사되었습니다. 톡톡 입력창에 붙여넣어 주세요.');
+        }catch(error){
+          window.prompt('아래 상담내용을 복사한 뒤 톡톡에 붙여넣어 주세요.',text);
+          toast('자동 복사가 제한되어 수동 복사창을 열었습니다.',true);
+        }
+        if(!popup) toast('팝업이 차단되었습니다. 상단 톡톡 상담 버튼을 눌러주세요.',true);
+      }
+
+      function reset(){
+        Object.entries(defaults).forEach(([id,value])=>{const el=$(`#${id}`); if(el) el.value=String(value);});
+        selectShape('rectangle');
+        toast('초기값으로 되돌렸습니다.');
+      }
+
+      $$('.shape-choice-live').forEach((button)=>button.addEventListener('click',()=>selectShape(button.dataset.shape)));
+      $$('input,select').forEach((element)=>element.addEventListener('input',render));
+      $$('select').forEach((element)=>element.addEventListener('change',render));
+      $('#downloadPngBtn').addEventListener('click',downloadPng);
+      $('#copyTalkBtn').addEventListener('click',copyAndOpenTalk);
+      $('#resetSimBtn').addEventListener('click',reset);
+      render();
+    })();
   </script>
 </body>
 </html>
