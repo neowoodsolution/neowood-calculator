@@ -357,3 +357,91 @@ input,select{width:100%;padding:13px 14px;border-radius:14px;border:1px solid #d
   .shape-choice-grid{grid-template-columns:1fr 1fr}
   .preview-stage{min-height:340px}
 }
+
+/* Precision review: stronger consultation conversion and 3-step flow */
+.review-card{
+  padding:26px;
+  border:2px solid rgba(46,112,90,.3);
+  background:linear-gradient(180deg,#ffffff 0%,#f3f8f5 100%);
+  box-shadow:0 20px 44px rgba(31,76,55,.12);
+}
+.review-head-emphasis{
+  padding:2px 2px 20px;
+  border-bottom:1px solid #dce7df;
+}
+.review-head-emphasis .review-eyebrow{
+  padding:7px 11px;
+  background:#e5f1e9;
+  color:#25624e;
+  font-size:11px;
+}
+.review-main-title{
+  margin:10px 0 8px !important;
+  color:#173d31;
+  font-size:clamp(28px,3.2vw,38px) !important;
+  line-height:1.15;
+  letter-spacing:-.045em;
+}
+.review-head-emphasis p{
+  max-width:720px;
+  font-size:14px;
+}
+.review-step{
+  margin-top:18px;
+  padding:18px;
+  border:1px solid #dce6df;
+  border-radius:18px;
+  background:rgba(255,255,255,.92);
+}
+.review-step-head{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.review-step-number{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 auto;
+  min-width:54px;
+  padding:7px 10px;
+  border-radius:999px;
+  background:#245f4c;
+  color:#fff;
+  font-size:12px;
+  font-weight:800;
+}
+.review-step h4{
+  margin:0;
+  color:#1d2f26;
+  font-size:18px;
+  line-height:1.35;
+  letter-spacing:-.03em;
+  word-break:keep-all;
+}
+.review-step-desc{
+  margin:8px 0 0;
+  color:#68766e;
+  font-size:13px;
+  line-height:1.6;
+  word-break:keep-all;
+}
+.review-step .review-options{margin-top:14px}
+.review-step .message-preview{margin-top:14px}
+.review-step-final{
+  border-color:rgba(46,112,90,.32);
+  background:#edf6f0;
+}
+.review-step-final .review-submit{
+  min-height:54px;
+  margin-top:15px;
+  font-size:16px;
+  box-shadow:0 10px 22px rgba(34,77,64,.16);
+}
+@media (max-width:740px){
+  .review-card{padding:17px}
+  .review-step{padding:15px}
+  .review-step-head{align-items:flex-start;flex-direction:column;gap:7px}
+  .review-step h4{font-size:17px}
+  .review-main-title{font-size:30px !important}
+}

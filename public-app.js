@@ -420,52 +420,73 @@ function renderResult(data){
     </div>
     ${groupHtml}
     <div class="review-card">
-      <div class="review-head">
-        <div>
-          <span class="review-eyebrow">정밀 물량 검토</span>
-          <h3>이 물량, 더 경제적으로 검토해볼까요?</h3>
-          <p>원장 배치와 자투리 활용 가능성을 확인해 실제 발주에 적합한 수량과 대안을 안내합니다.</p>
+      <div class="review-head review-head-emphasis">
+        <span class="review-eyebrow">전문가 상담 연결</span>
+        <h3 class="review-main-title">정밀 물량 검토</h3>
+        <p>빠른 계산 결과를 바탕으로 원장 배치와 자투리 활용 가능성을 확인하고, 실제 발주에 적합한 수량과 대안을 함께 검토합니다.</p>
+      </div>
+
+      <section class="review-step" aria-labelledby="reviewStep1Title">
+        <div class="review-step-head">
+          <span class="review-step-number">1단계</span>
+          <h4 id="reviewStep1Title">이 물량, 더 경제적으로 검토해볼까요?</h4>
         </div>
-      </div>
+        <p class="review-step-desc">필요한 검토 항목을 선택해주세요. 여러 항목을 함께 선택할 수 있습니다.</p>
 
-      <div class="review-options" aria-label="정밀 검토 요청사항">
-        <label class="review-option">
-          <input class="review-check" type="checkbox" value="예상 수량이 적절한지 확인">
-          <span>예상 수량이 적절한지 확인</span>
-        </label>
-        <label class="review-option">
-          <input class="review-check" type="checkbox" value="자투리 활용 가능성 검토">
-          <span>자투리 활용 가능성 검토</span>
-        </label>
-        <label class="review-option">
-          <input class="review-check" type="checkbox" value="배치도·재단도 제공 가능 여부 확인">
-          <span>배치도·재단도 제공 가능 여부</span>
-        </label>
-        <label class="review-option">
-          <input class="review-check" type="checkbox" value="합판 종류·두께 상담">
-          <span>합판 종류·두께 상담</span>
-        </label>
-        <label class="review-option">
-          <input class="review-check" id="reviewShipping" type="checkbox" value="배송비 확인">
-          <span>배송비 확인</span>
-        </label>
-      </div>
+        <div class="review-options" aria-label="정밀 검토 요청사항">
+          <label class="review-option">
+            <input class="review-check" type="checkbox" value="예상 수량이 적절한지 확인">
+            <span>예상 수량이 적절한지 확인</span>
+          </label>
+          <label class="review-option">
+            <input class="review-check" type="checkbox" value="자투리 활용 가능성 검토">
+            <span>자투리 활용 가능성 검토</span>
+          </label>
+          <label class="review-option">
+            <input class="review-check" type="checkbox" value="배치도·재단도 제공 가능 여부 확인">
+            <span>배치도·재단도 제공 가능 여부</span>
+          </label>
+          <label class="review-option">
+            <input class="review-check" type="checkbox" value="합판 종류·두께 상담">
+            <span>합판 종류·두께 상담</span>
+          </label>
+          <label class="review-option">
+            <input class="review-check" id="reviewShipping" type="checkbox" value="배송비 확인">
+            <span>배송비 확인</span>
+          </label>
+        </div>
 
-      <div class="shipping-address" id="shippingAddressWrap" hidden>
-        <label for="shippingAddress">
-          <span>배송지 상세주소</span>
-          <input id="shippingAddress" type="text" autocomplete="street-address" placeholder="예: 서울 성동구 왕십리로 63, 하차 위치">
-        </label>
-        <p>정확한 차량 배송료 안내를 위해 도로명주소와 상세 위치를 입력해주세요.</p>
-      </div>
+        <div class="shipping-address" id="shippingAddressWrap" hidden>
+          <label for="shippingAddress">
+            <span>배송지 상세주소</span>
+            <input id="shippingAddress" type="text" autocomplete="street-address" placeholder="예: 서울 성동구 왕십리로 63, 하차 위치">
+          </label>
+          <p>정확한 차량 배송료 안내를 위해 도로명주소와 상세 위치를 입력해주세요.</p>
+        </div>
+      </section>
 
-      <details class="message-preview">
-        <summary>복사될 상담 내용 확인·수정</summary>
-        <textarea id="consultationPreview" rows="13" aria-label="네이버 톡톡에 복사될 상담 내용"></textarea>
-      </details>
+      <section class="review-step" aria-labelledby="reviewStep2Title">
+        <div class="review-step-head">
+          <span class="review-step-number">2단계</span>
+          <h4 id="reviewStep2Title">상담내용 수정 및 최종 확인</h4>
+        </div>
+        <p class="review-step-desc">계산 결과와 선택 항목이 자동으로 작성됩니다. 필요한 내용을 자유롭게 수정해주세요.</p>
+        <details class="message-preview" open>
+          <summary>상담내용 확인·수정</summary>
+          <textarea id="consultationPreview" rows="13" aria-label="네이버 톡톡에 복사될 상담 내용"></textarea>
+        </details>
+      </section>
 
-      <button class="btn btn-fill review-submit" id="copyTalkBtn" type="button">상담내용 복사 후 네이버 톡톡 열기</button>
-      <p class="review-help">버튼을 누르면 계산 결과와 선택한 내용이 복사됩니다. 열린 톡톡 입력창에 붙여넣어 보내주세요.<br>PC는 Ctrl+V, 모바일은 입력창을 길게 눌러 ‘붙여넣기’를 선택하면 됩니다.</p>
+      <section class="review-step review-step-final" aria-labelledby="reviewStep3Title">
+        <div class="review-step-head">
+          <span class="review-step-number">3단계</span>
+          <h4 id="reviewStep3Title">상담내용을 복사하여 네이버 톡톡에 전달</h4>
+        </div>
+        <p class="review-step-desc">아래 버튼을 누른 뒤 열린 톡톡 입력창에 상담내용을 붙여넣어 보내주세요.</p>
+        <button class="btn btn-fill review-submit" id="copyTalkBtn" type="button">상담내용 복사 후 네이버 톡톡 열기</button>
+        <p class="review-help">PC는 Ctrl+V, 모바일은 입력창을 길게 눌러 ‘붙여넣기’를 선택하면 됩니다.</p>
+      </section>
+
       <p class="review-disclaimer">현장 조건에 따라 수량이 줄거나 같을 수 있으며, 재단 손실 때문에 늘어날 수도 있습니다. 상세 배치도·재단도는 구매 조건과 프로젝트 규모에 따라 안내됩니다.</p>
     </div>
   `;
