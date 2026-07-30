@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>네오우드솔루션 | 합판 물량 산출기</title>
+  <meta name="description" content="바닥 채움, 벽면 계산, 재단 수량, 규격 비교까지 빠르게 확인할 수 있는 네오우드솔루션 합판 물량 산출기" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand-link" href="#top" aria-label="네오우드솔루션">
+        <img class="brand-logo" src="./logo-header.jpg" alt="네오우드솔루션 로고" />
+      </a>
+
+      <nav class="main-nav">
+        <a href="#service-entry">서비스 선택</a>
+        <a href="#modes">무료 물량 계산</a>
+        <a href="./simulator.html">재단 모양 시뮬레이션</a>
+        <a href="#premium">정밀 검토</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="btn btn-line" id="heroConsultBtn" type="button">톡톡 상담</button>
+        <button class="btn btn-line" id="heroPhoneBtn" type="button">전화 상담</button>
+        <button class="btn btn-fill" id="heroStoreBtn" type="button">스토어</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero hero-renewal" aria-labelledby="heroTitle">
+      <div class="shell hero-renewal-grid">
+        <div class="hero-renewal-copy">
+          <div class="hero-renewal-eyebrow">도면을 읽는 자재 파트너, 네오우드솔루션</div>
+          <h1 id="heroTitle">필요한 합판 수량,<br><span>직접 계산해 보세요.</span></h1>
+          <p class="hero-renewal-desc">
+            바닥·벽면·재단·규격 비교까지 간단한 입력으로 빠르게 확인하고,<br>
+            더 경제적인 물량과 용도에 맞는 자재는 전문가와 함께 검토합니다.
+          </p>
+
+          <div class="hero-proof-grid" aria-label="네오우드솔루션 전문성">
+            <div class="hero-proof-item">
+              <span class="hero-proof-icon" aria-hidden="true">33</span>
+              <div><strong>33년 목재 노하우</strong><small>자재 경험 기반</small></div>
+            </div>
+            <div class="hero-proof-item">
+              <span class="hero-proof-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" class="icon"><path d="M4 19h16M6 17V9l6-5 6 5v8M9 17v-5h6v5"/></svg>
+              </span>
+              <div><strong>건축 전공</strong><small>도면과 공간 이해</small></div>
+            </div>
+            <div class="hero-proof-item">
+              <span class="hero-proof-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" class="icon"><path d="M4 17h16M6 17v-6h12v6M8 11V8h8v3M9 8V5h6v3"/></svg>
+              </span>
+              <div><strong>건설현장 실무 경험</strong><small>현장 조건까지 고려</small></div>
+            </div>
+            <div class="hero-proof-item">
+              <span class="hero-proof-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" class="icon"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg>
+              </span>
+              <div><strong>용도에 맞는 자재 상담</strong><small>합판 종류·두께 검토</small></div>
+            </div>
+          </div>
+
+          <div class="hero-renewal-actions" aria-label="주요 서비스 바로가기">
+            <a class="hero-tool-button hero-tool-button-primary" href="#modes">
+              <span class="hero-tool-button-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" class="icon"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h2M12 11h2M16 11h1M8 15h2M12 15h2M16 15h1"/></svg>
+              </span>
+              <span><strong>무료로 물량 계산하기</strong><small>바닥·벽면·재단 수량·규격 비교</small></span>
+            </a>
+            <a class="hero-tool-button hero-tool-button-secondary" href="./simulator.html">
+              <span class="hero-tool-button-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" class="icon"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/></svg>
+              </span>
+              <span><strong>재단 모양 만들어보기</strong><small>다양한 형태를 치수대로 미리보기</small></span>
+            </a>
+          </div>
+          <p class="hero-free-note">회원가입 없이 무료로 이용할 수 있습니다.</p>
+        </div>
+
+        <div class="hero-renewal-visual" aria-label="도면과 합판 자재를 표현한 비주얼">
+          <div class="hero-blueprint-grid" aria-hidden="true"></div>
+          <svg class="hero-shelf-drawing" viewBox="0 0 650 470" role="img" aria-label="치수가 표시된 수납장 도면">
+            <g class="hero-drawing-grid">
+              <path d="M92 94H548M92 162H548M92 230H548M92 298H548M92 366H548"/>
+              <path d="M92 94V366M183 94V366M274 94V366M365 94V366M456 94V366M548 94V366"/>
+            </g>
+            <g class="hero-drawing-frame">
+              <rect x="92" y="94" width="456" height="272"/>
+              <path d="M92 366l36 29h459l-39-29M548 94l39 28v273"/>
+              <path d="M183 94V366M274 94V366M365 94V366M456 94V366"/>
+              <path d="M92 162H548M92 230H548M92 298H548"/>
+            </g>
+            <g class="hero-drawing-dimension">
+              <path d="M92 58H548M92 50V66M548 50V66"/>
+              <text x="320" y="45" text-anchor="middle">3,000</text>
+              <path d="M586 94V366M578 94H594M578 366H594"/>
+              <text x="614" y="230" text-anchor="middle" transform="rotate(-90 614 230)">4,180</text>
+            </g>
+          </svg>
+          <div class="hero-wood-object">
+            <img src="./floor.webp" alt="현장에 놓인 합판 원장" />
+          </div>
+          <div class="hero-visual-caption">DRAWING · QUANTITY · MATERIAL</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="service-entry" class="section tool-choice-section" aria-labelledby="toolChoiceTitle">
+      <div class="shell">
+        <div class="section-head center tool-choice-heading">
+          <div class="eyebrow">두 가지 무료 도구</div>
+          <h2 id="toolChoiceTitle">필요한 작업을 선택해 바로 시작하세요</h2>
+          <p class="section-note">합판 장수가 궁금하다면 물량 계산을, 원하는 재단 형태를 눈으로 확인하려면 시뮬레이션을 선택하세요.</p>
+        </div>
+
+        <div class="tool-choice-grid">
+          <article class="tool-choice-card tool-choice-quantity">
+            <div class="tool-choice-number">01</div>
+            <div class="tool-choice-content">
+              <div class="tool-choice-label">QUANTITY ESTIMATOR</div>
+              <h3>무료로 물량 계산하기</h3>
+              <p>바닥·벽면·재단물의 예상 합판 수량을 간단한 치수 입력으로 빠르게 확인합니다.</p>
+              <div class="tool-feature-grid" aria-label="물량 계산 기능">
+                <span>바닥 채움</span><span>벽면 계산</span><span>재단 수량</span><span>규격 비교</span>
+              </div>
+              <a class="tool-choice-link tool-choice-link-primary" href="#modes">물량 계산 시작 <span aria-hidden="true">→</span></a>
+            </div>
+            <div class="tool-choice-graphic quantity-graphic" aria-hidden="true">
+              <svg viewBox="0 0 360 250">
+                <rect x="38" y="46" width="284" height="156" rx="8"/>
+                <path d="M38 98h284M38 150h284M109 46v156M180 46v156M251 46v156"/>
+                <path d="M38 27h284M38 21v12M322 21v12"/>
+                <text x="180" y="18" text-anchor="middle">원장 배치와 예상 장수</text>
+              </svg>
+            </div>
+          </article>
+
+          <article class="tool-choice-card tool-choice-simulator">
+            <div class="tool-choice-number">02</div>
+            <div class="tool-choice-content">
+              <div class="tool-choice-label">SHAPE SIMULATOR</div>
+              <h3>모양별 재단 시뮬레이션</h3>
+              <p>형태를 선택하고 치수를 입력하면 실제 비율에 맞는 재단 모양과 치수선을 바로 확인할 수 있습니다.</p>
+              <div class="tool-shape-row" aria-label="지원 형태">
+                <span class="shape-mini rectangle" title="직사각형"></span>
+                <span class="shape-mini circle" title="원형"></span>
+                <span class="shape-mini triangle" title="직각삼각형"></span>
+                <span class="shape-mini trapezoid" title="사다리꼴"></span>
+                <span class="shape-mini lshape" title="ㄱ자형"></span>
+              </div>
+              <a class="tool-choice-link tool-choice-link-secondary" href="./simulator.html">재단 모양 만들어보기 <span aria-hidden="true">→</span></a>
+              <div class="tool-choice-caution">참고용 도면 제작 도구이며, 실제 가공 가능 범위는 별도 확인이 필요합니다.</div>
+            </div>
+            <div class="tool-choice-graphic simulator-graphic" aria-hidden="true">
+              <svg viewBox="0 0 360 250">
+                <rect x="36" y="38" width="288" height="176" rx="12"/>
+                <rect x="66" y="68" width="104" height="58" rx="3"/>
+                <circle cx="249" cy="98" r="35"/>
+                <path d="M70 188v-46l82 46zM204 188l18-48h75l22 48z"/>
+                <path d="M66 54h104M66 49v10M170 49v10"/>
+              </svg>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="modes" class="section section-tight">
+      <div class="shell">
+        <div class="section-head center">
+          <div class="eyebrow">물량 산출</div>
+          <h2>원하시는 물량 산출 항목을 선택하세요</h2>
+        </div>
+
+        <div class="mode-grid">
+          <article class="mode-card">
+            <img class="mode-photo" src="./floor.webp" alt="바닥 채움 예시 사진" />
+            <div class="mode-body">
+              <div class="mode-icon">
+                <svg viewBox="0 0 24 24" class="icon"><rect x="4" y="6" width="16" height="12" rx="1.5"/><path d="M4 12h16M12 6v12"/></svg>
+              </div>
+              <h3>바닥 채움</h3>
+              <p>공간 기준 장수 계산</p>
+              <button class="mode-btn" type="button" data-target="floor">바로 계산</button>
+            </div>
+          </article>
+
+          <article class="mode-card">
+            <img class="mode-photo" src="./wall.webp" alt="벽면 계산 예시 사진" />
+            <div class="mode-body">
+              <div class="mode-icon">
+                <svg viewBox="0 0 24 24" class="icon"><path d="M5 4h14v16H5z"/><path d="M5 9h14"/></svg>
+              </div>
+              <h3>벽면 계산</h3>
+              <p>벽 1면 물량 확인</p>
+              <button class="mode-btn" type="button" data-target="wall">바로 계산</button>
+            </div>
+          </article>
+
+          <article class="mode-card">
+            <img class="mode-photo" src="./cut.webp" alt="재단 수량 예시 사진" />
+            <div class="mode-body">
+              <div class="mode-icon">
+                <svg viewBox="0 0 24 24" class="icon"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M9 5v14M15 5v14"/></svg>
+              </div>
+              <h3>재단 수량</h3>
+              <p>원장 수 빠른 확인</p>
+              <button class="mode-btn" type="button" data-target="cutlist">바로 계산</button>
+            </div>
+          </article>
+
+          <article class="mode-card">
+            <img class="mode-photo" src="./compare.webp" alt="규격 비교 예시 사진" />
+            <div class="mode-body">
+              <div class="mode-icon">
+                <svg viewBox="0 0 24 24" class="icon"><path d="M4 18h6V6H4zM14 18h6V10h-6z"/></svg>
+              </div>
+              <h3>규격 비교</h3>
+              <p>장수 / 가공 부담 비교</p>
+              <button class="mode-btn" type="button" data-target="compare">바로 계산</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="calculator" class="section section-alt">
+      <div class="shell calc-layout">
+        <div class="calc-box">
+          <div class="box-head">
+            <strong>빠른 계산</strong>
+            <span>선택 후 바로 입력</span>
+          </div>
+
+          <div class="tab-row" id="modeTabs">
+            <button class="tab active" data-mode="floor" type="button">바닥</button>
+            <button class="tab" data-mode="wall" type="button">벽면</button>
+            <button class="tab" data-mode="cutlist" type="button">재단</button>
+            <button class="tab" data-mode="compare" type="button">비교</button>
+          </div>
+
+          <div class="panel active" data-pane="floor">
+            <div class="field-grid">
+              <label><span>가로(mm)</span><input id="floorWidth" type="number" value="7190"></label>
+              <label><span>세로(mm)</span><input id="floorHeight" type="number" value="2790"></label>
+              <label><span>규격</span>
+                <select id="floorSheet">
+                  <option value="910x1820">910 × 1820</option>
+                  <option value="1220x2440" selected>1220 × 2440</option>
+                </select>
+              </label>
+              <label><span>여유분</span>
+                <select id="floorExtra">
+                  <option value="0">추가 안함</option>
+                  <option value="1" selected>1장 추가</option>
+                  <option value="2">2장 추가</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="panel" data-pane="wall">
+            <div class="field-grid">
+              <label><span>벽 가로(mm)</span><input id="wallWidth" type="number" value="3600"></label>
+              <label><span>벽 높이(mm)</span><input id="wallHeight" type="number" value="2400"></label>
+              <label><span>규격</span>
+                <select id="wallSheet">
+                  <option value="910x1820">910 × 1820</option>
+                  <option value="1220x2440" selected>1220 × 2440</option>
+                </select>
+              </label>
+              <label><span>여유분</span>
+                <select id="wallExtra">
+                  <option value="0" selected>추가 안함</option>
+                  <option value="1">1장 추가</option>
+                  <option value="2">2장 추가</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="panel" data-pane="cutlist">
+            <div class="cut-helper">예시: 900 × 1800 사이즈 20개처럼 입력해 주세요.</div>
+            <div id="cutPieces"></div>
+            <div class="inline-action"><button class="btn btn-soft" id="addPieceBtn" type="button">재단 행 추가</button></div>
+            <div class="field-grid top-gap">
+              <label><span>원장 규격</span>
+                <select id="cutSheet">
+                  <option value="910x1820">910 × 1820</option>
+                  <option value="1220x2440" selected>1220 × 2440</option>
+                </select>
+              </label>
+              <label><span>여유분</span>
+                <select id="cutExtra">
+                  <option value="0" selected>추가 안함</option>
+                  <option value="1">1장 추가</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="panel" data-pane="compare">
+            <div class="compare-headline">같은 공간 기준으로 규격별 장수 차이를 빠르게 비교합니다.</div>
+            <div class="field-grid">
+              <label><span>가로(mm)</span><input id="cmpWidth" type="number" value="7190"></label>
+              <label><span>세로(mm)</span><input id="cmpHeight" type="number" value="2790"></label>
+              <label><span>비교 규격 A</span>
+                <select id="cmpA">
+                  <option value="910x1820">910 × 1820</option>
+                  <option value="1220x2440" selected>1220 × 2440</option>
+                </select>
+              </label>
+              <label><span>비교 규격 B</span>
+                <select id="cmpB">
+                  <option value="910x1820" selected>910 × 1820</option>
+                  <option value="1220x2440">1220 × 2440</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="calc-actions">
+            <button class="btn btn-fill" id="runCalcBtn" type="button">산출 실행</button>
+            <button class="btn btn-line" id="consultBtn" type="button">톡톡 상담</button>
+            <button class="btn btn-line" id="phoneBtn" type="button">전화 상담</button>
+            <button class="btn btn-soft" id="storeBtn" type="button">스토어 보기</button>
+          </div>
+        </div>
+
+        <div class="result-box">
+          <div class="result-head">
+            <div>
+              <div class="eyebrow small">빠른 계산 결과</div>
+              <h3>빠른 예상 물량</h3>
+            </div>
+            <span class="pill" id="usageBadge">익명 사용자</span>
+          </div>
+
+          <div class="result-guide-compact">
+            <strong>빠른 계산 후 정밀 검토까지</strong>
+            <span>원장 배치와 자투리 활용 가능성을 검토해 실제 발주에 적합한 수량과 대안을 안내합니다.</span>
+            <a href="#premium">검토 방식 보기</a>
+          </div>
+
+          <div id="resultArea" class="result-stack">
+            <div class="notice-card">
+              왼쪽에서 계산 항목을 선택하고 <strong>산출 실행</strong>을 눌러주세요.
+            </div>
+          </div>
+
+          <div class="result-meta">
+            <span>오늘 계산 횟수 <strong id="todayCount">0</strong></span>
+            <span class="code" id="sessionShort">-</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="premium" class="section premium-section">
+      <div class="shell premium-wrap">
+        <div class="premium-left">
+          <div class="eyebrow invert">정밀 물량 검토</div>
+          <h2>많이 판매하기보다, 실제 필요한 물량에 가까운 발주안을 함께 검토합니다.</h2>
+        </div>
+
+        <div class="premium-right">
+          <div class="premium-grid">
+            <div class="premium-card big">
+              <strong>원장 배치·재단도 검토</strong>
+              <span>면적 계산을 넘어 실제 재단 규격과 배치 조건을 확인합니다.</span>
+            </div>
+            <div class="premium-card">
+              <strong>자투리 활용 검토</strong>
+              <span>남는 판재를 다른 부재에 활용할 수 있는지 확인합니다.</span>
+            </div>
+            <div class="premium-card">
+              <strong>자재 대안 제안</strong>
+              <span>용도와 예산에 맞는 합판 종류·두께를 상담합니다.</span>
+            </div>
+            <div class="premium-card">
+              <strong>배송 견적 안내</strong>
+              <span>상세주소를 기준으로 차량 배송료를 확인합니다.</span>
+            </div>
+          </div>
+
+          <div class="premium-actions">
+            <button class="btn btn-fill" id="premiumConsultBtn" type="button">톡톡으로 정밀 검토 상담</button>
+            <button class="btn btn-line light" id="premiumPhoneBtn" type="button">전화 상담</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <div class="footer-brand-block">
+        <img class="footer-mark" src="./logo-mark.png" alt="네오우드솔루션 로고" />
+        <div>
+          <div class="footer-brand">NeoWood Solution</div>
+          <div class="footer-copy">합판, 각재, 인테리어 자재를 더 쉽게 계산하고 더 편하게 구매할 수 있도록 돕는 자재 파트너</div>
+        </div>
+      </div>
+      <div class="footer-links">
+        <button class="footer-link" id="footerConsultBtn" type="button">네이버톡톡</button>
+        <button class="footer-link" id="footerPhoneBtn" type="button">전화 상담</button>
+        <button class="footer-link" id="footerStoreBtn" type="button">스마트스토어</button>
+      </div>
+    </div>
+    <div class="copyright">© NeoWood Solution. All rights reserved. 무단 복제, 수정, 재배포를 금지합니다.</div>
+  </footer>
+
+  <div class="copy-toast" id="copyToast" role="status" aria-live="polite"></div>
+  <script src="./public-app.js"></script>
+</body>
+</html>
