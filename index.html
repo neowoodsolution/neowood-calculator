@@ -124,21 +124,11 @@
               <h3>모양별 재단 시뮬레이션</h3>
               <p>형태를 선택하고 치수를 입력하면 실제 비율에 맞는 재단 모양과 치수선을 바로 확인할 수 있습니다.</p>
               <div class="tool-shape-row" aria-label="지원 형태">
-                <span class="shape-mini shape-svg" title="직사각형">
-                  <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="9" width="34" height="30" rx="0"/></svg>
-                </span>
-                <span class="shape-mini shape-svg" title="원형">
-                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="16"/></svg>
-                </span>
-                <span class="shape-mini shape-svg" title="직각삼각형">
-                  <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 38L24 10l16 28z"/></svg>
-                </span>
-                <span class="shape-mini shape-svg" title="사다리꼴">
-                  <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M14 10h20l8 28H6z"/></svg>
-                </span>
-                <span class="shape-mini shape-svg" title="ㄱ자형">
-                  <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 10h30v10H18v18H8z"/></svg>
-                </span>
+                <span class="shape-mini shape-svg" title="직사각형"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="9" width="34" height="30" rx="0"/></svg></span>
+                <span class="shape-mini shape-svg" title="원형"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="16"/></svg></span>
+                <span class="shape-mini shape-svg" title="직각삼각형"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 38L24 10l16 28z"/></svg></span>
+                <span class="shape-mini shape-svg" title="사다리꼴"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M14 10h20l8 28H6z"/></svg></span>
+                <span class="shape-mini shape-svg" title="ㄱ자형"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 10h30v10H18v18H8z"/></svg></span>
               </div>
               <a class="tool-choice-link tool-choice-link-secondary" href="./simulator.html">재단 모양 만들어보기 <span aria-hidden="true">→</span></a>
               <div class="tool-choice-caution">참고용 도면 제작 도구이며, 실제 가공 가능 범위는 별도 확인이 필요합니다.</div>
@@ -167,50 +157,19 @@
         <div class="mode-grid">
           <article class="mode-card">
             <img class="mode-photo" src="./cut.webp" alt="재단 수량 예시 사진" />
-            <div class="mode-body">
-              <div class="mode-icon">
-                <svg viewBox="0 0 24 24" class="icon"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M9 5v14M15 5v14"/><path d="M18.6 7.2a2.2 2.2 0 1 0 0 4.4M18.6 7.2v4.4"/></svg>
-              </div>
-              <h3>재단 수량</h3>
-              <p>원장 수 빠른 확인</p>
-              <button class="mode-btn" type="button" data-target="cutlist">바로 계산</button>
-            </div>
+            <div class="mode-body"><div class="mode-icon"><svg viewBox="0 0 24 24" class="icon"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M9 5v14M15 5v14"/><path d="M18.6 7.2a2.2 2.2 0 1 0 0 4.4M18.6 7.2v4.4"/></svg></div><h3>재단 수량</h3><p>원장 수 빠른 확인</p><button class="mode-btn" type="button" data-target="cutlist">바로 계산</button></div>
           </article>
-
           <article class="mode-card">
             <img class="mode-photo" src="./floor.webp" alt="바닥 채움 예시 사진" />
-            <div class="mode-body">
-              <div class="mode-icon">
-                <svg viewBox="0 0 24 24" class="icon"><path d="M4 18h16"/><path d="M4 13l4-2.5 4 2.5 4-2.5 4 2.5"/><path d="M4 8l4-2.5 4 2.5 4-2.5 4 2.5"/><path d="M8 5.5V18M12 8v10M16 5.5V18"/></svg>
-              </div>
-              <h3>바닥 채움</h3>
-              <p>공간 기준 장수 계산</p>
-              <button class="mode-btn" type="button" data-target="floor">바로 계산</button>
-            </div>
+            <div class="mode-body"><div class="mode-icon"><svg viewBox="0 0 24 24" class="icon"><path d="M4 18h16"/><path d="M4 13l4-2.5 4 2.5 4-2.5 4 2.5"/><path d="M4 8l4-2.5 4 2.5 4-2.5 4 2.5"/><path d="M8 5.5V18M12 8v10M16 5.5V18"/></svg></div><h3>바닥 채움</h3><p>공간 기준 장수 계산</p><button class="mode-btn" type="button" data-target="floor">바로 계산</button></div>
           </article>
-
           <article class="mode-card">
             <img class="mode-photo" src="./wall.webp" alt="벽면 계산 예시 사진" />
-            <div class="mode-body">
-              <div class="mode-icon">
-                <svg viewBox="0 0 24 24" class="icon"><path d="M5 4h14v16H5z"/><path d="M5 9h14"/></svg>
-              </div>
-              <h3>벽면 계산</h3>
-              <p>벽 1면 물량 확인</p>
-              <button class="mode-btn" type="button" data-target="wall">바로 계산</button>
-            </div>
+            <div class="mode-body"><div class="mode-icon"><svg viewBox="0 0 24 24" class="icon"><path d="M5 4h14v16H5z"/><path d="M5 9h14"/></svg></div><h3>벽면 계산</h3><p>벽 1면 물량 확인</p><button class="mode-btn" type="button" data-target="wall">바로 계산</button></div>
           </article>
-
           <article class="mode-card">
             <img class="mode-photo" src="./compare.webp" alt="규격 비교 예시 사진" />
-            <div class="mode-body">
-              <div class="mode-icon">
-                <svg viewBox="0 0 24 24" class="icon"><path d="M4 18h6V6H4zM14 18h6V10h-6z"/></svg>
-              </div>
-              <h3>규격 비교</h3>
-              <p>장수 / 가공 부담 비교</p>
-              <button class="mode-btn" type="button" data-target="compare">바로 계산</button>
-            </div>
+            <div class="mode-body"><div class="mode-icon"><svg viewBox="0 0 24 24" class="icon"><path d="M4 18h6V6H4zM14 18h6V10h-6z"/></svg></div><h3>규격 비교</h3><p>장수 / 가공 부담 비교</p><button class="mode-btn" type="button" data-target="compare">바로 계산</button></div>
           </article>
         </div>
       </div>
@@ -219,10 +178,7 @@
     <section id="calculator" class="section section-alt">
       <div class="shell calc-layout">
         <div class="calc-box">
-          <div class="box-head">
-            <strong>빠른 계산</strong>
-            <span>선택 후 바로 입력</span>
-          </div>
+          <div class="box-head"><strong>빠른 계산</strong><span>선택 후 바로 입력</span></div>
 
           <div class="tab-row" id="modeTabs">
             <button class="tab active" data-mode="floor" type="button">바닥</button>
@@ -235,19 +191,8 @@
             <div class="field-grid">
               <label><span>가로(mm)</span><input id="floorWidth" type="number" value="7190"></label>
               <label><span>세로(mm)</span><input id="floorHeight" type="number" value="2790"></label>
-              <label><span>규격</span>
-                <select id="floorSheet">
-                  <option value="910x1820">910 × 1820</option>
-                  <option value="1220x2440" selected>1220 × 2440</option>
-                </select>
-              </label>
-              <label><span>여유분</span>
-                <select id="floorExtra">
-                  <option value="0">추가 안함</option>
-                  <option value="1" selected>1장 추가</option>
-                  <option value="2">2장 추가</option>
-                </select>
-              </label>
+              <label><span>규격</span><select id="floorSheet"><option value="910x1820">910 × 1820</option><option value="1220x2440" selected>1220 × 2440</option></select></label>
+              <label><span>여유분</span><select id="floorExtra"><option value="0">추가 안함</option><option value="1" selected>1장 추가</option><option value="2">2장 추가</option></select></label>
             </div>
           </div>
 
@@ -255,19 +200,8 @@
             <div class="field-grid">
               <label><span>벽 가로(mm)</span><input id="wallWidth" type="number" value="3600"></label>
               <label><span>벽 높이(mm)</span><input id="wallHeight" type="number" value="2400"></label>
-              <label><span>규격</span>
-                <select id="wallSheet">
-                  <option value="910x1820">910 × 1820</option>
-                  <option value="1220x2440" selected>1220 × 2440</option>
-                </select>
-              </label>
-              <label><span>여유분</span>
-                <select id="wallExtra">
-                  <option value="0" selected>추가 안함</option>
-                  <option value="1">1장 추가</option>
-                  <option value="2">2장 추가</option>
-                </select>
-              </label>
+              <label><span>규격</span><select id="wallSheet"><option value="910x1820">910 × 1820</option><option value="1220x2440" selected>1220 × 2440</option></select></label>
+              <label><span>여유분</span><select id="wallExtra"><option value="0" selected>추가 안함</option><option value="1">1장 추가</option><option value="2">2장 추가</option></select></label>
             </div>
           </div>
 
@@ -276,18 +210,8 @@
             <div id="cutPieces"></div>
             <div class="inline-action"><button class="btn btn-soft" id="addPieceBtn" type="button">재단 행 추가</button></div>
             <div class="field-grid top-gap">
-              <label><span>원장 규격</span>
-                <select id="cutSheet">
-                  <option value="910x1820">910 × 1820</option>
-                  <option value="1220x2440" selected>1220 × 2440</option>
-                </select>
-              </label>
-              <label><span>여유분</span>
-                <select id="cutExtra">
-                  <option value="0" selected>추가 안함</option>
-                  <option value="1">1장 추가</option>
-                </select>
-              </label>
+              <label><span>원장 규격</span><select id="cutSheet"><option value="910x1820">910 × 1820</option><option value="1220x2440" selected>1220 × 2440</option></select></label>
+              <label><span>여유분</span><select id="cutExtra"><option value="0" selected>추가 안함</option><option value="1">1장 추가</option></select></label>
             </div>
           </div>
 
@@ -296,18 +220,8 @@
             <div class="field-grid">
               <label><span>가로(mm)</span><input id="cmpWidth" type="number" value="7190"></label>
               <label><span>세로(mm)</span><input id="cmpHeight" type="number" value="2790"></label>
-              <label><span>비교 규격 A</span>
-                <select id="cmpA">
-                  <option value="910x1820">910 × 1820</option>
-                  <option value="1220x2440" selected>1220 × 2440</option>
-                </select>
-              </label>
-              <label><span>비교 규격 B</span>
-                <select id="cmpB">
-                  <option value="910x1820" selected>910 × 1820</option>
-                  <option value="1220x2440">1220 × 2440</option>
-                </select>
-              </label>
+              <label><span>비교 규격 A</span><select id="cmpA"><option value="910x1820">910 × 1820</option><option value="1220x2440" selected>1220 × 2440</option></select></label>
+              <label><span>비교 규격 B</span><select id="cmpB"><option value="910x1820" selected>910 × 1820</option><option value="1220x2440">1220 × 2440</option></select></label>
             </div>
           </div>
 
@@ -321,10 +235,7 @@
 
         <div class="result-box">
           <div class="result-head">
-            <div>
-              <div class="eyebrow small">빠른 계산 결과</div>
-              <h3>빠른 예상 물량</h3>
-            </div>
+            <div><div class="eyebrow small">빠른 계산 결과</div><h3>빠른 예상 물량</h3></div>
             <span class="pill" id="usageBadge">익명 사용자</span>
           </div>
 
@@ -334,9 +245,7 @@
           </div>
 
           <div id="resultArea" class="result-stack">
-            <div class="notice-card">
-              왼쪽에서 계산 항목을 선택하고 <strong>산출 실행</strong>을 눌러주세요.
-            </div>
+            <div class="notice-card">왼쪽에서 계산 항목을 선택하고 <strong>산출 실행</strong>을 눌러주세요.</div>
           </div>
 
           <div class="result-meta">
@@ -356,24 +265,9 @@
         </div>
 
         <div class="precision-steps">
-          <article class="precision-step">
-            <span class="precision-step-number">1</span>
-            <div class="precision-step-icon" aria-hidden="true">✓</div>
-            <h3>이 물량, 더 경제적으로 검토해볼까요?</h3>
-            <p>검토받고 싶은 항목을 선택하면 상담 내용을 자동으로 준비합니다.</p>
-          </article>
-          <article class="precision-step">
-            <span class="precision-step-number">2</span>
-            <div class="precision-step-icon" aria-hidden="true">✎</div>
-            <h3>상담내용 수정 및 최종 확인</h3>
-            <p>자동 생성된 상담 내용을 확인하고 필요한 부분을 직접 수정합니다.</p>
-          </article>
-          <article class="precision-step">
-            <span class="precision-step-number">3</span>
-            <div class="precision-step-icon" aria-hidden="true">💬</div>
-            <h3>상담내용을 복사하여 네이버 톡톡에 전달</h3>
-            <p>복사한 내용을 톡톡에 붙여넣으면 정밀 검토 상담이 시작됩니다.</p>
-          </article>
+          <article class="precision-step"><span class="precision-step-number">1</span><div class="precision-step-icon" aria-hidden="true">✓</div><h3>이 물량, 더 경제적으로 검토해볼까요?</h3><p>검토받고 싶은 항목을 선택하면 상담 내용을 자동으로 준비합니다.</p></article>
+          <article class="precision-step"><span class="precision-step-number">2</span><div class="precision-step-icon" aria-hidden="true">✎</div><h3>상담내용 수정 및 최종 확인</h3><p>자동 생성된 상담 내용을 확인하고 필요한 부분을 직접 수정합니다.</p></article>
+          <article class="precision-step"><span class="precision-step-number">3</span><div class="precision-step-icon" aria-hidden="true">💬</div><h3>상담내용을 복사하여 네이버 톡톡에 전달</h3><p>복사한 내용을 톡톡에 붙여넣으면 정밀 검토 상담이 시작됩니다.</p></article>
         </div>
 
         <div class="premium-actions precision-actions">
@@ -390,14 +284,10 @@
           <h2>단순히 판매하지 않습니다.<br><strong>함께 고민하고,<br>적합한 방향을 제안합니다.</strong></h2>
         </div>
         <div class="process-flow" aria-label="네오우드솔루션 서비스 흐름">
-          <div class="process-item"><b>01</b><strong>도면 검토</strong><span>구조와 치수 확인</span></div>
-          <i>→</i>
-          <div class="process-item"><b>02</b><strong>물량 산출</strong><span>필요 수량 계산</span></div>
-          <i>→</i>
-          <div class="process-item"><b>03</b><strong>자투리 검토</strong><span>원장 활용 방향</span></div>
-          <i>→</i>
-          <div class="process-item"><b>04</b><strong>자재 상담</strong><span>용도별 자재 제안</span></div>
-          <i>→</i>
+          <div class="process-item"><b>01</b><strong>도면 검토</strong><span>구조와 치수 확인</span></div><i>→</i>
+          <div class="process-item"><b>02</b><strong>물량 산출</strong><span>필요 수량 계산</span></div><i>→</i>
+          <div class="process-item"><b>03</b><strong>자투리 검토</strong><span>원장 활용 방향</span></div><i>→</i>
+          <div class="process-item"><b>04</b><strong>자재 상담</strong><span>용도별 자재 제안</span></div><i>→</i>
           <div class="process-item"><b>05</b><strong>납품 지원</strong><span>배송 조건 안내</span></div>
         </div>
       </div>
@@ -424,5 +314,474 @@
 
   <div class="copy-toast" id="copyToast" role="status" aria-live="polite"></div>
   <script src="./public-app.js"></script>
+  <script>
+(() => {
+  'use strict';
+
+  const DISPLAY_VERSION = 'Version 1.8';
+  const ENGINE_VERSION = 'NEOWOOD Plywood Optimizer v1.8.0';
+  const SCRIPT_MARKER = 'neowood-optimizer-v1.8';
+
+  let isCalculating = false;
+  let bypassCalculationGuard = false;
+  let currentResultId = '';
+  let loaderTimers = [];
+
+  const $ = (selector, root = document) => root.querySelector(selector);
+
+  function injectStyles() {
+    if (document.getElementById(`${SCRIPT_MARKER}-styles`)) return;
+
+    const style = document.createElement('style');
+    style.id = `${SCRIPT_MARKER}-styles`;
+    style.textContent = `
+      .nw-solution-version {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        width: fit-content;
+        margin: 12px 0 2px;
+        padding: 7px 12px;
+        border: 1px solid rgba(255,255,255,.22);
+        border-radius: 999px;
+        background: rgba(255,255,255,.09);
+        color: rgba(255,255,255,.92);
+        font-size: 12px;
+        font-weight: 750;
+        letter-spacing: -.02em;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+      .nw-solution-version::before {
+        content: '';
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #50a7ff;
+        box-shadow: 0 0 0 4px rgba(80,167,255,.14);
+      }
+
+      .nw-calc-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background: rgba(5,16,31,.64);
+        backdrop-filter: blur(9px);
+        -webkit-backdrop-filter: blur(9px);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .2s ease, visibility .2s ease;
+      }
+      .nw-calc-overlay.is-visible {
+        opacity: 1;
+        visibility: visible;
+      }
+      .nw-calc-dialog {
+        width: min(440px, 100%);
+        padding: 34px 28px 28px;
+        border: 1px solid rgba(255,255,255,.13);
+        border-radius: 24px;
+        background: linear-gradient(145deg, #10243e 0%, #09182b 100%);
+        color: #fff;
+        box-shadow: 0 28px 80px rgba(0,0,0,.35);
+        text-align: center;
+      }
+      .nw-loader-visual {
+        position: relative;
+        width: 78px;
+        height: 78px;
+        margin: 0 auto 22px;
+      }
+      .nw-loader-ring,
+      .nw-loader-ring::before {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+      }
+      .nw-loader-ring {
+        border: 4px solid rgba(255,255,255,.12);
+        border-top-color: #65b5ff;
+        border-right-color: #65b5ff;
+        animation: nw-spin .9s linear infinite;
+      }
+      .nw-loader-ring::before {
+        content: '';
+        inset: 10px;
+        border: 2px solid rgba(101,181,255,.15);
+        border-bottom-color: rgba(101,181,255,.8);
+        animation: nw-spin-reverse 1.3s linear infinite;
+      }
+      .nw-loader-check {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: #2f8fe8;
+        font-size: 34px;
+        font-weight: 800;
+        opacity: 0;
+        transform: scale(.72);
+        transition: opacity .2s ease, transform .25s ease;
+      }
+      .nw-calc-overlay.is-complete .nw-loader-ring { opacity: 0; }
+      .nw-calc-overlay.is-complete .nw-loader-check {
+        opacity: 1;
+        transform: scale(1);
+      }
+      .nw-loader-kicker {
+        margin-bottom: 8px;
+        color: #77bdff;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: .12em;
+      }
+      .nw-loader-title {
+        margin: 0;
+        font-size: clamp(21px, 4.8vw, 26px);
+        line-height: 1.35;
+        letter-spacing: -.035em;
+      }
+      .nw-loader-desc {
+        min-height: 44px;
+        margin: 9px 0 20px;
+        color: rgba(255,255,255,.68);
+        font-size: 14px;
+        line-height: 1.55;
+      }
+      .nw-loader-progress {
+        position: relative;
+        overflow: hidden;
+        height: 5px;
+        border-radius: 999px;
+        background: rgba(255,255,255,.1);
+      }
+      .nw-loader-progress > span {
+        display: block;
+        width: 18%;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, #3d91e5, #83c6ff);
+        transition: width .55s cubic-bezier(.2,.8,.2,1);
+      }
+      .nw-calc-overlay[data-step="2"] .nw-loader-progress > span { width: 55%; }
+      .nw-calc-overlay[data-step="3"] .nw-loader-progress > span { width: 84%; }
+      .nw-calc-overlay.is-complete .nw-loader-progress > span { width: 100%; }
+
+      .nw-result-system {
+        margin-top: 18px;
+        padding: 17px 18px;
+        border: 1px solid #dce7f2;
+        border-radius: 15px;
+        background: linear-gradient(135deg, #f7fbff 0%, #f1f6fb 100%);
+      }
+      .nw-result-system-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        padding-bottom: 12px;
+        margin-bottom: 12px;
+        border-bottom: 1px solid #dce7f2;
+      }
+      .nw-result-engine {
+        color: #173d64;
+        font-size: 13px;
+        font-weight: 850;
+        letter-spacing: .01em;
+      }
+      .nw-result-id {
+        flex: none;
+        padding: 5px 9px;
+        border-radius: 999px;
+        background: #e2effb;
+        color: #17588f;
+        font-size: 11px;
+        font-weight: 800;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+      .nw-result-system p {
+        margin: 0;
+        color: #5d6d7e;
+        font-size: 12px;
+        line-height: 1.65;
+      }
+      .nw-result-system p + p { margin-top: 2px; }
+
+      body.nw-calculating { overflow: hidden; }
+      #runCalcBtn[aria-busy="true"] { cursor: wait; }
+
+      @keyframes nw-spin { to { transform: rotate(360deg); } }
+      @keyframes nw-spin-reverse { to { transform: rotate(-360deg); } }
+
+      @media (max-width: 560px) {
+        .nw-calc-dialog { padding: 30px 20px 24px; border-radius: 20px; }
+        .nw-result-system-head { display: block; }
+        .nw-result-id { display: inline-block; margin-top: 8px; }
+        .nw-solution-version { font-size: 11px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .nw-loader-ring,
+        .nw-loader-ring::before { animation-duration: 2.4s; }
+        .nw-calc-overlay,
+        .nw-loader-check,
+        .nw-loader-progress > span { transition-duration: .01ms; }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function addVersionBadge() {
+    if ($('.nw-solution-version')) return;
+
+    const target = $('.hero-renewal-eyebrow') || $('.hero-eyebrow') || $('#heroTitle');
+    if (!target) return;
+
+    const badge = document.createElement('div');
+    badge.className = 'nw-solution-version';
+    badge.textContent = `네오우드 합판 물량산출 솔루션 · ${DISPLAY_VERSION}`;
+    target.insertAdjacentElement('afterend', badge);
+  }
+
+  function createLoader() {
+    let overlay = $('#nwCalcOverlay');
+    if (overlay) return overlay;
+
+    overlay = document.createElement('div');
+    overlay.id = 'nwCalcOverlay';
+    overlay.className = 'nw-calc-overlay';
+    overlay.dataset.step = '1';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'nwLoaderTitle');
+    overlay.setAttribute('aria-describedby', 'nwLoaderDesc');
+    overlay.innerHTML = `
+      <div class="nw-calc-dialog">
+        <div class="nw-loader-visual" aria-hidden="true">
+          <div class="nw-loader-ring"></div>
+          <div class="nw-loader-check">✓</div>
+        </div>
+        <div class="nw-loader-kicker">NEOWOOD OPTIMIZER</div>
+        <h2 class="nw-loader-title" id="nwLoaderTitle">입력 조건을 확인하고 있습니다</h2>
+        <p class="nw-loader-desc" id="nwLoaderDesc">공간 치수와 선택한 원장 규격을 검토합니다.</p>
+        <div class="nw-loader-progress" aria-hidden="true"><span></span></div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+    return overlay;
+  }
+
+  function clearLoaderTimers() {
+    loaderTimers.forEach(clearTimeout);
+    loaderTimers = [];
+  }
+
+  function setLoaderStep(step, title, description) {
+    const overlay = createLoader();
+    overlay.dataset.step = String(step);
+    $('#nwLoaderTitle', overlay).textContent = title;
+    $('#nwLoaderDesc', overlay).textContent = description;
+  }
+
+  function showLoader() {
+    const overlay = createLoader();
+    overlay.classList.remove('is-complete');
+    overlay.dataset.step = '1';
+    setLoaderStep(1, '입력 조건을 확인하고 있습니다', '공간 치수와 선택한 원장 규격을 검토합니다.');
+    document.body.classList.add('nw-calculating');
+    requestAnimationFrame(() => overlay.classList.add('is-visible'));
+  }
+
+  function completeLoader() {
+    const overlay = createLoader();
+    overlay.classList.add('is-complete');
+    $('#nwLoaderTitle', overlay).textContent = '산출이 완료되었습니다';
+    $('#nwLoaderDesc', overlay).textContent = '계산 결과와 정밀 검토 안내를 불러옵니다.';
+  }
+
+  function hideLoader() {
+    const overlay = createLoader();
+    overlay.classList.remove('is-visible', 'is-complete');
+    document.body.classList.remove('nw-calculating');
+  }
+
+  function localDateCode() {
+    const now = new Date();
+    const yy = String(now.getFullYear()).slice(-2);
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    const dd = String(now.getDate()).padStart(2, '0');
+    return `${yy}${mm}${dd}`;
+  }
+
+  function generateResultId() {
+    const dateCode = localDateCode();
+    const key = `nw_result_sequence_${dateCode}`;
+    let sequence = Number(localStorage.getItem(key) || '0') + 1;
+    if (!Number.isFinite(sequence) || sequence > 9999) sequence = 1;
+    localStorage.setItem(key, String(sequence));
+    return `NWP-${dateCode}-${String(sequence).padStart(4, '0')}`;
+  }
+
+  function getResultFooterHtml(resultId) {
+    return `
+      <div class="nw-result-system" data-result-id="${resultId}">
+        <div class="nw-result-system-head">
+          <div class="nw-result-engine">${ENGINE_VERSION}</div>
+          <div class="nw-result-id">Result ID: ${resultId}</div>
+        </div>
+        <p>본 결과는 입력 조건과 현재 산출 기준에 따라 계산되었습니다.</p>
+        <p>실제 시공 조건, 절단 손실 및 현장 여건에 따라 필요한 수량이 달라질 수 있습니다.</p>
+      </div>
+    `;
+  }
+
+  function appendResultFooter() {
+    const card = $('.quick-result-card');
+    if (!card || !currentResultId) return;
+
+    const existing = $('.nw-result-system', card);
+    if (existing) existing.remove();
+    card.insertAdjacentHTML('beforeend', getResultFooterHtml(currentResultId));
+  }
+
+  function addResultIdToPreview() {
+    const preview = $('#consultationPreview');
+    if (!preview || !currentResultId) return;
+
+    const resultLine = `결과번호: ${currentResultId}`;
+    const lines = preview.value.split('\n').filter(line => !line.startsWith('결과번호: NWP-'));
+    const headingIndex = lines.findIndex(line => line.includes('[네오우드솔루션 물량 검토 요청]'));
+
+    if (headingIndex >= 0) lines.splice(headingIndex + 1, 0, resultLine);
+    else lines.unshift(resultLine, '');
+
+    preview.value = lines.join('\n');
+  }
+
+  function wrapConsultationMessage() {
+    if (typeof window.buildConsultationMessage !== 'function') return;
+    if (window.buildConsultationMessage.__nwVersionWrapped) return;
+
+    const original = window.buildConsultationMessage;
+    const wrapped = function (...args) {
+      const message = original.apply(this, args);
+      if (!message || !currentResultId) return message;
+      if (message.includes(`결과번호: ${currentResultId}`)) return message;
+
+      const lines = message.split('\n');
+      const headingIndex = lines.findIndex(line => line.includes('[네오우드솔루션 물량 검토 요청]'));
+      const resultLine = `결과번호: ${currentResultId}`;
+      if (headingIndex >= 0) lines.splice(headingIndex + 1, 0, resultLine);
+      else lines.unshift(resultLine, '');
+      return lines.join('\n');
+    };
+    wrapped.__nwVersionWrapped = true;
+    window.buildConsultationMessage = wrapped;
+  }
+
+  function finalizeRenderedResult() {
+    appendResultFooter();
+    addResultIdToPreview();
+  }
+
+  function preserveResultIdDuringReviewEdits() {
+    document.addEventListener('change', (event) => {
+      if (event.target?.matches?.('.review-check, #shippingAddress')) {
+        setTimeout(addResultIdToPreview, 0);
+      }
+    });
+
+    document.addEventListener('input', (event) => {
+      if (event.target?.id === 'shippingAddress') {
+        setTimeout(addResultIdToPreview, 0);
+      }
+    });
+  }
+
+  function observeResults() {
+    const resultArea = $('#resultArea');
+    if (!resultArea) return;
+
+    const observer = new MutationObserver(() => {
+      if ($('.quick-result-card', resultArea)) {
+        requestAnimationFrame(finalizeRenderedResult);
+      }
+    });
+    observer.observe(resultArea, { childList: true, subtree: true });
+  }
+
+  function startCalculationSequence(button) {
+    if (isCalculating) return;
+    isCalculating = true;
+    clearLoaderTimers();
+    showLoader();
+
+    button.setAttribute('aria-busy', 'true');
+    button.disabled = true;
+
+    loaderTimers.push(setTimeout(() => {
+      setLoaderStep(2, '원장 배치를 계산하고 있습니다', '배치 방향과 예상 필요 수량을 계산합니다.');
+    }, 650));
+
+    loaderTimers.push(setTimeout(() => {
+      setLoaderStep(3, '자투리 활용 가능성을 검토하고 있습니다', '절단 손실과 여유 수량을 함께 확인합니다.');
+    }, 1300));
+
+    loaderTimers.push(setTimeout(() => {
+      currentResultId = generateResultId();
+      window.NEOWOOD_CURRENT_RESULT_ID = currentResultId;
+
+      bypassCalculationGuard = true;
+      button.disabled = false;
+      button.click();
+      bypassCalculationGuard = false;
+
+      completeLoader();
+    }, 1950));
+
+    loaderTimers.push(setTimeout(() => {
+      hideLoader();
+      button.removeAttribute('aria-busy');
+      button.disabled = false;
+      isCalculating = false;
+      finalizeRenderedResult();
+      $('.result-box')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 2350));
+  }
+
+  function interceptCalculation() {
+    const button = $('#runCalcBtn');
+    if (!button) return;
+
+    button.addEventListener('click', (event) => {
+      if (bypassCalculationGuard) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      startCalculationSequence(button);
+    }, true);
+  }
+
+  function init() {
+    injectStyles();
+    addVersionBadge();
+    createLoader();
+    wrapConsultationMessage();
+    preserveResultIdDuringReviewEdits();
+    observeResults();
+    interceptCalculation();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+  </script>
 </body>
 </html>
