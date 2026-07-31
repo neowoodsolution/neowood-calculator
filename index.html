@@ -314,7 +314,7 @@
 
   <div class="copy-toast" id="copyToast" role="status" aria-live="polite"></div>
   <script src="./public-app.js"></script>
-  <script>
+  <script id="neowood-optimizer-v1.8-inline">
 (() => {
   'use strict';
 
@@ -346,8 +346,8 @@
         border-radius: 999px;
         background: rgba(255,255,255,.09);
         color: rgba(255,255,255,.92);
-        font-size: 12px;
-        font-weight: 750;
+        font-size: 15px;
+        font-weight: 800;
         letter-spacing: -.02em;
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
@@ -471,45 +471,42 @@
       .nw-calc-overlay[data-step="3"] .nw-loader-progress > span { width: 84%; }
       .nw-calc-overlay.is-complete .nw-loader-progress > span { width: 100%; }
 
-      .nw-result-system {
-        margin-top: 18px;
-        padding: 17px 18px;
-        border: 1px solid #dce7f2;
-        border-radius: 15px;
-        background: linear-gradient(135deg, #f7fbff 0%, #f1f6fb 100%);
-      }
-      .nw-result-system-head {
-        display: flex;
+      .quick-result-card .result-title-row {
         align-items: flex-start;
-        justify-content: space-between;
-        gap: 16px;
-        padding-bottom: 12px;
-        margin-bottom: 12px;
-        border-bottom: 1px solid #dce7f2;
+        gap: 18px;
+      }
+      .nw-result-identity {
+        flex: none;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 6px;
+        max-width: 290px;
+        text-align: right;
+      }
+      .nw-result-identity .result-reference {
+        margin: 0 0 1px;
       }
       .nw-result-engine {
         color: #173d64;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 850;
-        letter-spacing: .01em;
+        letter-spacing: .015em;
+        line-height: 1.35;
       }
       .nw-result-id {
-        flex: none;
+        display: inline-flex;
+        align-items: center;
         padding: 5px 9px;
+        border: 1px solid #cfe0ef;
         border-radius: 999px;
-        background: #e2effb;
+        background: #eef6fd;
         color: #17588f;
-        font-size: 11px;
-        font-weight: 800;
+        font-size: 10.5px;
+        font-weight: 850;
+        line-height: 1.2;
         font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       }
-      .nw-result-system p {
-        margin: 0;
-        color: #5d6d7e;
-        font-size: 12px;
-        line-height: 1.65;
-      }
-      .nw-result-system p + p { margin-top: 2px; }
 
       body.nw-calculating { overflow: hidden; }
       #runCalcBtn[aria-busy="true"] { cursor: wait; }
@@ -519,9 +516,14 @@
 
       @media (max-width: 560px) {
         .nw-calc-dialog { padding: 30px 20px 24px; border-radius: 20px; }
-        .nw-result-system-head { display: block; }
-        .nw-result-id { display: inline-block; margin-top: 8px; }
-        .nw-solution-version { font-size: 11px; }
+        .quick-result-card .result-title-row { display: block; }
+        .nw-result-identity {
+          align-items: flex-start;
+          max-width: none;
+          margin-top: 12px;
+          text-align: left;
+        }
+        .nw-solution-version { font-size: 13px; }
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -543,7 +545,7 @@
 
     const badge = document.createElement('div');
     badge.className = 'nw-solution-version';
-    badge.textContent = `네오우드 합판 물량산출 솔루션 · ${DISPLAY_VERSION}`;
+    badge.textContent = `네오우드 합판 물량산출 program · ${DISPLAY_VERSION}`;
     target.insertAdjacentElement('afterend', badge);
   }
 
@@ -626,26 +628,25 @@
     return `NWP-${dateCode}-${String(sequence).padStart(4, '0')}`;
   }
 
-  function getResultFooterHtml(resultId) {
-    return `
-      <div class="nw-result-system" data-result-id="${resultId}">
-        <div class="nw-result-system-head">
-          <div class="nw-result-engine">${ENGINE_VERSION}</div>
-          <div class="nw-result-id">Result ID: ${resultId}</div>
-        </div>
-        <p>본 결과는 입력 조건과 현재 산출 기준에 따라 계산되었습니다.</p>
-        <p>실제 시공 조건, 절단 손실 및 현장 여건에 따라 필요한 수량이 달라질 수 있습니다.</p>
-      </div>
-    `;
-  }
-
-  function appendResultFooter() {
+  function embedResultIdentity() {
     const card = $('.quick-result-card');
-    if (!card || !currentResultId) return;
+    const titleRow = $('.result-title-row', card || document);
+    if (!card || !titleRow || !currentResultId) return;
 
-    const existing = $('.nw-result-system', card);
-    if (existing) existing.remove();
-    card.insertAdjacentHTML('beforeend', getResultFooterHtml(currentResultId));
+    $('.nw-result-system', card)?.remove();
+    $('.nw-result-identity', titleRow)?.remove();
+
+    const identity = document.createElement('div');
+    identity.className = 'nw-result-identity';
+
+    const reference = $('.result-reference', titleRow);
+    if (reference) identity.appendChild(reference);
+
+    identity.insertAdjacentHTML('beforeend', `
+      <div class="nw-result-engine">${ENGINE_VERSION}</div>
+      <div class="nw-result-id">Result ID: ${currentResultId}</div>
+    `);
+    titleRow.appendChild(identity);
   }
 
   function addResultIdToPreview() {
@@ -684,7 +685,7 @@
   }
 
   function finalizeRenderedResult() {
-    appendResultFooter();
+    embedResultIdentity();
     addResultIdToPreview();
   }
 
