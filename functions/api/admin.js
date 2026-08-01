@@ -559,7 +559,7 @@ export async function onRequestGet(context) {
     }
 
     const requestedDays = Number(requestUrl.searchParams.get('days') || '7');
-    const days = [1, 7, 30, 90].includes(requestedDays) ? requestedDays : 7;
+    const days = [1, 3, 5, 7, 30, 90].includes(requestedDays) ? requestedDays : 7;
     const anonId = String(requestUrl.searchParams.get('anon_id') || '').slice(0, 120);
     const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
     const rows = await fetchRows(env, since, anonId);
