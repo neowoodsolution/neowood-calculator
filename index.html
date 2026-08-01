@@ -326,6 +326,82 @@
   let bypassCalculationGuard = false;
   let currentResultId = '';
   let loaderTimers = [];
+  const nativeFetch = window.fetch.bind(window);
+
+  function getAnalyticsAnonId() {
+    let id = localStorage.getItem('nw_anon_id');
+    if (!id) {
+      id = `anon_${crypto.randomUUID().slice(0, 8)}`;
+      localStorage.setItem('nw_anon_id', id);
+    }
+    return id;
+  }
+
+  function getAnalyticsSessionId() {
+    let id = sessionStorage.getItem('nw_session_id');
+    if (!id) {
+      id = `sess_${crypto.randomUUID().slice(0, 8)}`;
+      sessionStorage.setItem('nw_session_id', id);
+    }
+    return id;
+  }
+
+  function buildAnalyticsMeta() {
+    return {
+      estimator_type: 'quick',
+      estimator_version: '1.8.0',
+      engine_name: ENGINE_VERSION,
+      result_id: currentResultId || window.NEOWOOD_CURRENT_RESULT_ID || null,
+      analysis_run_number: Number(window.NEOWOOD_ANALYSIS_RUN_NUMBER || sessionStorage.getItem('nw_analysis_run_count') || 0),
+      page_path: window.location.pathname,
+    };
+  }
+
+  function installAnalyticsBridge() {
+    if (window.__NEOWOOD_ANALYTICS_BRIDGE__) return;
+    window.__NEOWOOD_ANALYTICS_BRIDGE__ = true;
+
+    window.fetch = function patchedFetch(input, init = {}) {
+      try {
+        const url = typeof input === 'string' ? input : input?.url || '';
+        const method = String(init?.method || 'GET').toUpperCase();
+        if (/\/api\/log(?:\?|$)/.test(url) && method === 'POST' && typeof init.body === 'string') {
+          const body = JSON.parse(init.body);
+          body.payload = body.payload && typeof body.payload === 'object' ? body.payload : {};
+          body.payload.meta = {
+            ...(body.payload.meta && typeof body.payload.meta === 'object' ? body.payload.meta : {}),
+            ...buildAnalyticsMeta(),
+          };
+          init = { ...init, body: JSON.stringify(body) };
+        }
+      } catch (error) {
+        console.warn('analytics bridge failed', error);
+      }
+      return nativeFetch(input, init);
+    };
+  }
+
+  async function sendAnalyticsEvent(eventType, mode, payload = {}) {
+    try {
+      await nativeFetch('/api/log', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          anon_id: getAnalyticsAnonId(),
+          session_id: getAnalyticsSessionId(),
+          event_type: eventType,
+          mode,
+          payload: {
+            ...payload,
+            meta: buildAnalyticsMeta(),
+          },
+          referrer: document.referrer || null,
+        }),
+      });
+    } catch (error) {
+      console.warn('analysis event log failed', error);
+    }
+  }
 
   const $ = (selector, root = document) => root.querySelector(selector);
 
@@ -1167,6 +1243,19 @@
       ? { step2: 850, step3: 1850, complete: 2950, close: 3600 }
       : { step2: 500, step3: 1050, complete: 1650, close: 2200 };
 
+    const runNumber = previousRuns + 1;
+    const analyticsSnapshot = getCalculationSnapshot();
+    window.NEOWOOD_ANALYSIS_RUN_NUMBER = runNumber;
+    sendAnalyticsEvent('analysis_start', analyticsSnapshot.mode, {
+      first_run: isFirstRun,
+      expected_duration_ms: timing.close,
+      input_snapshot: {
+        label: analyticsSnapshot.label,
+        size: analyticsSnapshot.size,
+        sheet: analyticsSnapshot.sheet,
+      },
+    });
+
     showLoader(isFirstRun);
     button.setAttribute('aria-busy', 'true');
     button.disabled = true;
@@ -1213,6 +1302,8 @@
       startCalculationSequence(button);
     }, true);
   }
+
+  installAnalyticsBridge();
 
   function init() {
     injectStyles();
