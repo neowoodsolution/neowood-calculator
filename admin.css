@@ -171,3 +171,14 @@ tbody tr:hover td{background:#fbfdff}
   .detail-profile{grid-template-columns:1fr}
   .modal-backdrop{padding:12px}
 }
+
+
+/* Shape simulator monitoring v1.0 */
+.simulator-dashboard-section{margin-top:22px;padding:22px;border:1px solid #cbdaf2;border-radius:24px;background:linear-gradient(180deg,#f8fbff 0%,#eef5ff 100%);box-shadow:0 16px 40px rgba(31,74,145,.08)}
+.simulator-section-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px}
+.simulator-section-head h2{margin:5px 0 4px;font-size:24px;letter-spacing:-.04em}
+.simulator-kpi-grid{margin-top:0;grid-template-columns:repeat(6,minmax(0,1fr))}
+.simulator-summary-grid{margin-top:16px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.simulator-table-card{margin-top:16px;background:#fff}
+@media (max-width:1180px){.simulator-kpi-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:720px){.simulator-dashboard-section{padding:16px}.simulator-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.simulator-summary-grid{grid-template-columns:1fr}}

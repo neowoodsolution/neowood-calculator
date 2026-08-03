@@ -88,6 +88,12 @@ function renderKpis(data) {
   $('#kpiStoreClicks').textContent = fmt(kpis.store_clicks);
   $('#kpiComplexCalculations').textContent = fmt(kpis.complex_calculations);
   $('#kpiHighIntent').textContent = fmt(kpis.high_intent_no_conversion);
+  $('#kpiSimulatorVisitors').textContent = fmt(kpis.simulator_visitors);
+  $('#kpiSimulatorUsers').textContent = fmt(kpis.simulator_users);
+  $('#kpiSimulatorRuns').textContent = fmt(kpis.simulator_runs);
+  $('#kpiSimulatorPng').textContent = fmt(kpis.simulator_png_downloads);
+  $('#kpiSimulatorTalk').textContent = fmt(kpis.simulator_talk_clicks);
+  $('#kpiSimulatorHighIntent').textContent = fmt(kpis.simulator_high_intent_no_conversion);
   $('#kpiAnalysisCompletion').textContent = `완료율 ${pct(kpis.analysis_completion_rate)}`;
   $('#kpiReviewRate').textContent = `계산 사용자 전환율 ${pct(kpis.review_conversion_rate)}`;
   $('#kpiStoreUsers').textContent = `사용자 ${fmt(kpis.store_users)}명`;
@@ -137,6 +143,8 @@ function filteredHighIntent() {
     user.top_mode_label,
     user.last_calculation?.result_id,
     user.last_calculation?.input_summary,
+    user.last_simulation?.shape_label,
+    user.last_simulation?.dimensions_summary,
     ...(user.result_ids || [])
   ));
 }
@@ -148,6 +156,8 @@ function filteredUsers() {
     user.interest_grade,
     user.top_mode_label,
     user.last_calculation?.result_id,
+    user.last_simulation?.shape_label,
+    user.last_simulation?.dimensions_summary,
     ...(user.result_ids || [])
   ));
 }
@@ -161,6 +171,16 @@ function filteredCalcs() {
     calc.result_summary,
     calc.estimator_version,
     ...(calc.risks || [])
+  ));
+}
+
+function filteredSimulations() {
+  return (dashboardData?.recent_simulations || []).filter((simulation) => queryMatches(
+    simulation.anon_id,
+    simulation.shape_label,
+    simulation.dimensions_summary,
+    simulation.sheet_label,
+    simulation.fit_label
   ));
 }
 
@@ -178,7 +198,7 @@ function renderHighIntent() {
   const body = $('#highIntentBody');
   const rows = filteredHighIntent();
   if (!rows.length) {
-    body.innerHTML = '<tr><td colspan="9" class="empty-row">조건에 맞는 고관심 미전환 사용자가 없습니다.</td></tr>';
+    body.innerHTML = '<tr><td colspan="10" class="empty-row">조건에 맞는 고관심 미전환 사용자가 없습니다.</td></tr>';
     return;
   }
   body.innerHTML = rows.slice(0, 100).map((user) => `
@@ -187,8 +207,9 @@ function renderHighIntent() {
       <td>${interestChip(user)}</td>
       <td><span class="cell-main">${fmt(user.active_days)}일 / ${fmt(user.sessions)}회</span><span class="cell-sub">페이지뷰 ${fmt(user.page_views)}회</span></td>
       <td><span class="cell-main">${fmt(user.calculations)}회</span><span class="cell-sub">주의 조건 ${fmt(user.complex_calculations)}회</span></td>
+      <td><span class="cell-main">${fmt(user.simulator_runs)}회</span><span class="cell-sub">${fmt(user.simulator_unique_shapes)}형태 · PNG ${fmt(user.simulator_png_downloads)}</span></td>
       <td><span class="cell-main">${esc(user.top_mode_label)}</span><span class="cell-sub">${esc(Object.entries(user.mode_breakdown || {}).map(([k, v]) => `${k} ${v}`).join(' · ') || '-')}</span></td>
-      <td><span class="cell-main">${esc(user.last_calculation?.input_summary || '-')}</span><span class="cell-sub">${esc(user.last_calculation?.result_id || '-')} · ${esc(user.last_calculation?.result_summary || '-')}</span></td>
+      <td><span class="cell-main">${esc(user.last_calculation?.input_summary || user.last_simulation?.dimensions_summary || '-')}</span><span class="cell-sub">${user.last_calculation ? `${esc(user.last_calculation.result_id || '-')} · ${esc(user.last_calculation.result_summary || '-')}` : user.last_simulation ? `${esc(user.last_simulation.shape_label)} · ${fmt(user.last_simulation.quantity)}개 · ${esc(user.last_simulation.fit_label)}` : '-'}</span></td>
       <td>${fmt(user.store_clicks)}회</td>
       <td>${esc(formatKst(user.last_active))}</td>
       <td>${statusChip(user.status_label, user.status_kind)}</td>
@@ -200,7 +221,7 @@ function renderUsers() {
   const body = $('#userProfilesBody');
   const rows = filteredUsers();
   if (!rows.length) {
-    body.innerHTML = '<tr><td colspan="10" class="empty-row">검색 조건에 맞는 사용자가 없습니다.</td></tr>';
+    body.innerHTML = '<tr><td colspan="11" class="empty-row">검색 조건에 맞는 사용자가 없습니다.</td></tr>';
     return;
   }
   body.innerHTML = rows.slice(0, 300).map((user) => `
@@ -209,6 +230,7 @@ function renderUsers() {
       <td>${fmt(user.active_days)}일</td>
       <td>${fmt(user.sessions)}회</td>
       <td>${fmt(user.calculations)}회</td>
+      <td><span class="cell-main">${fmt(user.simulator_runs)}회</span><span class="cell-sub">PNG ${fmt(user.simulator_png_downloads)} · 상담 ${fmt(user.simulator_talk_clicks)}</span></td>
       <td>${fmt(user.precision_reviews)}회</td>
       <td>${fmt(user.store_clicks)}회</td>
       <td>${fmt(user.phone_clicks)}회</td>
@@ -236,6 +258,26 @@ function renderCalcs() {
       <td><strong>${esc(calc.result_summary)}</strong></td>
       <td>${riskHtml(calc.risks)}</td>
       <td>${esc(calc.estimator_version)}</td>
+    </tr>
+  `).join('');
+}
+
+function renderSimulations() {
+  const body = $('#recentSimulationsBody');
+  const rows = filteredSimulations();
+  if (!rows.length) {
+    body.innerHTML = '<tr><td colspan="7" class="empty-row">검색 조건에 맞는 시뮬레이터 이용 내역이 없습니다.</td></tr>';
+    return;
+  }
+  body.innerHTML = rows.slice(0, 150).map((simulation) => `
+    <tr>
+      <td>${esc(formatKst(simulation.created_at))}</td>
+      <td>${userButton(simulation.anon_id)}</td>
+      <td><strong>${esc(simulation.shape_label)}</strong></td>
+      <td>${esc(simulation.dimensions_summary)}</td>
+      <td>${fmt(simulation.quantity)}개</td>
+      <td>${esc(simulation.sheet_label)}</td>
+      <td>${statusChip(simulation.fit_label, simulation.sheet_fit === false ? 'danger' : simulation.sheet_fit === true ? 'success' : 'soft')}</td>
     </tr>
   `).join('');
 }
@@ -288,6 +330,7 @@ function renderSearchableTables() {
   renderHighIntent();
   renderUsers();
   renderCalcs();
+  renderSimulations();
   renderConversions();
   renderEvents();
 }
@@ -304,6 +347,8 @@ function renderDashboard(data) {
   renderMetricList('#deviceSummary', data.device_summary);
   renderMetricList('#sourceSummary', data.source_summary);
   renderMetricList('#eventSummary', data.event_summary);
+  renderMetricList('#simulatorShapeSummary', data.simulator_shape_summary, '아직 형태별 이용 기록이 없습니다.');
+  renderMetricList('#simulatorFitSummary', data.simulator_fit_summary, '아직 원장 비교 기록이 없습니다.');
   renderSearchableTables();
 
   const generated = formatKst(data.generated_at);
@@ -366,6 +411,8 @@ function renderDetailProfile(profile) {
     ['스토어', `${fmt(profile.store_clicks)}회`],
     ['전화', `${fmt(profile.phone_clicks)}회`],
     ['주의 계산', `${fmt(profile.complex_calculations)}회`],
+    ['시뮬레이터', `${fmt(profile.simulator_runs)}회`],
+    ['시뮬레이터 PNG', `${fmt(profile.simulator_png_downloads)}회`],
     ['관심도', `${esc(profile.interest_grade)} · ${fmt(profile.interest_score)}점`],
   ];
   element.innerHTML = stats.map(([label, value]) => `
@@ -527,6 +574,22 @@ function exportCalcs() {
   );
 }
 
+function exportSimulator() {
+  const rows = filteredSimulations();
+  downloadCsv('neowood_recent_simulations.csv',
+    ['시간', '익명 ID', '형태', '최종 치수', '수량', '원장 규격', '적합 여부'],
+    rows.map((simulation) => [
+      formatKst(simulation.created_at),
+      simulation.anon_id,
+      simulation.shape_label,
+      simulation.dimensions_summary,
+      simulation.quantity,
+      simulation.sheet_label,
+      simulation.fit_label,
+    ])
+  );
+}
+
 function bindEvents() {
   $('#loadAdminBtn').addEventListener('click', loadDashboard);
   $('#refreshAdminBtn').addEventListener('click', loadDashboard);
@@ -540,6 +603,7 @@ function bindEvents() {
   $('#exportHighIntentBtn').addEventListener('click', exportHighIntent);
   $('#exportUsersBtn').addEventListener('click', exportUsers);
   $('#exportCalcsBtn').addEventListener('click', exportCalcs);
+  $('#exportSimulatorBtn').addEventListener('click', exportSimulator);
   $('#closeDetailModal').addEventListener('click', modalClose);
   $('#userDetailModal').addEventListener('click', (event) => {
     if (event.target.id === 'userDetailModal') modalClose();

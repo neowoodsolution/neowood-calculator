@@ -115,6 +115,53 @@
       </article>
     </section>
 
+    <section class="simulator-dashboard-section" aria-label="모양별 재단 시뮬레이터 분석">
+      <div class="simulator-section-head">
+        <div>
+          <div class="section-kicker">SHAPE SIMULATOR</div>
+          <h2>모양별 재단 시뮬레이터 분석</h2>
+          <p class="panel-desc">기존 물량 계산 데이터는 그대로 유지하며, 시뮬레이터 방문·실제 이용·형태·치수·PNG 저장·상담 이동을 추가로 확인합니다.</p>
+        </div>
+      </div>
+
+      <div class="kpi-grid simulator-kpi-grid">
+        <article class="kpi-card"><div class="kpi-label">시뮬레이터 방문자</div><div class="kpi-value" id="kpiSimulatorVisitors">-</div><div class="kpi-foot">페이지 진입 사용자</div></article>
+        <article class="kpi-card"><div class="kpi-label">실제 이용자</div><div class="kpi-value" id="kpiSimulatorUsers">-</div><div class="kpi-foot">치수·형태 실제 조작</div></article>
+        <article class="kpi-card accent-card"><div class="kpi-label">시뮬레이션 실행</div><div class="kpi-value" id="kpiSimulatorRuns">-</div><div class="kpi-foot">최종 입력 스냅샷 기준</div></article>
+        <article class="kpi-card"><div class="kpi-label">PNG 저장</div><div class="kpi-value" id="kpiSimulatorPng">-</div><div class="kpi-foot">참고도면 저장 행동</div></article>
+        <article class="kpi-card review-card-kpi"><div class="kpi-label">톡톡 상담 이동</div><div class="kpi-value" id="kpiSimulatorTalk">-</div><div class="kpi-foot">상담내용 복사 후 이동</div></article>
+        <article class="kpi-card danger-card"><div class="kpi-label">시뮬레이터 고관심 미전환</div><div class="kpi-value" id="kpiSimulatorHighIntent">-</div><div class="kpi-foot">반복 이용·저장 후 미상담</div></article>
+      </div>
+
+      <div class="analytics-grid simulator-summary-grid">
+        <article class="panel-card">
+          <div class="panel-head compact-head"><div><div class="section-kicker">SHAPE</div><h2>형태별 이용</h2></div></div>
+          <div id="simulatorShapeSummary" class="metric-list empty-state">데이터가 없습니다.</div>
+        </article>
+        <article class="panel-card">
+          <div class="panel-head compact-head"><div><div class="section-kicker">SHEET FIT</div><h2>원장 적합 여부</h2></div></div>
+          <div id="simulatorFitSummary" class="metric-list empty-state">데이터가 없습니다.</div>
+        </article>
+      </div>
+
+      <section class="table-card simulator-table-card">
+        <div class="panel-head table-title-row">
+          <div>
+            <div class="section-kicker">RECENT SIMULATIONS</div>
+            <h2>최근 시뮬레이터 이용 내역</h2>
+            <p class="panel-desc">익명 ID, 형태, 최종 치수, 수량, 원장 규격과 적합 여부를 확인합니다.</p>
+          </div>
+          <button class="btn btn-line btn-small" id="exportSimulatorBtn" type="button">CSV 내보내기</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>시간</th><th>익명 ID</th><th>형태</th><th>최종 치수</th><th>수량</th><th>원장 규격</th><th>적합 여부</th></tr></thead>
+            <tbody id="recentSimulationsBody"><tr><td colspan="7" class="empty-row">데이터를 불러와 주세요.</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+
     <section class="analytics-grid analytics-grid-main">
       <article class="panel-card funnel-card">
         <div class="panel-head">
@@ -156,6 +203,7 @@
               <th>관심도</th>
               <th>활성일 / 세션</th>
               <th>계산</th>
+              <th>시뮬레이터</th>
               <th>주요 모드</th>
               <th>최근 입력·결과</th>
               <th>스토어</th>
@@ -164,7 +212,7 @@
             </tr>
           </thead>
           <tbody id="highIntentBody">
-            <tr><td colspan="9" class="empty-row">데이터를 불러와 주세요.</td></tr>
+            <tr><td colspan="10" class="empty-row">데이터를 불러와 주세요.</td></tr>
           </tbody>
         </table>
       </div>
@@ -235,6 +283,7 @@
               <th>활성일</th>
               <th>세션</th>
               <th>계산</th>
+              <th>시뮬레이터</th>
               <th>정밀검토</th>
               <th>스토어</th>
               <th>전화</th>
@@ -244,7 +293,7 @@
             </tr>
           </thead>
           <tbody id="userProfilesBody">
-            <tr><td colspan="10" class="empty-row">데이터를 불러와 주세요.</td></tr>
+            <tr><td colspan="11" class="empty-row">데이터를 불러와 주세요.</td></tr>
           </tbody>
         </table>
       </div>
