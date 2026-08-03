@@ -388,6 +388,47 @@
         toast.timer=setTimeout(()=>{el.className='sim-toast';},2800);
       }
 
+      function drawDownloadWatermark(ctx,w,h){
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(0,0,w,h);
+        ctx.clip();
+        ctx.translate(w/2,h/2);
+        ctx.rotate(-25*Math.PI/180);
+        ctx.fillStyle='rgba(134,149,166,0.11)';
+        ctx.font='700 28px Inter, Pretendard, Apple SD Gothic Neo, sans-serif';
+        ctx.textAlign='center';
+        for(let y=-h; y<h; y+=96){
+          for(let x=-w; x<w; x+=300){
+            ctx.fillText('NEOWOOD SOLUTION',x,y);
+          }
+        }
+        ctx.restore();
+      }
+
+      function drawDownloadFooter(ctx,w,topH,footerH){
+        const footerY=topH;
+        ctx.save();
+        ctx.fillStyle='rgba(248,250,252,0.98)';
+        ctx.fillRect(0,footerY,w,footerH);
+        ctx.strokeStyle='rgba(187,198,210,0.9)';
+        ctx.lineWidth=1;
+        ctx.beginPath();
+        ctx.moveTo(0,footerY+0.5);
+        ctx.lineTo(w,footerY+0.5);
+        ctx.stroke();
+
+        ctx.textAlign='center';
+        ctx.fillStyle='#17324d';
+        ctx.font='700 18px Pretendard, Apple SD Gothic Neo, Inter, sans-serif';
+        ctx.fillText('물량 산출과 자재 선택 상담은 네오우드솔루션과 함께하세요.',w/2,footerY+24);
+
+        ctx.fillStyle='#5f6f82';
+        ctx.font='500 11px Pretendard, Apple SD Gothic Neo, Inter, sans-serif';
+        ctx.fillText('neowood-calculator.pages.dev | 본 이미지는 네오우드솔루션 제작 참고자료이며 무단 복제·재배포를 금지합니다.',w/2,footerY+46);
+        ctx.restore();
+      }
+
       function downloadPng(){
         const data=getData();
         const svg=$('#shapeSvg');
@@ -397,17 +438,23 @@
         const image=new Image();
         image.onload=()=>{
           const scale=2;
+          const baseW=720, baseH=480, footerH=64;
           const canvas=document.createElement('canvas');
-          canvas.width=720*scale; canvas.height=480*scale;
+          canvas.width=baseW*scale;
+          canvas.height=(baseH+footerH)*scale;
           const ctx=canvas.getContext('2d');
-          ctx.scale(scale,scale); ctx.drawImage(image,0,0,720,480);
+          ctx.imageSmoothingEnabled=true;
+          ctx.imageSmoothingQuality='high';
+          ctx.drawImage(image,0,0,canvas.width,baseH*scale);
+          drawDownloadWatermark(ctx,canvas.width,baseH*scale);
+          drawDownloadFooter(ctx,canvas.width,baseH*scale,footerH*scale);
           URL.revokeObjectURL(url);
           const link=document.createElement('a');
           const safeName=data.partName.replace(/[^0-9A-Za-z가-힣_-]/g,'_')||'A';
           link.download=`네오우드_참고도면_${safeName}_${shapeInfo[data.shape].label}.png`;
           link.href=canvas.toDataURL('image/png');
           link.click();
-          toast('참고도면 PNG를 저장했습니다.');
+          toast('워터마크와 안내문구가 포함된 참고도면 PNG를 저장했습니다.');
         };
         image.onerror=()=>{URL.revokeObjectURL(url);toast('이미지 저장에 실패했습니다.',true);};
         image.src=url;
@@ -442,7 +489,6 @@
       $('#resetSimBtn').addEventListener('click',reset);
       render();
     })();
-  </script>
-  <script src="./simulator-monitor.js"></script>
+<script src="./simulator-monitor.js"></script>
 </body>
 </html>
