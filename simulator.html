@@ -395,7 +395,7 @@
         ctx.clip();
         ctx.translate(w/2,h/2);
         ctx.rotate(-25*Math.PI/180);
-        ctx.fillStyle='rgba(134,149,166,0.11)';
+        ctx.fillStyle='rgba(134,149,166,0.055)';
         ctx.font='700 28px Inter, Pretendard, Apple SD Gothic Neo, sans-serif';
         ctx.textAlign='center';
         for(let y=-h; y<h; y+=96){
@@ -445,9 +445,10 @@
           const ctx=canvas.getContext('2d');
           ctx.imageSmoothingEnabled=true;
           ctx.imageSmoothingQuality='high';
-          ctx.drawImage(image,0,0,canvas.width,baseH*scale);
-          drawDownloadWatermark(ctx,canvas.width,baseH*scale);
-          drawDownloadFooter(ctx,canvas.width,baseH*scale,footerH*scale);
+          ctx.scale(scale,scale);
+          ctx.drawImage(image,0,0,baseW,baseH);
+          drawDownloadWatermark(ctx,baseW,baseH);
+          drawDownloadFooter(ctx,baseW,baseH,footerH);
           URL.revokeObjectURL(url);
           const link=document.createElement('a');
           const safeName=data.partName.replace(/[^0-9A-Za-z가-힣_-]/g,'_')||'A';
@@ -489,6 +490,7 @@
       $('#resetSimBtn').addEventListener('click',reset);
       render();
     })();
-<script src="./simulator-monitor.js"></script>
+  </script>
+  <script src="./simulator-monitor.js"></script>
 </body>
 </html>
