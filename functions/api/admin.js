@@ -14,6 +14,7 @@ const MODE_LABELS = {
   cutlist: '재단 수량',
   compare: '규격 비교',
   landing: '메인 화면',
+  simulator: '모양별 시뮬레이터',
 };
 
 const EVENT_LABELS = {
@@ -25,6 +26,12 @@ const EVENT_LABELS = {
   click_store: '스토어 클릭',
   click_phone: '전화 클릭',
   mark_purchase: '구매 전환 표시',
+  simulator_start: '시뮬레이터 이용 시작',
+  simulator_run: '시뮬레이션 실행',
+  simulator_shape_select: '형태 선택',
+  simulator_download_png: '시뮬레이터 PNG 저장',
+  simulator_click_talk: '시뮬레이터 톡톡 이동',
+  simulator_return_calculator: '물량 계산기로 이동',
 };
 
 function cleanText(value, fallback = '-') {
@@ -129,6 +136,26 @@ function analyzeRisk(mode, payload = {}) {
   return [...new Set(flags)];
 }
 
+function simulatorInput(payload = {}) {
+  return payload.input && typeof payload.input === 'object'
+    ? payload.input
+    : (payload.snapshot && typeof payload.snapshot === 'object' ? payload.snapshot : {});
+}
+
+function summarizeSimulator(payload = {}) {
+  const input = simulatorInput(payload);
+  return {
+    shape: cleanText(input.shape, ''),
+    shape_label: cleanText(input.shape_label, '미지정'),
+    dimensions_summary: cleanText(input.dimensions_summary, '-'),
+    quantity: Math.max(1, num(input.quantity) || 1),
+    sheet_label: cleanText(input.sheet_label || input.sheet, '비교 안 함'),
+    sheet_fit: input.sheet_fit === true ? true : (input.sheet_fit === false ? false : null),
+    fit_label: cleanText(input.fit_label, input.sheet_fit === true ? '원장 내 적합' : input.sheet_fit === false ? '원장 초과' : '비교 안 함'),
+    complex_shape: Boolean(input.complex_shape),
+  };
+}
+
 function deviceType(userAgent = '') {
   const ua = String(userAgent).toLowerCase();
   if (/ipad|tablet/.test(ua)) return '태블릿';
@@ -175,6 +202,16 @@ function makeUser(anonId) {
     phone_clicks: 0,
     purchases: 0,
     complex_calculations: 0,
+    simulator_visits: 0,
+    simulator_starts: 0,
+    simulator_runs: 0,
+    simulator_png_downloads: 0,
+    simulator_talk_clicks: 0,
+    simulator_returns: 0,
+    simulator_fit_over: 0,
+    simulator_shapes: {},
+    simulator_shape_set: new Set(),
+    last_simulation: null,
     last_calculation: null,
     device: '-',
     source: '-',
@@ -184,9 +221,9 @@ function makeUser(anonId) {
 function finalizeUser(user) {
   const activeDays = user.active_dates.size;
   const sessions = user.sessions.size;
-  const consultationCount = user.precision_reviews + user.general_consults;
+  const consultationCount = user.precision_reviews + user.general_consults + user.simulator_talk_clicks;
   const converted = consultationCount > 0 || user.purchases > 0;
-  const repeatUser = activeDays >= 2 || sessions >= 2 || user.calculations >= 3;
+  const repeatUser = activeDays >= 2 || sessions >= 2 || user.calculations >= 3 || user.simulator_runs >= 3 || user.simulator_shape_set.size >= 2;
 
   let score = 0;
   score += Math.min(user.calculations * 2, 24);
@@ -196,6 +233,11 @@ function finalizeUser(user) {
   score += Math.min(user.complex_calculations * 2, 8);
   if (user.modes.cutlist) score += 3;
   if (user.modes.compare) score += 1;
+  score += Math.min(user.simulator_runs * 2, 12);
+  if (user.simulator_shape_set.size >= 2) score += 2;
+  score += Math.min(user.simulator_png_downloads * 4, 8);
+  if (user.simulator_fit_over > 0 || user.last_simulation?.complex_shape) score += 3;
+  if (user.simulator_returns > 0) score += 1;
 
   let interestGrade = '일반';
   let interestKind = 'soft';
@@ -210,7 +252,7 @@ function finalizeUser(user) {
     interestKind = 'info';
   }
 
-  const highIntentNoConversion = !converted && (score >= 12 || user.calculations >= 5);
+  const highIntentNoConversion = !converted && (score >= 12 || user.calculations >= 5 || user.simulator_runs >= 4 || user.simulator_png_downloads > 0);
   let statusLabel = '일반 이용';
   let statusKind = 'soft';
   if (user.purchases > 0) {
@@ -218,6 +260,9 @@ function finalizeUser(user) {
     statusKind = 'success';
   } else if (user.precision_reviews > 0) {
     statusLabel = '정밀검토 요청 완료';
+    statusKind = 'success';
+  } else if (user.simulator_talk_clicks > 0) {
+    statusLabel = '시뮬레이터 상담 연결';
     statusKind = 'success';
   } else if (user.general_consults > 0) {
     statusLabel = '일반 상담 연결';
@@ -233,9 +278,11 @@ function finalizeUser(user) {
     statusKind = 'warn';
   }
 
-  const topMode = Object.entries(user.modes).sort((a, b) => b[1] - a[1])[0]?.[0] || '';
+  const activityModes = { ...user.modes };
+  if (user.simulator_runs > 0) activityModes.simulator = user.simulator_runs;
+  const topMode = Object.entries(activityModes).sort((a, b) => b[1] - a[1])[0]?.[0] || '';
   const modeBreakdown = Object.fromEntries(
-    Object.entries(user.modes)
+    Object.entries(activityModes)
       .sort((a, b) => b[1] - a[1])
       .map(([mode, count]) => [MODE_LABELS[mode] || mode, count])
   );
@@ -255,6 +302,16 @@ function finalizeUser(user) {
     phone_clicks: user.phone_clicks,
     purchases: user.purchases,
     complex_calculations: user.complex_calculations,
+    simulator_visits: user.simulator_visits,
+    simulator_starts: user.simulator_starts,
+    simulator_runs: user.simulator_runs,
+    simulator_png_downloads: user.simulator_png_downloads,
+    simulator_talk_clicks: user.simulator_talk_clicks,
+    simulator_returns: user.simulator_returns,
+    simulator_fit_over: user.simulator_fit_over,
+    simulator_unique_shapes: user.simulator_shape_set.size,
+    simulator_shape_breakdown: user.simulator_shapes,
+    last_simulation: user.last_simulation,
     first_active: user.first_active,
     last_active: user.last_active,
     top_mode: topMode,
@@ -290,6 +347,9 @@ function buildDashboard(rows) {
   const recentCalcs = [];
   const conversionEvents = [];
   const recentEvents = [];
+  const recentSimulations = [];
+  const simulatorShapeSummary = {};
+  const simulatorFitSummary = {};
 
   let analysisStarts = 0;
   let calculations = 0;
@@ -299,6 +359,10 @@ function buildDashboard(rows) {
   let phoneClicks = 0;
   let purchases = 0;
   let complexCalculations = 0;
+  let simulatorRuns = 0;
+  let simulatorPngDownloads = 0;
+  let simulatorTalkClicks = 0;
+  let simulatorReturns = 0;
 
   rows.forEach((row) => {
     const anonId = cleanText(row.anon_id, 'unknown');
@@ -327,7 +391,10 @@ function buildDashboard(rows) {
     increment(deviceSummary, deviceType(row.user_agent));
     increment(sourceSummary, referrerSource(row.referrer));
 
-    if (eventType === 'page_view') user.page_views += 1;
+    if (eventType === 'page_view') {
+      user.page_views += 1;
+      if (mode === 'simulator' || payload.page_kind === 'shape_simulator') user.simulator_visits += 1;
+    }
     if (eventType === 'analysis_start') {
       user.analysis_starts += 1;
       analysisStarts += 1;
@@ -364,6 +431,43 @@ function buildDashboard(rows) {
       recentCalcs.push(calc);
       if (!user.last_calculation || createdAt > user.last_calculation.created_at) user.last_calculation = calc;
     }
+    if (eventType === 'simulator_start') {
+      user.simulator_starts += 1;
+    }
+    if (eventType === 'simulator_run') {
+      const simulation = summarizeSimulator(payload);
+      user.simulator_runs += 1;
+      simulatorRuns += 1;
+      increment(user.simulator_shapes, simulation.shape_label);
+      increment(simulatorShapeSummary, simulation.shape_label);
+      if (simulation.shape) user.simulator_shape_set.add(simulation.shape);
+      increment(simulatorFitSummary, simulation.fit_label);
+      if (simulation.sheet_fit === false) user.simulator_fit_over += 1;
+
+      const record = {
+        created_at: createdAt,
+        anon_id: anonId,
+        session_id: row.session_id || '',
+        mode: 'simulator',
+        mode_label: MODE_LABELS.simulator,
+        ...simulation,
+        payload,
+      };
+      recentSimulations.push(record);
+      if (!user.last_simulation || createdAt > user.last_simulation.created_at) user.last_simulation = record;
+    }
+    if (eventType === 'simulator_download_png') {
+      user.simulator_png_downloads += 1;
+      simulatorPngDownloads += 1;
+    }
+    if (eventType === 'simulator_click_talk') {
+      user.simulator_talk_clicks += 1;
+      simulatorTalkClicks += 1;
+    }
+    if (eventType === 'simulator_return_calculator') {
+      user.simulator_returns += 1;
+      simulatorReturns += 1;
+    }
     if (eventType === 'click_review_talk') {
       user.precision_reviews += 1;
       precisionReviewClicks += 1;
@@ -390,7 +494,7 @@ function buildDashboard(rows) {
       purchases += 1;
     }
 
-    if (['click_review_talk', 'click_consult', 'click_store', 'click_phone', 'mark_purchase'].includes(eventType)) {
+    if (['click_review_talk', 'click_consult', 'click_store', 'click_phone', 'mark_purchase', 'simulator_click_talk'].includes(eventType)) {
       conversionEvents.push({
         created_at: createdAt,
         anon_id: anonId,
@@ -401,7 +505,9 @@ function buildDashboard(rows) {
         result_id: meta.result_id || '-',
         detail: eventType === 'click_review_talk'
           ? (Array.isArray(payload.review_items) ? payload.review_items.join(', ') : '정밀검토 요청')
-          : cleanText(payload.target, '-'),
+          : eventType === 'simulator_click_talk'
+            ? `${summarizeSimulator(payload).shape_label} · ${summarizeSimulator(payload).dimensions_summary}`
+            : cleanText(payload.target, '-'),
       });
     }
 
@@ -426,6 +532,10 @@ function buildDashboard(rows) {
   const consultationUsers = users.filter((user) => user.consultations > 0);
   const storeUsers = users.filter((user) => user.store_clicks > 0);
   const purchaseUsers = users.filter((user) => user.purchases > 0);
+  const simulatorVisitors = users.filter((user) => user.simulator_visits > 0);
+  const simulatorUsers = users.filter((user) => user.simulator_runs > 0);
+  const simulatorHighIntentUsers = users.filter((user) => user.simulator_runs > 0 && user.high_intent_no_conversion);
+
   const highIntentUsers = users
     .filter((user) => user.high_intent_no_conversion)
     .sort((a, b) => b.interest_score - a.interest_score || b.calculations - a.calculations || String(b.last_active).localeCompare(String(a.last_active)))
@@ -436,6 +546,7 @@ function buildDashboard(rows) {
     .slice(0, 500);
 
   recentCalcs.sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)));
+  recentSimulations.sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)));
   conversionEvents.sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)));
 
   const reviewConversionRate = calculationUsers.length
@@ -460,6 +571,9 @@ function buildDashboard(rows) {
       ? `실제 배치 검토가 필요한 주의 계산이 ${complexCalculations}건 감지되었습니다.`
       : '주의 조건으로 분류된 계산이 없습니다.',
     `계산 사용자 중 정밀검토 요청 전환율은 ${(reviewConversionRate * 100).toFixed(1)}%입니다.`,
+    simulatorRuns
+      ? `모양별 시뮬레이터는 ${simulatorUsers.length}명이 ${simulatorRuns}회 이용했고 PNG 저장은 ${simulatorPngDownloads}회입니다.`
+      : '아직 모양별 시뮬레이터 실제 이용 기록이 없습니다.',
   ];
 
   return {
@@ -484,6 +598,13 @@ function buildDashboard(rows) {
       review_conversion_rate: reviewConversionRate,
       consultation_conversion_rate: consultationConversionRate,
       analysis_completion_rate: analysisCompletionRate,
+      simulator_visitors: simulatorVisitors.length,
+      simulator_users: simulatorUsers.length,
+      simulator_runs: simulatorRuns,
+      simulator_png_downloads: simulatorPngDownloads,
+      simulator_talk_clicks: simulatorTalkClicks,
+      simulator_returns: simulatorReturns,
+      simulator_high_intent_no_conversion: simulatorHighIntentUsers.length,
     },
     funnel: [
       { key: 'visitors', label: '방문 사용자', value: users.length },
@@ -494,6 +615,8 @@ function buildDashboard(rows) {
       { key: 'purchase', label: '구매 표시', value: purchaseUsers.length },
     ],
     event_summary: eventSummary,
+    simulator_shape_summary: simulatorShapeSummary,
+    simulator_fit_summary: simulatorFitSummary,
     mode_summary: modeSummary,
     version_summary: versionSummary,
     review_item_summary: reviewItemSummary,
@@ -504,6 +627,7 @@ function buildDashboard(rows) {
     high_intent_users: highIntentUsers,
     user_profiles: userProfiles,
     recent_calculations: recentCalcs.slice(0, 150),
+    recent_simulations: recentSimulations.slice(0, 150),
     conversion_events: conversionEvents.slice(0, 150),
     recent_events: recentEvents,
   };
