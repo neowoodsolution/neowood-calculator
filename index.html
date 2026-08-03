@@ -6,12 +6,65 @@
   <title>네오우드솔루션 | 합판 물량 산출기</title>
   <meta name="description" content="바닥 채움, 벽면 계산, 재단 수량, 규격 비교까지 빠르게 확인할 수 있는 네오우드솔루션 합판 물량 산출기" />
   <link rel="stylesheet" href="./styles.css" />
+
+  <style id="neowood-text-logo-style">
+    /* Header logo: image-free, crisp text wordmark */
+    .site-header .brand-text-logo{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      flex:0 0 auto;
+      min-width:max-content;
+      padding:0 !important;
+      border:0 !important;
+      border-radius:0 !important;
+      background:transparent !important;
+      color:#fff;
+      line-height:1;
+    }
+    .site-header .brand-neo{
+      display:block;
+      color:#fff;
+      font-family:Inter,"Arial Black","Helvetica Neue",Arial,sans-serif;
+      font-size:29px;
+      font-weight:900;
+      line-height:.88;
+      letter-spacing:-.085em;
+      white-space:nowrap;
+    }
+    .site-header .brand-words{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:2px;
+      color:#fff;
+      font-family:Inter,"Helvetica Neue",Arial,sans-serif;
+      font-size:9px;
+      font-weight:800;
+      line-height:1;
+      letter-spacing:.08em;
+      white-space:nowrap;
+    }
+    @media (max-width:760px){
+      .site-header .brand-text-logo{gap:6px}
+      .site-header .brand-neo{font-size:25px}
+      .site-header .brand-words{font-size:7.5px;gap:2px;letter-spacing:.06em}
+    }
+    @media (max-width:390px){
+      .site-header .brand-neo{font-size:23px}
+      .site-header .brand-words{font-size:7px}
+    }
+  </style>
 </head>
 <body class="home-page">
   <header class="site-header">
     <div class="shell header-inner">
-      <a class="brand-link" href="#top" aria-label="네오우드솔루션">
-        <img class="brand-logo" src="./neo-logo-dark.webp" alt="NEO WOOD SOLUTION" />
+      <a class="brand-link brand-text-logo" href="#top" aria-label="네오우드솔루션">
+        <span class="brand-neo" aria-hidden="true">NEO</span>
+        <span class="brand-words" aria-hidden="true">
+          <span>WOOD</span>
+          <span>SOLUTION</span>
+        </span>
       </a>
 
       <nav class="main-nav">
