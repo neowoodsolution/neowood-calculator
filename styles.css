@@ -971,3 +971,16 @@ body{background:linear-gradient(180deg,#ffffff 0%,#f3f6fb 100%)}
  .home-page .nw-process-fold .process-flow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
  .home-page .process-flow>i{display:none}
 }
+
+/* Result -> review steps: one clear next action */
+.home-page .nw-review-next{margin-top:16px;padding:18px;border-top:1px solid #d2dfef;text-align:left}
+.home-page .nw-review-next strong{display:block;color:#173c68;font-size:17px;line-height:1.5;word-break:keep-all}
+.home-page .nw-review-next p{margin:6px 0 12px;font-size:13px;color:#52667c;line-height:1.6}
+.home-page #startReviewBtn{width:100%;min-height:50px;font-size:16px;white-space:normal;line-height:1.5}
+.home-page .nw-review-next>span{display:block;margin-top:10px;font-size:12px;color:#52667c;text-align:center}
+.home-page .review-step{scroll-margin-top:90px}
+.home-page .nw-step-highlight{animation:nwStepGlow 1.8s ease-out;outline-offset:5px}
+.home-page .nw-review-alternatives{margin-top:16px}
+@keyframes nwStepGlow{0%,45%{outline:3px solid #7aafff;background:#eff6ff}100%{outline:3px solid transparent}}
+@media(prefers-reduced-motion:reduce){.home-page .nw-step-highlight{animation:none;outline:2px solid #7aafff}}
+@media(max-width:767px){.home-page .nw-review-next{padding:14px 0 0}.home-page .nw-review-next strong{font-size:16px}}

@@ -417,13 +417,15 @@ function renderResult(data){
       <div class="result-note">
         현재 결과는 입력 면적과 원장 규격을 기준으로 계산한 참고 수량입니다. 실제 필요 수량은 재단 규격, 배치 방향과 자투리 활용 여부에 따라 달라질 수 있습니다.
       </div>
-      <div class="result-actions compact-actions">
-        <button class="btn btn-line" id="resultPhoneBtn" type="button">전화 상담</button>
-        <button class="btn btn-line" id="resultStoreBtn" type="button">스토어 보기</button>
+      <div class="nw-review-next">
+        <strong>이 수량으로 주문해도 될지 궁금하신가요?</strong>
+        <p>아래 3단계로 계산 내용과 검토 요청을 준비해주세요.</p>
+        <button class="btn btn-fill" id="startReviewBtn" type="button">이 결과로 정밀 검토 의뢰하기 ↓</button>
+        <span>항목 선택 → 내용 확인 → 복사 후 톡톡 전송</span>
       </div>
     </div>
     ${groupHtml}
-    <div class="review-card">
+    <div class="review-card" id="reviewRequest">
       <div class="review-head review-head-emphasis">
         <span class="review-eyebrow">전문가 상담 연결</span>
         <h3 class="review-main-title">정밀 물량 검토</h3>
@@ -484,13 +486,17 @@ function renderResult(data){
       <section class="review-step review-step-final" aria-labelledby="reviewStep3Title">
         <div class="review-step-head">
           <span class="review-step-number">3단계</span>
-          <h4 id="reviewStep3Title">복사하고 톡톡으로 보내기</h4>
+          <h4 id="reviewStep3Title">검토 요청을 톡톡으로 전달</h4>
         </div>
         <p class="review-step-desc">버튼을 누르면 내용이 복사되고 톡톡이 열립니다. 입력창에 붙여넣어 보내주세요.</p>
-        <button class="btn btn-fill review-submit" id="copyTalkBtn" type="button">상담내용 복사 후 네이버 톡톡 열기</button>
+        <button class="btn btn-fill review-submit" id="copyTalkBtn" type="button">검토 요청내용 복사하고 톡톡 열기</button>
         <p class="review-help">PC는 Ctrl+V, 모바일은 입력창을 길게 눌러 ‘붙여넣기’를 선택하면 됩니다.</p>
       </section>
 
+      <div class="result-actions compact-actions nw-review-alternatives">
+        <button class="btn btn-line" id="resultPhoneBtn" type="button">전화로 문의</button>
+        <button class="btn btn-line" id="resultStoreBtn" type="button">스토어 보기</button>
+      </div>
       <p class="review-disclaimer">현장 조건에 따라 수량이 줄거나 같을 수 있으며, 재단 손실 때문에 늘어날 수도 있습니다. 상세 배치도·재단도는 구매 조건과 프로젝트 규모에 따라 안내됩니다.</p>
     </div>
   `;
@@ -498,6 +504,15 @@ function renderResult(data){
   $('#resultPhoneBtn').addEventListener('click', handlePhone);
   $('#resultStoreBtn').addEventListener('click', handleStore);
   bindReviewPanel();
+  $('#startReviewBtn').addEventListener('click', () => {
+    const step = $('#reviewStep1Title')?.closest('.review-step');
+    if(!step) return;
+    step.setAttribute('tabindex', '-1');
+    step.focus({preventScroll:true});
+    step.scrollIntoView({behavior:'smooth', block:'start'});
+    step.classList.remove('nw-step-highlight');
+    requestAnimationFrame(() => step.classList.add('nw-step-highlight'));
+  });
 }
 
 async function runCalc(){
