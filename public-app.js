@@ -418,8 +418,8 @@ function renderResult(data){
         현재 결과는 입력 면적과 원장 규격을 기준으로 계산한 참고 수량입니다. 실제 필요 수량은 재단 규격, 배치 방향과 자투리 활용 여부에 따라 달라질 수 있습니다.
       </div>
       <div class="nw-review-next">
-        <strong>이 수량으로 주문해도 될지 궁금하신가요?</strong>
-        <p>아래 3단계로 계산 내용과 검토 요청을 준비해주세요.</p>
+        <strong>계산한 수량, 주문 전에 확인받으세요.</strong>
+        <p>실제 필요한 물량과 자재를 상담해드립니다.</p>
         <button class="btn btn-fill" id="startReviewBtn" type="button">이 결과로 정밀 검토 의뢰하기 ↓</button>
         <span>항목 선택 → 내용 확인 → 복사 후 톡톡 전송</span>
       </div>

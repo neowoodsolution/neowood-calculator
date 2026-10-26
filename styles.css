@@ -984,3 +984,17 @@ body{background:linear-gradient(180deg,#ffffff 0%,#f3f6fb 100%)}
 @keyframes nwStepGlow{0%,45%{outline:3px solid #7aafff;background:#eff6ff}100%{outline:3px solid transparent}}
 @media(prefers-reduced-motion:reduce){.home-page .nw-step-highlight{animation:none;outline:2px solid #7aafff}}
 @media(max-width:767px){.home-page .nw-review-next{padding:14px 0 0}.home-page .nw-review-next strong{font-size:16px}}
+
+/* v7: readable review entry, balanced section title */
+.home-page .nw-review-next strong{font-size:18px;font-weight:800;line-height:1.5;color:#173c68}
+.home-page .nw-review-next p{font-size:15px;line-height:1.65;color:#40566e;margin:8px 0 14px}
+.home-page #startReviewBtn{font-size:17px;font-weight:750;min-height:54px;padding:14px 12px;line-height:1.5}
+.home-page .nw-review-next>span{font-size:14px;line-height:1.65;color:#40566e;margin-top:12px;word-break:keep-all}
+.home-page .review-card .review-main-title{font-size:22px;line-height:1.45;margin:8px 0;word-break:keep-all}
+.home-page .review-card .review-head>p{font-size:14px;line-height:1.7;color:#52657b}
+@media(max-width:767px){
+ .home-page .nw-review-next strong{font-size:18px}
+ .home-page #startReviewBtn{font-size:16px;min-height:54px}
+ .home-page .nw-review-next>span{font-size:13px}
+ .home-page .review-card .review-main-title{font-size:21px}
+}
