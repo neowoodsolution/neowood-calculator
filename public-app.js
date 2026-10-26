@@ -413,9 +413,21 @@ function renderResult(data){
       <div class="result-note">
         현재 결과는 입력 면적과 원장 규격을 기준으로 계산한 참고 수량입니다. 실제 필요 수량은 재단 규격, 배치 방향과 자투리 활용 여부에 따라 달라질 수 있습니다.
       </div>
-      <div class="result-actions compact-actions">
+      <section class="nw-consult-bridge" aria-label="주문 전 상담 안내">
+        <span class="nw-bridge-label">주문 전, 함께 검토해드립니다</span>
+        <h4>예상 물량 확인 다음은,<br>내 현장에 맞는 자재 상담</h4>
+        <ul class="nw-benefits">
+          <li>경제적인 원장 규격 선택</li><li>자투리 활용 가능성 검토</li>
+          <li>용도에 맞는 합판·두께</li><li>재단 범위·현장 배송 조건</li>
+        </ul>
+        <button class="btn btn-fill nw-primary-consult" id="resultTalkBtn" type="button">이 계산 내용으로 톡톡 상담</button>
+        <p class="nw-bridge-help">계산 내용이 복사되고 톡톡이 열립니다.<br>톡톡 입력창에 붙여넣어 보내주세요.</p>
+        <p class="nw-copy-status" id="resultCopyStatus" role="status" aria-live="polite"></p>
+        <p class="nw-bridge-small">상담으로 실제 필요 수량을 검토합니다. 상세 배치도·재단도는 구매 조건과 프로젝트 규모에 따라 안내됩니다.</p>
+      </section>
+      <div class="result-actions compact-actions nw-secondary-actions">
         <button class="btn btn-line" id="resultPhoneBtn" type="button">전화 상담</button>
-        <button class="btn btn-fill" id="resultStoreBtn" type="button">스토어 보기</button>
+        <button class="btn btn-line" id="resultStoreBtn" type="button">스토어 보기</button>
       </div>
     </div>
     ${groupHtml}
@@ -435,7 +447,7 @@ function renderResult(data){
 
         <div class="review-options" aria-label="정밀 검토 요청사항">
           <label class="review-option">
-            <input class="review-check" type="checkbox" value="예상 수량이 적절한지 확인">
+            <input class="review-check" type="checkbox" value="예상 수량이 적절한지 확인" checked>
             <span>예상 수량이 적절한지 확인</span>
           </label>
           <label class="review-option">
@@ -468,9 +480,9 @@ function renderResult(data){
       <section class="review-step" aria-labelledby="reviewStep2Title">
         <div class="review-step-head">
           <span class="review-step-number">2단계</span>
-          <h4 id="reviewStep2Title">상담내용 수정 및 최종 확인</h4>
+          <h4 id="reviewStep2Title">필요하면 상담내용을 추가·수정하세요</h4>
         </div>
-        <p class="review-step-desc">계산 결과와 선택 항목이 자동으로 작성됩니다. 필요한 내용을 자유롭게 수정해주세요.</p>
+        <p class="review-step-desc">계산 결과와 선택 항목이 자동으로 작성됩니다. 상단 버튼으로 바로 상담하거나, 아래 내용을 수정해서 전달할 수 있습니다.</p>
         <details class="message-preview" open>
           <summary>상담내용 확인·수정</summary>
           <textarea id="consultationPreview" rows="13" aria-label="네이버 톡톡에 복사될 상담 내용"></textarea>
@@ -494,6 +506,37 @@ function renderResult(data){
   $('#resultPhoneBtn').addEventListener('click', handlePhone);
   $('#resultStoreBtn').addEventListener('click', handleStore);
   bindReviewPanel();
+  $('#resultTalkBtn').addEventListener('click', async () => {
+    // Include optional selections and the current editable message/result ID.
+    const message = ($('#consultationPreview')?.value || buildConsultationMessage()).trim();
+    const copyPromise = copyText(message);
+    const talkWindow = window.open(TALK_URL, '_blank');
+    if(talkWindow) talkWindow.opener = null;
+    const copied = await copyPromise;
+    const status = $('#resultCopyStatus');
+    if(status) status.textContent = copied
+      ? '복사 완료! 톡톡 입력창에 붙여넣어 보내주세요.'
+      : '자동 복사가 되지 않았습니다. 아래 상담내용을 직접 복사해주세요.';
+    showToast(copied ? '복사 완료! 톡톡에 붙여넣어 보내주세요.' : '아래 상담내용을 직접 복사해주세요.', !copied);
+    if(!copied){
+      const preview = $('#consultationPreview');
+      const details = preview?.closest('details');
+      if(details) details.open = true;
+      preview?.focus(); preview?.select();
+      preview?.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+    if(!talkWindow && copied) window.location.href = TALK_URL;
+    if(!talkWindow && !copied && status){
+      const link = document.createElement('a');
+      link.href = TALK_URL; link.target = '_blank'; link.rel = 'noopener';
+      link.textContent = ' 직접 복사한 뒤 톡톡 열기'; status.appendChild(link);
+    }
+    await logEvent('click_review_talk', latestCalculation.mode, {
+      review_items:getSelectedReviewItems(), placement:'result_summary', copied,
+      shipping_requested:Boolean($('#reviewShipping')?.checked),
+      address_provided:Boolean($('#shippingAddress')?.value.trim())
+    });
+  });
 }
 
 async function runCalc(){
