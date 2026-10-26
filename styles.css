@@ -998,3 +998,13 @@ body{background:linear-gradient(180deg,#ffffff 0%,#f3f6fb 100%)}
  .home-page .nw-review-next>span{font-size:13px}
  .home-page .review-card .review-main-title{font-size:21px}
 }
+
+/* Always-visible step 2 with explicit copy action */
+.home-page .nw-message-panel{margin-top:12px;border:1px solid #d5deeb;border-radius:12px;overflow:hidden;background:#fff}
+.home-page .nw-message-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;background:#f3f7fc}
+.home-page .nw-message-toolbar label{font-size:14px;font-weight:700;color:#264464}
+.home-page #copyMessageBtn{min-height:44px;padding:10px 14px;font-size:14px;font-weight:700;background:#fff;color:#0751c4;border-color:#8eb6ed;white-space:normal;line-height:1.5}
+.home-page .nw-message-panel textarea{display:block;width:100%;box-sizing:border-box;border:0;border-radius:0;padding:14px;font-size:15px;line-height:1.7;min-height:300px;resize:vertical;color:#21364c;background:#fff}
+.home-page .nw-message-status{margin:0;padding:0 14px 12px;font-size:13px;line-height:1.6;color:#245488}
+.home-page .nw-message-status:empty{display:none}
+@media(max-width:767px){.home-page .nw-message-toolbar{align-items:stretch;flex-direction:column;gap:8px}.home-page #copyMessageBtn{width:100%;min-height:46px}.home-page .nw-message-panel textarea{font-size:16px;min-height:320px}}

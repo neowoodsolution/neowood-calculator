@@ -372,6 +372,20 @@ function bindReviewPanel(){
   }));
   $('#shippingAddress')?.addEventListener('input', updateConsultationPreview);
   $('#copyTalkBtn')?.addEventListener('click', handleReviewTalk);
+  $('#copyMessageBtn')?.addEventListener('click', async () => {
+    const preview = $('#consultationPreview');
+    const message = (preview?.value || '').trim();
+    const status = $('#copyMessageStatus');
+    if(!message){
+      if(status) status.textContent = '복사할 상담내용이 없습니다.';
+      return;
+    }
+    const copied = await copyText(message);
+    if(status) status.textContent = copied
+      ? '복사 완료! 톡톡 입력창에 붙여넣어 보내주세요.'
+      : '브라우저가 복사를 허용하지 않았습니다. 버튼을 다시 누르거나 브라우저의 복사 권한을 확인해주세요.';
+    showToast(copied ? '상담내용을 복사했습니다.' : '복사되지 않았습니다. 브라우저의 복사 권한을 확인해주세요.', !copied);
+  });
   updateConsultationPreview();
 }
 
@@ -477,10 +491,14 @@ function renderResult(data){
           <h4 id="reviewStep2Title">계산 내용 확인·수정</h4>
         </div>
         <p class="review-step-desc">계산 결과와 선택 항목이 자동으로 작성됩니다. 필요한 내용을 자유롭게 수정해주세요.</p>
-        <details class="message-preview" open>
-          <summary>상담내용 확인·수정</summary>
+        <div class="nw-message-panel">
+          <div class="nw-message-toolbar">
+            <label for="consultationPreview">상담내용 확인·수정</label>
+            <button class="btn btn-line" id="copyMessageBtn" type="button">상담내용 복사하기</button>
+          </div>
           <textarea id="consultationPreview" rows="13" aria-label="네이버 톡톡에 복사될 상담 내용"></textarea>
-        </details>
+          <p id="copyMessageStatus" class="nw-message-status" role="status" aria-live="polite"></p>
+        </div>
       </section>
 
       <section class="review-step review-step-final" aria-labelledby="reviewStep3Title">
