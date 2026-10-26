@@ -905,3 +905,69 @@ body{background:linear-gradient(180deg,#ffffff 0%,#f3f6fb 100%)}
 .home-page .nw-quantity-extra{display:block;font-size:13px;color:#46617c;margin-top:8px}
 .home-page .nw-quantity-compare .value{font-size:30px;color:#0751c4}
 @media(max-width:480px){.home-page .nw-quantity-main .value{font-size:36px}}
+
+/* Mobile presentation only. Shared calculation and analytics are unchanged. */
+.home-page .nw-responsive-fold{border:0;margin:0}
+.home-page .nw-responsive-fold>summary{display:none}
+@media(max-width:767px){
+ .home-page .shell{width:calc(100% - 32px);max-width:100%}
+ .home-page .site-header .header-inner{display:flex!important;flex-wrap:nowrap!important;justify-content:space-between;align-items:center;gap:12px;min-height:60px;padding-top:4px;padding-bottom:4px}
+ .home-page .site-header .brand-logo{width:110px;height:42px;object-fit:contain}
+ .home-page .header-actions{width:auto!important;margin:0!important;display:flex!important;flex:0 0 auto}
+ .home-page .header-actions .btn{min-height:40px;padding:9px 15px;font-size:14px}
+ .home-page .main-nav{display:none}
+ .home-page .hero-renewal{padding:26px 0 22px;min-height:0}
+ .home-page .hero-renewal-grid{display:block;min-height:0}
+ .home-page .hero-renewal-eyebrow,.home-page .nw-solution-version,.home-page .hero-renewal-visual{display:none!important}
+ .home-page #heroTitle{font-size:30px;line-height:1.3;margin:0 0 12px;letter-spacing:-1px}
+ .home-page .hero-renewal-desc{font-size:14px;line-height:1.65;margin:0 0 16px}
+ .home-page .hero-proof-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px;margin:0 0 16px}
+ .home-page .hero-proof-item{padding:10px;min-height:0;gap:7px;border-radius:10px}
+ .home-page .hero-proof-icon{width:26px;height:26px;flex:0 0 26px;font-size:12px}
+ .home-page .hero-proof-icon .icon{width:16px;height:16px}
+ .home-page .hero-proof-item strong{font-size:12px;line-height:1.5;word-break:keep-all}
+ .home-page .hero-proof-item small{display:none}
+ .home-page .hero-renewal-actions{display:grid;gap:8px;margin-top:0}
+ .home-page .hero-tool-button{min-height:46px;padding:10px 13px;gap:10px}
+ .home-page .hero-tool-button-icon{width:26px;height:26px;flex-basis:26px}
+ .home-page .hero-tool-button strong{font-size:15px}
+ .home-page .hero-tool-button small{display:none}
+ .home-page .hero-free-note{font-size:12px;margin:10px 0 0}
+ .home-page #service-entry{display:none}
+ .home-page #modes{padding:24px 0 16px;scroll-margin-top:72px}
+ .home-page #modes .section-head{margin-bottom:14px}
+ .home-page #modes .section-head h2{font-size:20px;line-height:1.5}
+ .home-page .mode-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px}
+ .home-page .mode-photo{display:none}
+ .home-page .mode-body{padding:12px;min-height:0}
+ .home-page .mode-icon{height:28px;margin:0 auto}
+ .home-page .mode-icon .icon{width:25px;height:25px}
+ .home-page .mode-card h3{font-size:16px;margin:8px 0 4px}
+ .home-page .mode-card p{font-size:11px;min-height:0}
+ .home-page .mode-btn{font-size:12px;min-height:42px;margin-top:10px;padding:8px 4px}
+ .home-page .mode-btn::after{font-size:14px;margin-left:3px}
+ .home-page #calculator{padding:16px 0 28px;scroll-margin-top:72px}
+ .home-page .calc-box,.home-page .result-box{padding:16px;border-radius:16px;min-width:0}
+ .home-page #modeTabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+ .home-page #modeTabs .tab{padding:10px 4px;font-size:14px;min-width:0}
+ .home-page .field-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ .home-page .field-grid label{min-width:0}
+ .home-page input,.home-page select,.home-page textarea{font-size:16px;max-width:100%;min-width:0}
+ .home-page .calc-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+ .home-page #runCalcBtn{grid-column:1/-1;width:100%;min-height:48px}
+ .home-page .calc-actions .btn{padding:10px 5px;font-size:13px}
+ .home-page .result-box:not(.nw-has-result){display:none}
+ .home-page .result-box .result-meta,.home-page #usageBadge{display:none}
+ .home-page .result-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .home-page .review-card{padding:16px}
+ .home-page .review-step{padding:14px 0}
+ .home-page .nw-responsive-fold{margin:12px 0;border:1px solid #d5deeb;border-radius:10px;overflow:hidden;background:#fff}
+ .home-page .nw-responsive-fold>summary{display:list-item;padding:13px 15px;font-size:14px;font-weight:700;color:#245288;cursor:pointer}
+ .home-page .message-preview summary{min-height:44px;padding:12px;cursor:pointer}
+ .home-page #neowood-process{padding:18px 0}
+ .home-page .nw-process-fold{width:calc(100% - 32px);margin:0 auto}
+ .home-page .nw-process-fold .neowood-process-grid{width:100%;padding:16px}
+ .home-page .nw-process-fold .process-message h2{font-size:22px}
+ .home-page .nw-process-fold .process-flow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+ .home-page .process-flow>i{display:none}
+}

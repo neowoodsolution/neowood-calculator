@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>네오우드솔루션 | 합판 물량 산출기</title>
   <meta name="description" content="바닥 채움, 벽면 계산, 재단 수량, 규격 비교까지 빠르게 확인할 수 있는 네오우드솔루션 합판 물량 산출기" />
-  <link rel="stylesheet" href="./styles.css?v=20261026-ui3" />
+  <link rel="stylesheet" href="./styles.css?v=20261026-mobile4" />
 
   <style id="neowood-text-logo-style">
     /* Header logo: image-free, crisp text wordmark */
@@ -296,7 +296,7 @@
           </div>
 
           <div id="resultArea" class="result-stack">
-            <div class="notice-card">왼쪽에서 계산 항목을 선택하고 <strong>산출 실행</strong>을 눌러주세요.</div>
+            <div class="notice-card">계산 항목과 치수를 입력하고 <strong>산출 실행</strong>을 눌러주세요.</div>
           </div>
 
           <div class="result-meta">
@@ -343,7 +343,7 @@
   </footer>
 
   <div class="copy-toast" id="copyToast" role="status" aria-live="polite"></div>
-  <script src="./public-app.js?v=20261026-ui3"></script>
+  <script src="./public-app.js?v=20261026-mobile4"></script>
   <script id="neowood-optimizer-v1.8-inline">
 (() => {
   'use strict';
@@ -1353,5 +1353,35 @@
 })();
 
   </script>
+
+<script id="nw-mobile-layout">
+(() => {
+  const media = window.matchMedia('(max-width: 767px)');
+  const fold = (node, label, cls) => {
+    if(!node || node.parentElement.classList.contains(cls)) return;
+    const details = document.createElement('details'); details.className = 'nw-responsive-fold ' + cls;
+    details.open = !media.matches;
+    const summary = document.createElement('summary'); summary.textContent = label;
+    node.before(details); details.append(summary, node);
+  };
+  function update(){
+    const box = document.querySelector('.result-box');
+    if(box) box.classList.toggle('nw-has-result', !!box.querySelector('.quick-result-card'));
+    fold(document.querySelector('.nw-review-proof'), '자체 프로그램 검토 예시 보기', 'nw-proof-fold');
+    fold(document.querySelector('.neowood-process-grid'), '네오우드솔루션의 검토·납품 과정 보기', 'nw-process-fold');
+    document.querySelectorAll('.message-preview').forEach(el=>{
+      if(!el.dataset.mobileReady){ el.open = !media.matches; el.dataset.mobileReady='1'; }
+    });
+  }
+  update();
+  const result = document.querySelector('#resultArea');
+  if(result) new MutationObserver(update).observe(result,{childList:true,subtree:true});
+  media.addEventListener('change',()=>{
+    document.querySelectorAll('.nw-responsive-fold,.message-preview').forEach(el=>el.open=!media.matches);
+    update();
+  });
+})();
+</script>
+
 </body>
 </html>
