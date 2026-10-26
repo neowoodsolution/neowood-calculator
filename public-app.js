@@ -72,15 +72,15 @@ function addCutRow(container, defaults={w:600,h:300,qty:2}){
   row.innerHTML = `
     <label class="cut-field">
       <span>재단 가로(mm)</span>
-      <input type="number" class="piece-w" value="${defaults.w}" placeholder="예: 900" aria-label="재단 가로(mm)">
+      <span class="nw-unit-field"><input type="number" inputmode="decimal" class="piece-w" value="${defaults.w}" placeholder="예: 900" aria-label="재단 가로(mm)"><span class="nw-input-unit" aria-hidden="true">mm</span></span>
     </label>
     <label class="cut-field">
       <span>재단 세로(mm)</span>
-      <input type="number" class="piece-h" value="${defaults.h}" placeholder="예: 1800" aria-label="재단 세로(mm)">
+      <span class="nw-unit-field"><input type="number" inputmode="decimal" class="piece-h" value="${defaults.h}" placeholder="예: 1800" aria-label="재단 세로(mm)"><span class="nw-input-unit" aria-hidden="true">mm</span></span>
     </label>
     <label class="cut-field">
       <span>수량</span>
-      <input type="number" class="piece-q" value="${defaults.qty}" placeholder="예: 20" aria-label="수량">
+      <input type="number" inputmode="numeric" class="piece-q" value="${defaults.qty}" placeholder="예: 20" aria-label="수량">
     </label>
     <button class="btn btn-soft remove-piece" type="button">삭제</button>`;
   row.querySelector('.remove-piece').addEventListener('click', ()=> row.remove());
@@ -377,6 +377,9 @@ function bindReviewPanel(){
 
 function renderResult(data){
   latestCalculation = data;
+  const isQuantity = (label) => label === '빠른 예상 물량' || label === '빠른 예상 원장 수';
+  const quantityItem = data.items.find(([label]) => isQuantity(label));
+  const displayItems = quantityItem ? [quantityItem, ...data.items.filter(item => item !== quantityItem)] : data.items;
 
   const groupHtml = data.groups ? `
     <div class="result-card">
@@ -403,10 +406,11 @@ function renderResult(data){
       </div>
       <div class="small">${escapeHtml(data.summary)}</div>
       <div class="result-grid">
-        ${data.items.map(([k,v])=>`
-          <div class="result-item">
-            <span class="label">${escapeHtml(k)}</span>
+        ${displayItems.map(([k,v])=>`
+          <div class="result-item ${isQuantity(k) ? 'nw-quantity-main' : data.mode === 'compare' && k === data.payload.input.a || data.mode === 'compare' && k === data.payload.input.b ? 'nw-quantity-compare' : ''}">
+            <span class="label">${escapeHtml(isQuantity(k) ? '면적 기준 예상 수량' : k)}</span>
             <span class="value">${escapeHtml(v)}</span>
+            ${isQuantity(k) ? `<span class="nw-quantity-extra">${Number(data.payload.input.extra) > 0 ? `선택한 여유분 ${Number(data.payload.input.extra)}장 포함` : '추가 여유분 없음'}</span>` : ''}
           </div>
         `).join('')}
       </div>

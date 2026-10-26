@@ -892,3 +892,16 @@ body{background:linear-gradient(180deg,#ffffff 0%,#f3f6fb 100%)}
 .home-page .review-main-title{font-size:clamp(21px,2.3vw,28px);line-height:1.45;word-break:keep-all}
 .home-page .review-submit{width:100%;min-height:54px;font-size:16px;white-space:normal;line-height:1.5}
 .home-page .review-help{line-height:1.7}
+
+/* Clear units and result hierarchy */
+.home-page .nw-unit-hint{margin:0 0 14px;font-size:13px;line-height:1.6;color:#52657c}
+.home-page .nw-unit-hint strong{color:#23486e;margin-left:5px}
+.home-page .nw-unit-field{position:relative;display:block;min-width:0}
+.home-page .nw-unit-field input{width:100%;box-sizing:border-box;padding-right:64px}
+.home-page .nw-input-unit{position:absolute;right:28px;top:50%;transform:translateY(-50%);font-size:13px;color:#566d86;font-weight:600;pointer-events:none}
+.home-page .result-grid .nw-quantity-main{grid-column:1 / -1;background:#edf5ff;border:1px solid #bed6f8;padding:20px;border-radius:14px}
+.home-page .nw-quantity-main .label{color:#275887;font-weight:700;font-size:14px}
+.home-page .nw-quantity-main .value{font-size:42px;line-height:1.2;font-weight:800;color:#0751c4;margin-top:8px;display:block}
+.home-page .nw-quantity-extra{display:block;font-size:13px;color:#46617c;margin-top:8px}
+.home-page .nw-quantity-compare .value{font-size:30px;color:#0751c4}
+@media(max-width:480px){.home-page .nw-quantity-main .value{font-size:36px}}

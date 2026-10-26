@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>네오우드솔루션 | 합판 물량 산출기</title>
   <meta name="description" content="바닥 채움, 벽면 계산, 재단 수량, 규격 비교까지 빠르게 확인할 수 있는 네오우드솔루션 합판 물량 산출기" />
-  <link rel="stylesheet" href="./styles.css?v=20261026-simple2" />
+  <link rel="stylesheet" href="./styles.css?v=20261026-ui3" />
 
   <style id="neowood-text-logo-style">
     /* Header logo: image-free, crisp text wordmark */
@@ -241,25 +241,27 @@
           </div>
 
           <div class="panel active" data-pane="floor">
+            <p class="nw-unit-hint">치수는 mm로 입력하세요. <strong>1m = 1,000mm</strong></p>
             <div class="field-grid">
-              <label><span>가로(mm)</span><input id="floorWidth" type="number" value="7190"></label>
-              <label><span>세로(mm)</span><input id="floorHeight" type="number" value="2790"></label>
+              <label><span>가로(mm)</span><span class="nw-unit-field"><input id="floorWidth" type="number" inputmode="decimal" value="7190"><span class="nw-input-unit" aria-hidden="true">mm</span></span></label>
+              <label><span>세로(mm)</span><span class="nw-unit-field"><input id="floorHeight" type="number" inputmode="decimal" value="2790"><span class="nw-input-unit" aria-hidden="true">mm</span></span></label>
               <label><span>규격</span><select id="floorSheet"><option value="910x1820">910 × 1820</option><option value="1220x2440" selected>1220 × 2440</option></select></label>
               <label><span>여유분</span><select id="floorExtra"><option value="0">추가 안함</option><option value="1" selected>1장 추가</option><option value="2">2장 추가</option></select></label>
             </div>
           </div>
 
           <div class="panel" data-pane="wall">
+            <p class="nw-unit-hint">치수는 mm로 입력하세요. <strong>1m = 1,000mm</strong></p>
             <div class="field-grid">
-              <label><span>벽 가로(mm)</span><input id="wallWidth" type="number" value="3600"></label>
-              <label><span>벽 높이(mm)</span><input id="wallHeight" type="number" value="2400"></label>
+              <label><span>벽 가로(mm)</span><span class="nw-unit-field"><input id="wallWidth" type="number" inputmode="decimal" value="3600"><span class="nw-input-unit" aria-hidden="true">mm</span></span></label>
+              <label><span>벽 높이(mm)</span><span class="nw-unit-field"><input id="wallHeight" type="number" inputmode="decimal" value="2400"><span class="nw-input-unit" aria-hidden="true">mm</span></span></label>
               <label><span>규격</span><select id="wallSheet"><option value="910x1820">910 × 1820</option><option value="1220x2440" selected>1220 × 2440</option></select></label>
               <label><span>여유분</span><select id="wallExtra"><option value="0" selected>추가 안함</option><option value="1">1장 추가</option><option value="2">2장 추가</option></select></label>
             </div>
           </div>
 
           <div class="panel" data-pane="cutlist">
-            <div class="cut-helper">예시: 900 × 1800 사이즈 20개처럼 입력해 주세요.</div>
+            <div class="cut-helper">치수는 mm로 입력하세요. 1m = 1,000mm<br>예: 900 × 1,800mm, 수량 20개</div>
             <div id="cutPieces"></div>
             <div class="inline-action"><button class="btn btn-soft" id="addPieceBtn" type="button">재단 행 추가</button></div>
             <div class="field-grid top-gap">
@@ -269,10 +271,11 @@
           </div>
 
           <div class="panel" data-pane="compare">
+            <p class="nw-unit-hint">치수는 mm로 입력하세요. <strong>1m = 1,000mm</strong></p>
             <div class="compare-headline">같은 공간 기준으로 규격별 장수 차이를 빠르게 비교합니다.</div>
             <div class="field-grid">
-              <label><span>가로(mm)</span><input id="cmpWidth" type="number" value="7190"></label>
-              <label><span>세로(mm)</span><input id="cmpHeight" type="number" value="2790"></label>
+              <label><span>가로(mm)</span><span class="nw-unit-field"><input id="cmpWidth" type="number" inputmode="decimal" value="7190"><span class="nw-input-unit" aria-hidden="true">mm</span></span></label>
+              <label><span>세로(mm)</span><span class="nw-unit-field"><input id="cmpHeight" type="number" inputmode="decimal" value="2790"><span class="nw-input-unit" aria-hidden="true">mm</span></span></label>
               <label><span>비교 규격 A</span><select id="cmpA"><option value="910x1820">910 × 1820</option><option value="1220x2440" selected>1220 × 2440</option></select></label>
               <label><span>비교 규격 B</span><select id="cmpB"><option value="910x1820" selected>910 × 1820</option><option value="1220x2440">1220 × 2440</option></select></label>
             </div>
@@ -340,7 +343,7 @@
   </footer>
 
   <div class="copy-toast" id="copyToast" role="status" aria-live="polite"></div>
-  <script src="./public-app.js?v=20261026-simple2"></script>
+  <script src="./public-app.js?v=20261026-ui3"></script>
   <script id="neowood-optimizer-v1.8-inline">
 (() => {
   'use strict';
@@ -1051,7 +1054,7 @@
       dimX = `${formattedNumber(w)} mm`;
       dimY = `${formattedNumber(h)} mm`;
     } else {
-      const numberInputs = Array.from(document.querySelectorAll('#cutPieces input[type="number"]'));
+      const numberInputs = Array.from(document.querySelectorAll('#cutPieces input[type="number" inputmode="decimal"]'));
       const rowCount = Math.max(1, Math.ceil(numberInputs.length / 3));
       size = `재단 항목 ${rowCount}종`;
       sheet = `${selectedText('cutSheet')} · ${selectedText('cutExtra')}`;
